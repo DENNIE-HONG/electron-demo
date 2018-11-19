@@ -1,4 +1,5 @@
 const { app, BrowserWindow } = require('electron');
+const url = require('url');
 const path = require('path');
 function createWindow () {
   // 创建浏览器窗口
@@ -11,7 +12,11 @@ function createWindow () {
     backgroundColor: '#00FFFFFF',
   });
   // 加载应用页面
-  win.loadFile('index.html');
+  win.loadURL(url.format({
+    pathname: path.join('localhost:2222'),
+    protocol: 'http',
+    slashes: true
+  }));
   // 打开开发者工具
   win.webContents.openDevTools();
 

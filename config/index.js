@@ -20,7 +20,7 @@ const WEBPACK_DEV_CONFIG = {
   port: 2222, //端口号
   assetsPublicPath: '/', // 编译发布的根目录
   assetsDirectory: resolve('app/dist'),//资源路径
-  assetsViews: resolve('app/index.html') //页面模板
+  assetsViews: resolve('app/app.html') //页面模板
 }
 module.exports = {
   WEBPACK_COMMON_CONFIG,

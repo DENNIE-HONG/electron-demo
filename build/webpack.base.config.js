@@ -8,6 +8,15 @@ const path = require('path');
 const { WEBPACK_COMMON_CONFIG } = require('../config');
 module.exports = {
   entry: WEBPACK_COMMON_CONFIG.entry,
+  resolve: {
+    extensions: ['.js', '.jsx'],
+    alias: {
+      '@': path.resolve(__dirname, '../src'),
+      assets: path.resolve(__dirname, '../src/assets'),
+      coms: path.resolve(__dirname, '../src/components'),
+      server: path.resolve(__dirname, '../server'),
+    }
+  },
   module: {
     rules: [
       {
@@ -30,7 +39,7 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       template: WEBPACK_COMMON_CONFIG.assetsViews,
-      filename: WEBPACK_COMMON_CONFIG.assetsViews,
+      filename: path.resolve(__dirname, '../app/app.html'),
       inject: true,
       cache: false,
       // favicon: path.resolve(__dirname, '../favicon.ico')
