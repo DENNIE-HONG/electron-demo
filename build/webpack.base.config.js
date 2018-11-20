@@ -21,6 +21,7 @@ module.exports = (env) => {
         assets: resolve('src/assets'),
         coms: resolve('src/components'),
         server: resolve('server'),
+        api: resolve('server/api'),
       }
     },
     module: {

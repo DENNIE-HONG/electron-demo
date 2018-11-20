@@ -1,0 +1,51 @@
+.com-sider {
+  width: 220px;
+  padding: 0 15px;
+  background-color: nth($fgray, 3);
+  box-sizing: border-box;
+  &-head {
+    text-align: center;
+    padding-bottom: 15px;
+    border-bottom: 1px solid nth($fgray, 1);
+  }
+  &-pic {
+    width: 60px;
+    height: 60px;
+    margin: 50px auto 0;
+    border-radius: 50%;
+    @include hid;
+    > img {
+      width: 100%;
+      min-height: 100%;
+    }
+  }
+  &-name {
+    margin-top: 10px;
+    font-size: nth($fz, 2);
+  }
+  &-list {
+    .sider-list {
+      &-title {
+        margin-top: 20px;
+        margin-left: 10px;
+        margin-bottom: 5px;
+        color: nth($fblack, 2);
+      }
+      &-item {
+        display: flex;
+        padding-left: 10px;
+        line-height: 30px;
+        font-size: nth($fz, 2);
+        border-radius: 2px;
+        .iconfont {
+          padding-right: 5px;
+          font-size: nth($fz, 4);
+        }
+        &.active {
+          background-color: nth($fblue, 1);
+          color: white;
+        }
+      }
+    }
+  }
+}

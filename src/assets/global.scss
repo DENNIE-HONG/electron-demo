@@ -86,11 +86,6 @@ select {
 input.placeholder {
   color: #bbb;
 }
-
-.content {
-  width: $w10;
-  margin: auto;
-}
 /* 锁屏 */
 html {
   height: 100%;
@@ -101,18 +96,14 @@ html {
 .page {
   display: flex;
   height: 100%;
-  flex-direction: column;
 }
 .page .main {
+  display: flex;
   flex: 1;
-  background-color: nth($fgray, 3);
+  flex-direction: column;
 }
-.container-left {
-  float: left;
-  width: 730px;
-}
-.container-right {
-  float: right;
+.main .content {
+  flex: 1;
 }
 .hide {
   display: none;
