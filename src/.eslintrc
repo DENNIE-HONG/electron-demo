@@ -97,6 +97,7 @@
     "react/no-unused-state": 1,
     "react/no-array-index-key": 0,
     "react/no-unused-prop-types": 0,
-    "require-yield": 0
+    "require-yield": 0,
+    "react/jsx-one-expression-per-line": 0
   }
 }

@@ -10,7 +10,7 @@ const WEBPACK_COMMON_CONFIG = {
   sourceCode: resolve('src'),         // 源码目录路径
   assetsDirectory: resolve('app/dist'),// 资源路径
   projectRoot: resolve('/'),
-  assetsViews: resolve('app/index.html') //页面模板
+  assetsViews: resolve('app/app.html') //页面模板
 };
 // webpack 开发环境配置
 const WEBPACK_DEV_CONFIG = {

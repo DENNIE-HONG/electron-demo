@@ -4,8 +4,8 @@ const path = require('path');
 function createWindow () {
   // 创建浏览器窗口
   const win = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 1000,
+    height: 800,
     transparent: true,
     resizable: false,
     maximizable: false,

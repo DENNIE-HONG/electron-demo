@@ -1,0 +1,39 @@
+.com-footer {
+  color: white;
+  text-align: center;
+  background-color: black;
+  &-content {
+    padding: 22px 0;
+    border-bottom: 1px solid nth($fgray, 1);
+  }
+  &-list {
+    display: flex;
+    justify-content: center;
+    h4 {
+      margin-bottom: 10px;
+    }
+  }
+  &-item {
+    margin-right: 50px;
+    font-size: nth($fz, 2);
+    color: white;
+    .iconfont {
+      padding-left: 5px;
+      font-size: nth($fz, 4);
+      color: nth($fblue, 1);
+    }
+    a {
+      color: currentColor;
+    }
+  }
+  &-bottom {
+    padding: 15px 0;
+    small {
+      .iconfont {
+        margin-right: 5px;
+        color: red;
+        font-size: nth($fz, 4);
+      }
+    }
+  }
+}

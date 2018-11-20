@@ -3,10 +3,11 @@
  * @author luyanhong 2018-11-19
  */
 const merge = require('webpack-merge');
-const path = require('path');
+const webpack = require('webpack');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { WEBPACK_DEV_CONFIG } = require('../config');
 const devConfig = require('./webpack.base.config');
-module.exports = merge(devConfig, {
+module.exports = (env) => merge(devConfig(env), {
   mode: 'development',
   output: {
     filename: 'js/[name].js',
@@ -14,8 +15,7 @@ module.exports = merge(devConfig, {
     publicPath: WEBPACK_DEV_CONFIG.assetsPublicPath
   },
   devServer: {
-    contentBase: path.resolve(__dirname, '../app'),
-    index: WEBPACK_DEV_CONFIG.assetsViews,
+    contentBase: WEBPACK_DEV_CONFIG.assetsDirectory,
     watchContentBase: true,
     port: WEBPACK_DEV_CONFIG.port,
     compress: true,
@@ -32,6 +32,12 @@ module.exports = merge(devConfig, {
     watchOptions: {
       ignored: /node_modules/
     },
-    historyApiFallback: true
-  }
+    // historyApiFallback: true
+  },
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new MiniCssExtractPlugin({
+      filename: 'css/[name].css'
+    })
+  ]
 });

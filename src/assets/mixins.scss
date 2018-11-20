@@ -1,0 +1,24 @@
+@mixin txthid {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+@mixin hid {
+  overflow: hidden;
+}
+@mixin wordbreak {
+  word-break: break-all;
+  word-wrap: break-word;
+}
+@mixin slide-up-top-leave {
+  opacity: 0;
+  transform: scaleY(0);
+}
+@mixin slide-up-top-enter ($duration) {
+  opacity: 1;
+  transform: scaleX(1);
+  transition: transform #{$duration} cubic-bezier(0.23, 1, 0.32, 1) 0.1s, opacity #{$duration} cubic-bezier(0.23, 1, 0.32, 1) 0.1s;
+  transform-origin: center top;
+}
+@mixin boxShadow {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
