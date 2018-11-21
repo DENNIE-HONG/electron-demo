@@ -13,6 +13,18 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+.icon-next:before { content: "\e603"; }
+
+.icon-prev:before { content: "\e650"; }
+
+.icon-pause:before { content: "\e655"; }
+
 .icon-music:before { content: "\e609"; }
 
+.icon-volume:before { content: "\e60a"; }
+
+.icon-headset:before { content: "\e60d"; }
+
 .icon-github:before { content: "\e68d"; }
+
+.icon-play:before { content: "\e679"; }

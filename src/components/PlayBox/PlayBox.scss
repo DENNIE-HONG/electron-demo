@@ -1,0 +1,142 @@
+.play {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  &-content {
+    display: flex;
+    height: 100%;
+  }
+  &-action {
+    display: inline-flex;
+    width: 220px;
+    height: 100%;
+    color: nth($fblue, 1);
+    line-height: 1;
+    align-items: center;
+    cursor: pointer;
+    justify-content: center;
+    background-color: rgba(167, 200, 223, 0.4);
+    .iconfont {
+      font-size: 30px;
+      &:hover {
+        color: nth($fblue, 2);
+      }
+    }
+    &-start {
+      margin-left: 10px;
+      margin-right: 10px;
+      > .iconfont {
+        font-size: 40px;
+      }
+    }
+  }
+  &-info {
+    display: inline-flex;
+    flex: 1;
+    padding-left: 30px;
+    vertical-align: top;
+    background-color: rgba(16, 139, 240, 1);
+    align-items: center;
+    &-pic {
+      display: inline-block;
+      width: 36px;
+      height: 36px;
+      vertical-align: top;
+      border: 1px solid black;
+      border-radius: 4px;
+      @include hid;
+      > img {
+        width: 100%;
+        min-height: 100%;
+      }
+    }
+    &-box {
+      display: inline-block;
+      margin-left: 10px;
+      color: nth($fblack, 3);
+    }
+    &-time {
+      display: inline-block;
+      margin-left: 10px;
+      margin-top: -3px;
+      vertical-align: top;
+      color: nth($fblack, 3);
+      .time-now {
+        color: nth($fgray, 1);
+      }
+    }
+  }
+  &-progress {
+    display: inline-block;
+    position: relative;
+    // width: 500px;
+    // height: 8px;
+    margin-top: 3px;
+    // border-radius: 4px;
+    // background-color: black;
+    &-bar {
+      position: relative;
+      width: 20%;
+      height: 100%;
+      background-color: nth($fblue, 1);
+      border-radius: 4px;
+      &::after {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 6px;
+        height: 6px;
+        margin-left: -4px;
+        margin-top: -4px;
+        background-color: nth($fblue, 1);
+        border: 5px solid white;
+        border-radius: 10px;
+        content: '';
+      }
+    }
+    &-btn {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 6px;
+      height: 6px;
+      margin-left: -4px;
+      margin-top: -4px;
+      background-color: nth($fblue, 1);
+      border: 5px solid white;
+      border-radius: 10px;
+    }
+  }
+
+  progress {
+    position: relative;
+    border-radius: 4px;
+    width: 500px;
+    vertical-align: top;
+  }
+  progress::-webkit-progress-bar {
+    height: 8px;
+    background-color: black;
+    border-radius: 4px;
+  }
+  progress::-webkit-progress-value {
+    position: relative;
+    background-color: nth($fblue, 1);
+    border-radius: 4px;
+    &:after {
+      position: absolute;
+      left: 0;
+      top: 5px;
+      width: 6px;
+      height: 6px;
+      margin-left: -4px;
+      margin-top: -4px;
+      background-color: nth($fblue, 1);
+      border: 5px solid white;
+      border-radius: 10px;
+      content: '';
+    }
+  }
+}

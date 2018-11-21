@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { getPersonalized } from 'api/home';
+import PlayBox from 'coms/PlayBox';
 import './home.scss';
 class Home extends Component {
   constructor (props) {
@@ -22,8 +23,13 @@ class Home extends Component {
     });
   }
 
-  play () {
-
+  /**
+   * 设置推荐歌曲歌单id
+  */
+  play (playId) {
+    this.setState({
+      playId
+    });
   }
 
   render () {
@@ -44,9 +50,9 @@ class Home extends Component {
                       <img src={item.picUrl} />
                     </div>
                     <div className="item-info-play">
-                      <i className="iconfont icon-music"></i>
+                      <i className="iconfont icon-headset"></i>
                       <span className="item-info-count">{item.playCount > 10000 ? `${Math.round(item.playCount / 10000)}万` : item.playCount}</span>
-                      <i className="iconfont icon-video item-info-play-btn pull-right" onClick={this.play.bind(this, item.id)}></i>
+                      <i className="iconfont icon-play item-info-play-btn pull-right" onClick={this.play.bind(this, item.id)}></i>
                     </div>
                   </div>
                   <h4 className="item-title">{item.name}</h4>
@@ -54,6 +60,7 @@ class Home extends Component {
               ))}
             </ul>
           </section>
+          <PlayBox playListId={this.state.playId} />
         </main>
       </div>
     );

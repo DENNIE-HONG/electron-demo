@@ -9,9 +9,12 @@
       padding-right: 5px;
       color: nth($fblue, 1);
     }
-    &-txt {
+    .title-txt {
       font-size: nth($fz, 4);
     }
+  }
+  &-recommend {
+    margin-top: 20px;
   }
   &-list {
     display: flex;
@@ -20,15 +23,15 @@
     justify-content: space-between;
     flex-wrap: wrap;
     &-item {
-      width: 140px;
-      min-width: 140px;
+      width: 160px;
+      min-width: 160px;
       margin-bottom: 40px;
       margin-right: 20px;
       .item-info {
         position: relative;
         border: 1px solid nth($fblack, 3);
         &-pic {
-          height: 138px;
+          height: 158px;
           img {
             width: 100%;
           }
@@ -45,8 +48,12 @@
           color: nth($fgray, 5);
           line-height: 22px;
           border-top: 1px solid nth($fblack, 3);
-          &-btn {
+          .iconfont {
+            font-size: nth($fz, 1);
+          }
+          &-btn.iconfont {
             cursor: pointer;
+            font-size: nth($fz, 2);
             &:hover {
               color: white;
             }
