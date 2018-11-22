@@ -1,5 +1,5 @@
 /**
- * 音乐播放器模块
+ * 音乐播放器模块, 默认音量长度为80
  * @param {Number} playListId, 歌单id
 */
 import React, { Component } from 'react';
@@ -10,8 +10,12 @@ import defaultImg from './img/music.jpg';
 const READY = 0;
 const PLAYING = 1;
 const PAUSE = 2;
+const VOLUME_H = 80;
 let index = 0;
 let progress;
+let clientY = 0;
+let initVolume = 0;
+let isMouseDown = false;
 class PlayBox extends Component {
   static propTypes = {
     playListId: PropTypes.number.isRequired
@@ -26,11 +30,18 @@ class PlayBox extends Component {
       playState: READY,
       duration: 0,
       playProgress: 0,
-      timeProgress: '00:00'
+      timeProgress: '00:00',
+      volume: 0.2,
+      isOpenVolume: false
     };
     this.myRef = React.createRef();
+    this.volumeRef = React.createRef();
     this.onPlay = this.onPlay.bind(this);
     this.pause = this.pause.bind(this);
+    this.adjustVolume = this.adjustVolume.bind(this);
+    this.handleMouseUp = this.handleMouseUp.bind(this);
+    this.handleMouseDown = this.handleMouseDown.bind(this);
+    this.openVolume = this.openVolume.bind(this);
   }
 
   // 当数据改变
@@ -154,6 +165,47 @@ class PlayBox extends Component {
     this.updateMusic();
   }
 
+  // 调节音量
+  adjustVolume (event) {
+    if (!isMouseDown) {
+      return;
+    }
+    event.persist();
+    const deltaY = clientY - event.clientY;
+    const deltaVol = deltaY / VOLUME_H;
+    const btn = this.volumeRef.current;
+    const currentVolume = deltaVol + initVolume;
+    // 超过音量
+    if (currentVolume >= 1) {
+      return;
+    }
+    if (currentVolume < 0) {
+      return;
+    }
+    btn.style.transform = `translateX(${deltaY}px)`;
+    this.setState(() => ({
+      volume: currentVolume
+    }));
+  }
+
+  // 鼠标按下后获取初始音量
+  handleMouseDown (e) {
+    e.persist();
+    ({ clientY } = e);
+    initVolume = this.state.volume;
+    isMouseDown = true;
+  }
+
+  // 鼠标松开后设置音量，设置按钮位置
+  handleMouseUp () {
+    const btn = this.volumeRef.current;
+    // 设置按钮新的起始点
+    btn.style.left = `${this.state.volume * VOLUME_H - 4}px`;
+    btn.style.transform = '';
+    this.myRef.current.volume = this.state.volume;
+    isMouseDown = false;
+  }
+
   /**
    * 时间美化
    * @param {Number}  时间，单位为秒
@@ -170,6 +222,12 @@ class PlayBox extends Component {
     return `${min}:${sec}`;
   }
 
+  openVolume () {
+    this.setState((prev) => ({
+      isOpenVolume: !prev.isOpenVolume
+    }));
+  }
+
   render () {
     const {
       name,
@@ -177,7 +235,9 @@ class PlayBox extends Component {
       playState,
       duration,
       playProgress,
-      timeProgress
+      timeProgress,
+      volume,
+      isOpenVolume
     } = this.state;
     const isPlaying = playState === PLAYING;
     const durationPretty = this.timePretty(duration);
@@ -192,12 +252,12 @@ class PlayBox extends Component {
               <i className={`iconfont icon-pause pause ${!isPlaying ? 'hide' : ''}`} onClick={this.pause}></i>
             </div>
             <div><i className="iconfont icon-next" onClick={this.next.bind(this)}></i></div>
-            <div className="play-action-volumn">
+            <div className="play-action-volume" onClick={this.openVolume}>
               <i className="iconfont icon-volume"></i>
-              <div className="volumn-box">
-                <div className="volumn-box-progress">
-                  <progress className="volumn-progress" value="4" max="10"></progress>
-                  <div className="volumn-progress-btn"></div>
+              <div className={`volume-box ${isOpenVolume ? '' : 'hide'}`} onMouseUp={this.handleMouseUp}>
+                <div className="volume-box-progress">
+                  <progress className="volume-progress" value={volume} max="1"></progress>
+                  <div ref={this.volumeRef} className="volume-progress-btn" onMouseMove={this.adjustVolume} onMouseDown={this.handleMouseDown}></div>
                 </div>
               </div>
             </div>
@@ -218,7 +278,7 @@ class PlayBox extends Component {
             </div>
           </div>
         </div>
-        <audio ref={this.myRef}>
+        <audio ref={this.myRef} volume={volume}>
           <track kind="subtitles" src="ss.str" srcLang="zh" />
           <track kind="subtitles" src="subs_eng.srt" srcLang="en" label="English" />
         </audio>
