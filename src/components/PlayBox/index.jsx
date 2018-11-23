@@ -7,15 +7,14 @@ import PropTypes from 'prop-types';
 import { getMusic, getPlaylistDetail } from 'api/home';
 import './PlayBox.scss';
 import defaultImg from './img/music.jpg';
+import VolumeBox from './volume';
 const READY = 0;
 const PLAYING = 1;
 const PAUSE = 2;
-const VOLUME_H = 80;
 let index = 0;
 let progress;
-let clientY = 0;
-let initVolume = 0;
 let isMouseDown = false;
+const initVolume = 0.2;
 class PlayBox extends Component {
   static propTypes = {
     playListId: PropTypes.number.isRequired
@@ -31,17 +30,37 @@ class PlayBox extends Component {
       duration: 0,
       playProgress: 0,
       timeProgress: '00:00',
-      volume: 0.2,
+      volume: initVolume,
       isOpenVolume: false
     };
+    this.clientX = 0;
+    this.initTime = 0;
     this.myRef = React.createRef();
-    this.volumeRef = React.createRef();
+    this.playProgressRef = React.createRef();
+
     this.onPlay = this.onPlay.bind(this);
     this.pause = this.pause.bind(this);
-    this.adjustVolume = this.adjustVolume.bind(this);
     this.handleMouseUp = this.handleMouseUp.bind(this);
     this.handleMouseDown = this.handleMouseDown.bind(this);
+    this.handleMouseOver = this.handleMouseOver.bind(this);
     this.openVolume = this.openVolume.bind(this);
+    this.handleChangeVolume = this.handleChangeVolume.bind(this);
+    this.changePlayTime = this.changePlayTime.bind(this);
+  }
+
+  componentDidMount () {
+    // 点击其他区域，音量面板隐藏
+    const volumeBtn = document.querySelector('.play-action-volume');
+    document.body.addEventListener('click', (e) => {
+      const { target } = e;
+      if (!volumeBtn.contains(target) && !target.className.includes('icon-volume')) {
+        if (this.state.isOpenVolume) {
+          this.setState({
+            isOpenVolume: false
+          });
+        }
+      }
+    }, false);
   }
 
   // 当数据改变
@@ -57,6 +76,7 @@ class PlayBox extends Component {
       return;
     }
     this.myRef.current.play();
+    this.myRef.current.volume = this.state.volume;
     this.onProgress();
     this.setState({
       playState: PLAYING
@@ -69,6 +89,7 @@ class PlayBox extends Component {
       clearInterval(progress);
     }
     const { playProgress, duration } = this.state;
+    const audio = this.myRef.current;
     progress = setInterval(() => {
       // 暂停
       const { playState } = this.state;
@@ -79,9 +100,9 @@ class PlayBox extends Component {
       if (playProgress >= duration) {
         clearInterval(progress);
       }
-      this.setState((prevState) => ({
-        playProgress: prevState.playProgress + 1,
-        timeProgress: this.timePretty(prevState.playProgress + 1)
+      this.setState(() => ({
+        playProgress: audio.currentTime,
+        timeProgress: this.timePretty(audio.currentTime)
       }));
     }, 1000);
   }
@@ -165,44 +186,44 @@ class PlayBox extends Component {
     this.updateMusic();
   }
 
-  // 调节音量
-  adjustVolume (event) {
+  handleMouseOver (e) {
     if (!isMouseDown) {
       return;
     }
-    event.persist();
-    const deltaY = clientY - event.clientY;
-    const deltaVol = deltaY / VOLUME_H;
-    const btn = this.volumeRef.current;
-    const currentVolume = deltaVol + initVolume;
-    // 超过音量
-    if (currentVolume >= 1) {
+    e.persist();
+    const deltaX = e.clientX - this.clientX;
+    const { duration } = this.state;
+    const deltaTime = duration * deltaX / 500;
+    const currentTime = deltaTime + this.initTime;
+    if (currentTime >= duration) {
       return;
     }
-    if (currentVolume < 0) {
+    if (currentTime <= 0) {
       return;
     }
-    btn.style.transform = `translateX(${deltaY}px)`;
     this.setState(() => ({
-      volume: currentVolume
+      playProgress: currentTime
     }));
   }
 
-  // 鼠标按下后获取初始音量
+  // 鼠标按下后
   handleMouseDown (e) {
+    if (this.state.playState === READY) {
+      return;
+    }
     e.persist();
-    ({ clientY } = e);
-    initVolume = this.state.volume;
+    this.clientX = e.clientX;
+    this.initTime = this.state.playProgress;
     isMouseDown = true;
   }
 
-  // 鼠标松开后设置音量，设置按钮位置
+  // 鼠标松开后，设置按钮位置, audio播放位置
   handleMouseUp () {
-    const btn = this.volumeRef.current;
+    const btn = this.playProgressRef.current;
     // 设置按钮新的起始点
-    btn.style.left = `${this.state.volume * VOLUME_H - 4}px`;
-    btn.style.transform = '';
-    this.myRef.current.volume = this.state.volume;
+    const { playProgress, duration } = this.state;
+    btn.style.left = `${playProgress * 500 / duration}px`;
+    this.myRef.current.currentTime = this.state.playProgress;
     isMouseDown = false;
   }
 
@@ -222,10 +243,25 @@ class PlayBox extends Component {
     return `${min}:${sec}`;
   }
 
+  changePlayTime (e) {
+    e.persist();
+    const { offsetLeft } = document.querySelector('.play-progress');
+    const detalX = e.clientX - offsetLeft;
+    // const detalT = 0;
+    console.log(detalX);
+  }
+
   openVolume () {
     this.setState((prev) => ({
       isOpenVolume: !prev.isOpenVolume
     }));
+  }
+
+  handleChangeVolume (volume) {
+    this.myRef.current.volume = volume;
+    this.setState({
+      volume
+    });
   }
 
   render () {
@@ -253,24 +289,20 @@ class PlayBox extends Component {
             </div>
             <div><i className="iconfont icon-next" onClick={this.next.bind(this)}></i></div>
             <div className="play-action-volume" onClick={this.openVolume}>
-              <i className="iconfont icon-volume"></i>
-              <div className={`volume-box ${isOpenVolume ? '' : 'hide'}`} onMouseUp={this.handleMouseUp}>
-                <div className="volume-box-progress">
-                  <progress className="volume-progress" value={volume} max="1"></progress>
-                  <div ref={this.volumeRef} className="volume-progress-btn" onMouseMove={this.adjustVolume} onMouseDown={this.handleMouseDown}></div>
-                </div>
-              </div>
+              <i className={`iconfont icon-volume ${volume <= 0.01 ? 'hide' : ''}`}></i>
+              <i className={`iconfont icon-mute ${volume <= 0.01 ? '' : 'hide'}`}></i>
+              <VolumeBox volume={initVolume} isOpen={isOpenVolume} change={this.handleChangeVolume} />
             </div>
           </div>
           <div className="play-info">
             <div className="play-info-pic">
               <img src={picUrl ? `${picUrl}?param=34y34` : defaultImg} />
             </div>
-            <div className="play-info-box">
+            <div className="play-info-box" onMouseUp={this.handleMouseUp}>
               <h4>{name}</h4>
-              <div className="play-progress">
-                <progress className="music-progress" value={playProgress} max={duration}></progress>
-                <div className="play-progress-btn" style={{ left: `${leftPx}px` }}></div>
+              <div className="play-progress" onMouseMove={this.handleMouseOver}>
+                <progress className="music-progress" value={playProgress} max={duration} onClick={this.changePlayTime}></progress>
+                <div className="play-progress-btn" style={{ left: `${leftPx}px` }} onMouseDown={this.handleMouseDown} ref={this.playProgressRef}></div>
               </div>
               <div className="play-info-time">
                 <span className="time-now">{timeProgress}</span> / {durationPretty}
@@ -278,7 +310,7 @@ class PlayBox extends Component {
             </div>
           </div>
         </div>
-        <audio ref={this.myRef} volume={volume}>
+        <audio ref={this.myRef}>
           <track kind="subtitles" src="ss.str" srcLang="zh" />
           <track kind="subtitles" src="subs_eng.srt" srcLang="en" label="English" />
         </audio>

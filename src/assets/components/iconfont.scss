@@ -13,15 +13,17 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+.icon-mute:before { content: "\e7dc"; }
+
 .icon-next:before { content: "\e603"; }
 
 .icon-prev:before { content: "\e650"; }
 
 .icon-pause:before { content: "\e655"; }
 
-.icon-music:before { content: "\e609"; }
+.icon-volume:before { content: "\e708"; }
 
-.icon-volume:before { content: "\e60a"; }
+.icon-music:before { content: "\e609"; }
 
 .icon-headset:before { content: "\e60d"; }
 
