@@ -73,7 +73,6 @@ class VolumeBox extends Component {
     btn.style.left = `${this.state.volume * VOLUME_H - 4}px`;
     btn.style.transform = '';
     isMouseDown = false;
-    console.log(this.state.volume);
     this.props.change && this.props.change(this.state.volume);
   }
 

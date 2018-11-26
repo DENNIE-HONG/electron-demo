@@ -12,9 +12,9 @@ const READY = 0;
 const PLAYING = 1;
 const PAUSE = 2;
 let index = 0;
-let progress;
 let isMouseDown = false;
 const initVolume = 0.2;
+const PROGRESS_WIDTH = 500;
 class PlayBox extends Component {
   static propTypes = {
     playListId: PropTypes.number.isRequired
@@ -31,10 +31,13 @@ class PlayBox extends Component {
       playProgress: 0,
       timeProgress: '00:00',
       volume: initVolume,
-      isOpenVolume: false
+      isOpenVolume: false,
+      showPlayTime: '00:00',
+      showPlayTimeLeftPx: 0
     };
     this.clientX = 0;
     this.initTime = 0;
+    this.progress = null;
     this.myRef = React.createRef();
     this.playProgressRef = React.createRef();
 
@@ -85,6 +88,7 @@ class PlayBox extends Component {
 
   // 进度条渲染
   onProgress () {
+    let { progress } = this;
     if (progress) {
       clearInterval(progress);
     }
@@ -105,6 +109,19 @@ class PlayBox extends Component {
         timeProgress: this.timePretty(audio.currentTime)
       }));
     }, 1000);
+  }
+
+  get progressLeft () {
+    return Math.trunc(PROGRESS_WIDTH * this.state.playProgress / this.state.duration);
+  }
+
+  /**
+   * @param {Number}   x轴移动的距离
+   * @return {Number}  相对应移动的时间
+  */
+  getDetalTime (detalX) {
+    const deltalT = detalX * this.state.duration / PROGRESS_WIDTH;
+    return deltalT;
   }
 
   /**
@@ -170,6 +187,9 @@ class PlayBox extends Component {
 
   // 下一首
   next () {
+    if (this.state.playState === READY) {
+      return;
+    }
     if (index === this.state.playlist.trackCount) {
       return;
     }
@@ -187,13 +207,18 @@ class PlayBox extends Component {
   }
 
   handleMouseOver (e) {
-    if (!isMouseDown) {
+    if (this.state.playState === READY) {
       return;
     }
     e.persist();
-    const deltaX = e.clientX - this.clientX;
+    const { clientX } = e;
+    this.showPlayTime(clientX);
+    if (!isMouseDown) {
+      return;
+    }
+    const deltaX = clientX - this.clientX;
     const { duration } = this.state;
-    const deltaTime = duration * deltaX / 500;
+    const deltaTime = this.getDetalTime(deltaX);
     const currentTime = deltaTime + this.initTime;
     if (currentTime >= duration) {
       return;
@@ -222,7 +247,7 @@ class PlayBox extends Component {
     const btn = this.playProgressRef.current;
     // 设置按钮新的起始点
     const { playProgress, duration } = this.state;
-    btn.style.left = `${playProgress * 500 / duration}px`;
+    btn.style.left = `${playProgress * PROGRESS_WIDTH / duration}px`;
     this.myRef.current.currentTime = this.state.playProgress;
     isMouseDown = false;
   }
@@ -243,14 +268,22 @@ class PlayBox extends Component {
     return `${min}:${sec}`;
   }
 
+  // 点击进度条直接播放该时间点
   changePlayTime (e) {
+    if (this.state.playState === READY) {
+      return;
+    }
     e.persist();
     const { offsetLeft } = document.querySelector('.play-progress');
-    const detalX = e.clientX - offsetLeft;
-    // const detalT = 0;
-    console.log(detalX);
+    const xdistance = e.clientX - offsetLeft;
+    const currentTime = this.getDetalTime(xdistance);
+    this.setState(() => ({
+      playProgress: currentTime
+    }));
+    this.myRef.current.currentTime = currentTime;
   }
 
+  // 打开音量控制
   openVolume () {
     this.setState((prev) => ({
       isOpenVolume: !prev.isOpenVolume
@@ -264,6 +297,18 @@ class PlayBox extends Component {
     });
   }
 
+  // hover显示播放时间点
+  showPlayTime (clientX) {
+    const { offsetLeft } = document.querySelector('.play-progress');
+    const distanceX = clientX - offsetLeft;
+    const newTime = this.getDetalTime(distanceX);
+    const showPlayTime = this.timePretty(newTime);
+    this.setState({
+      showPlayTime,
+      showPlayTimeLeftPx: distanceX
+    });
+  }
+
   render () {
     const {
       name,
@@ -273,11 +318,12 @@ class PlayBox extends Component {
       playProgress,
       timeProgress,
       volume,
-      isOpenVolume
+      isOpenVolume,
+      showPlayTime,
+      showPlayTimeLeftPx
     } = this.state;
     const isPlaying = playState === PLAYING;
     const durationPretty = this.timePretty(duration);
-    const leftPx = Math.trunc(500 * playProgress / duration);
     return (
       <div className="play">
         <div className="play-content">
@@ -296,13 +342,14 @@ class PlayBox extends Component {
           </div>
           <div className="play-info">
             <div className="play-info-pic">
-              <img src={picUrl ? `${picUrl}?param=34y34` : defaultImg} />
+              <img src={picUrl ? `${picUrl}?param=34y34` : defaultImg} alt={name} />
             </div>
             <div className="play-info-box" onMouseUp={this.handleMouseUp}>
-              <h4>{name}</h4>
+              <h4 className="play-info-name">{name}</h4>
               <div className="play-progress" onMouseMove={this.handleMouseOver}>
                 <progress className="music-progress" value={playProgress} max={duration} onClick={this.changePlayTime}></progress>
-                <div className="play-progress-btn" style={{ left: `${leftPx}px` }} onMouseDown={this.handleMouseDown} ref={this.playProgressRef}></div>
+                <div className="play-progress-btn" style={{ left: `${this.progressLeft}px` }} onMouseDown={this.handleMouseDown} ref={this.playProgressRef}></div>
+                <div className="play-progress-showtime" style={{ left: `${showPlayTimeLeftPx}px` }}>{showPlayTime}</div>
               </div>
               <div className="play-info-time">
                 <span className="time-now">{timeProgress}</span> / {durationPretty}

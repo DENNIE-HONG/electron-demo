@@ -1,0 +1,29 @@
+.newalbum {
+  margin-right: -25px;
+  &-list {
+    &-item {
+      float: left;
+      width: 20%;
+      padding-right: 25px;
+      margin-bottom: 25px;
+      box-sizing: border-box;
+    }
+    &-pic {
+      width: 100%;
+      @include hid;
+      box-shadow: 2px 8px 2px -4px rgba(0,0,0,0.8);
+      > img {
+        display: block;
+        width: 100%;
+      }
+    }
+    &-name {
+      @include txthid;
+      @include hid;
+      font-size: nth($fz, 2);
+    }
+    &-txt {
+      color: nth($fblack, 2);
+    }
+  }
+}

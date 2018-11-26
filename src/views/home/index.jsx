@@ -1,26 +1,33 @@
 import React, { Component } from 'react';
-import { getPersonalized } from 'api/home';
+import { getPersonalized, getPersonalizedNew } from 'api/home';
 import PlayBox from 'coms/PlayBox';
+import NewAlbum from 'coms/NewAlbum';
 import './home.scss';
 class Home extends Component {
   constructor (props) {
     super(props);
     this.state = {
       musicList: [],
-      playId: 0
+      playId: 0,
+      newAlbumList: []
     };
     this.fetch();
   }
 
-  fetch () {
-    getPersonalized().then((res) => {
-      console.log(res);
-      if (res.code === 200) {
-        this.setState({
-          musicList: res.result.slice(0, 8)
-        });
-      }
-    });
+  async fetch () {
+    // 推荐歌单
+    try {
+      const [musicListRes, newAlbumListRes] = await Promise.all([
+        getPersonalized(),
+        getPersonalizedNew(10)
+      ]);
+      this.setState({
+        musicList: musicListRes.result.slice(0, 8),
+        newAlbumList: newAlbumListRes.albums
+      });
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   /**
@@ -33,7 +40,7 @@ class Home extends Component {
   }
 
   render () {
-    const { musicList } = this.state;
+    const { musicList, newAlbumList, playId } = this.state;
     return (
       <div className="home">
         <main className="global-clearfix">
@@ -60,7 +67,14 @@ class Home extends Component {
               ))}
             </ul>
           </section>
-          <PlayBox playListId={this.state.playId} />
+          <section className="home-new">
+            <div className="home-title">
+              <i className="iconfont icon-circle"></i>
+              <span className="title-txt">新音乐推荐</span>
+            </div>
+            <NewAlbum playList={newAlbumList} />
+          </section>
+          <PlayBox playListId={playId} />
         </main>
       </div>
     );

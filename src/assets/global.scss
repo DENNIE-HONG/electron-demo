@@ -99,9 +99,11 @@ html {
 }
 .page .main {
   display: flex;
+  max-height: 100%;
   flex: 1;
   flex-direction: column;
   background-color: white;
+  overflow-y: auto;
 }
 .main .content {
   flex: 1;
