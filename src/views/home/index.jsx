@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { getPersonalized, getPersonalizedNew } from 'api/home';
 import PlayBox from 'coms/PlayBox';
 import NewAlbum from 'coms/NewAlbum';
+import CarouselBox from 'coms/CarouselBox';
 import './home.scss';
 class Home extends Component {
   constructor (props) {
@@ -39,6 +40,14 @@ class Home extends Component {
     });
   }
 
+  swipeNext () {
+    CarouselBox.next();
+  }
+
+  swipePrev () {
+    this.reactSwipeEl.prev();
+  }
+
   render () {
     const { musicList, newAlbumList, playId } = this.state;
     return (
@@ -72,7 +81,16 @@ class Home extends Component {
               <i className="iconfont icon-circle"></i>
               <span className="title-txt">新音乐推荐</span>
             </div>
-            <NewAlbum playList={newAlbumList} />
+            <div className="home-new-list">
+              {/* <div><NewAlbum playList={newAlbumList.slice(0, 5)} /></div> */}
+              {/* <div><NewAlbum playList={newAlbumList.slice(5, 10)} /></div> */}
+              <CarouselBox>
+                <div>1</div>
+                <div>第二页</div>
+              </CarouselBox>
+              <div onClick={this.swipeNext.bind(this)}>Next</div>
+              <div onClick={this.swipePrev.bind(this)}>Previous</div>
+            </div>
           </section>
           <PlayBox playListId={playId} />
         </main>

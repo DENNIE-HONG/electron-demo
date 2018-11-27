@@ -80,7 +80,7 @@
     "react/jsx-no-target-blank": 0,
     "react/require-extension": 0,
     "react/self-closing-comp": 0,
-    "react/jsx-indent-props": [2,"tab"],
+    "react/jsx-indent-props": 0,
     "react/prefer-stateless-function": 0,
     "react/jsx-key": 2,
     "react/jsx-no-duplicate-props": 2,

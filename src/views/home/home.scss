@@ -69,4 +69,12 @@
       }
     }
   }
+  &-new {
+    &-list {
+      margin-top: 20px;
+      padding: 20px 10px;
+      background-color: nth($fgray, 3);
+      border: 1px solid nth($fgray, 1);
+    }
+  }
 }

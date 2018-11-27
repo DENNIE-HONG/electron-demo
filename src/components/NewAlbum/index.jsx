@@ -11,15 +11,10 @@ class NewAlbum extends Component {
     playList: PropTypes.array.isRequired
   }
 
-  constructor (props) {
-    super(props);
-    this.a = 0;
-  }
-
   render () {
     const { playList } = this.props;
     return (
-      <ul className="newalbum">
+      <ul className="newalbum global-clearfix">
         {playList.map((item) => (
           <li className="newalbum-list-item" key={item.id}>
             <div className="newalbum-list-pic">
@@ -27,6 +22,9 @@ class NewAlbum extends Component {
             </div>
             <h4 className="newalbum-list-name">{item.name}</h4>
             <span className="newalbum-list-txt">{item.artist.name}</span>
+            <div className="newalbum-play-btn">
+              <i className="iconfont icon-play"></i>
+            </div>
           </li>
         ))}
       </ul>
