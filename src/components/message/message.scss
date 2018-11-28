@@ -1,0 +1,39 @@
+.message {
+  width: 400px;
+  font-size: nth($fz, 2);
+  transform: translateX(25%);
+  .info,
+  .warning,
+  .error,
+  .success {
+    padding: 10px 20px;
+    border-radius: 6px;
+    > .iconfont {
+      display: inline-block;
+      padding-right: 5px;
+      margin-bottom: 1px;
+      vertical-align: middle;
+      font-size: nth($fz, 4);
+    }
+  }
+  .info {
+    color: nth($fblue, 1);
+    background-color: nth($fblue, 3);
+    border: 1px solid nth($fblue, 1);
+  }
+  .warning {
+    color: nth($fyellow, 1);
+    background-color: nth($fyellow, 2);
+    border: 1px solid nth($fyellow, 1);
+  }
+  .error {
+    color: nth($fred, 1);
+    background-color: nth($fred, 2);
+    border: 1px solid nth($fred, 1);
+  }
+  .success {
+    color: nth($fgreen, 1);
+    background-color: nth($fgreen, 2);
+    border: 1px solid nth($fgreen, 1);
+  }
+}

@@ -1,13 +1,16 @@
 /**
  * 音乐播放器模块, 默认音量长度为80
  * @param {Number} playListId, 歌单id
+ * @author luyanhong 2018-11-20
 */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { getMusic, getPlaylistDetail } from 'api/home';
+import showMessage from 'coms/message';
 import './PlayBox.scss';
 import defaultImg from './img/music.jpg';
 import VolumeBox from './volume';
+
 const READY = 0;
 const PLAYING = 1;
 const PAUSE = 2;
@@ -139,9 +142,14 @@ class PlayBox extends Component {
         audio.addEventListener('ended', () => {
           this.next();
         }, false);
+      } else {
+        this.next();
       }
     } catch (err) {
-      console.log(err);
+      showMessage({
+        type: 'error',
+        message: err
+      });
     }
   }
 
@@ -163,6 +171,10 @@ class PlayBox extends Component {
   // 更新歌曲数据，歌名、图片等
   updateMusic () {
     if (!this.state.playlist.tracks.length) {
+      showMessage({
+        type: 'error',
+        message: '歌曲暂时不能播放啦'
+      });
       return;
     }
     const play = this.state.playlist.tracks[index];
@@ -193,6 +205,7 @@ class PlayBox extends Component {
     if (this.state.playState === READY) {
       return;
     }
+    // 最后一首
     if (index === this.state.playlist.trackCount) {
       return;
     }
