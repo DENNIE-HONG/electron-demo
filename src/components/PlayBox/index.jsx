@@ -162,6 +162,9 @@ class PlayBox extends Component {
 
   // 更新歌曲数据，歌名、图片等
   updateMusic () {
+    if (!this.state.playlist.tracks.length) {
+      return;
+    }
     const play = this.state.playlist.tracks[index];
     const { name } = play;
     const { picUrl } = play.al;

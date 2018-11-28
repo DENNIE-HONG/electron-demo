@@ -45,7 +45,7 @@ class Home extends Component {
   }
 
   swipePrev () {
-    this.reactSwipeEl.prev();
+    CarouselBox.prev();
   }
 
   render () {
@@ -82,14 +82,20 @@ class Home extends Component {
               <span className="title-txt">新音乐推荐</span>
             </div>
             <div className="home-new-list">
-              {/* <div><NewAlbum playList={newAlbumList.slice(0, 5)} /></div> */}
-              {/* <div><NewAlbum playList={newAlbumList.slice(5, 10)} /></div> */}
-              <CarouselBox>
-                <div>1</div>
-                <div>第二页</div>
+              <CarouselBox speed={0.9}>
+                <NewAlbum playList={newAlbumList.slice(0, 5)} getPlayId={this.play.bind(this)} />
+                <NewAlbum playList={newAlbumList.slice(5, 10)} getPlayId={this.play.bind(this)} />
               </CarouselBox>
-              <div onClick={this.swipeNext.bind(this)}>Next</div>
-              <div onClick={this.swipePrev.bind(this)}>Previous</div>
+              <div
+                onClick={this.swipeNext.bind(this)}
+                className="home-new-nextbtn"
+              ><i className="iconfont icon-right"></i>
+              </div>
+              <div
+                onClick={this.swipePrev.bind(this)}
+                className="home-new-prevbtn"
+              ><i className="iconfont icon-left"></i>
+              </div>
             </div>
           </section>
           <PlayBox playListId={playId} />

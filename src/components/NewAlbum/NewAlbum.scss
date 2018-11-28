@@ -29,9 +29,13 @@
       @include txthid;
       @include hid;
       font-size: nth($fz, 2);
+      @include wordbreak;
     }
     &-txt {
       color: nth($fblack, 2);
+      @include wordbreak;
+      @include txthid;
+      @include hid;
     }
   }
   &-play-btn {

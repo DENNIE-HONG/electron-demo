@@ -71,10 +71,30 @@
   }
   &-new {
     &-list {
+      position: relative;
       margin-top: 20px;
-      padding: 20px 10px;
+      padding: 20px 30px 10px;
       background-color: nth($fgray, 3);
       border: 1px solid nth($fgray, 1);
+      .newalbum-list-item {
+        margin-bottom: 0;
+      }
+    }
+    &-nextbtn,
+    &-prevbtn {
+      position: absolute;
+      top: 60px;
+      width: 30px;
+      height: 30px;
+      line-height: 30px;
+      text-align: center;
+      cursor: pointer;
+    }
+    &-prevbtn {
+      left: 0;
+    }
+    &-nextbtn {
+      right: 0;
     }
   }
 }
