@@ -142,6 +142,12 @@ class Home extends Component {
               </div>
             </div>
           </section>
+          <section className="home-top">
+            <div className="home-title">
+              <i className="iconfont icon-circle"></i>
+              <span className="title-txt">榜单</span>
+            </div>
+          </section>
           <PlayBox playList={playList} id={playId} />
         </main>
       </div>
