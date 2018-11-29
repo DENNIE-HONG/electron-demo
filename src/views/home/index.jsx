@@ -1,8 +1,14 @@
 import React, { Component } from 'react';
-import { getPersonalized, getPersonalizedNew } from 'api/home';
+import {
+  getPersonalized,
+  getPersonalizedNew,
+  getPlaylistDetail,
+  getAlbum
+} from 'api/home';
 import PlayBox from 'coms/PlayBox';
 import NewAlbum from 'coms/NewAlbum';
 import CarouselBox from 'coms/CarouselBox';
+import showMessage from 'coms/message';
 import './home.scss';
 class Home extends Component {
   constructor (props) {
@@ -10,7 +16,8 @@ class Home extends Component {
     this.state = {
       musicList: [],
       playId: 0,
-      newAlbumList: []
+      newAlbumList: [],
+      playList: []
     };
     this.fetch();
   }
@@ -31,15 +38,6 @@ class Home extends Component {
     }
   }
 
-  /**
-   * 设置推荐歌曲歌单id
-  */
-  play (playId) {
-    this.setState({
-      playId
-    });
-  }
-
   swipeNext () {
     CarouselBox.next();
   }
@@ -48,8 +46,54 @@ class Home extends Component {
     CarouselBox.prev();
   }
 
+  // 获取歌单列表
+  async fetchPlaylistDetail (playId) {
+    try {
+      const res = await getPlaylistDetail(playId);
+      if (res.code === 200) {
+        this.setState({
+          playList: res.playlist.tracks,
+          playId
+        });
+      } else {
+        this.fail('资源获取失败了');
+      }
+    } catch (err) {
+      this.fail(err.message);
+    }
+  }
+
+  // 获取专辑内容
+  async fetchAlbum (playId) {
+    try {
+      const res = await getAlbum(playId);
+      if (res.code === 200) {
+        this.setState({
+          playList: res.songs,
+          playId
+        });
+      } else {
+        this.fail('资源获取失败啦');
+      }
+    } catch (err) {
+      this.fail(err.message);
+    }
+  }
+
+  fail (message) {
+    showMessage({
+      type: 'error',
+      message
+    });
+  }
+
   render () {
-    const { musicList, newAlbumList, playId } = this.state;
+    const {
+      musicList,
+      newAlbumList,
+      playList,
+      playId
+    } = this.state;
     return (
       <div className="home">
         <main className="global-clearfix">
@@ -68,7 +112,7 @@ class Home extends Component {
                     <div className="item-info-play">
                       <i className="iconfont icon-headset"></i>
                       <span className="item-info-count">{item.playCount > 10000 ? `${Math.round(item.playCount / 10000)}万` : item.playCount}</span>
-                      <i className="iconfont icon-play item-info-play-btn pull-right" onClick={this.play.bind(this, item.id)}></i>
+                      <i className="iconfont icon-play item-info-play-btn pull-right" onClick={this.fetchPlaylistDetail.bind(this, item.id)}></i>
                     </div>
                   </div>
                   <h4 className="item-title">{item.name}</h4>
@@ -79,12 +123,12 @@ class Home extends Component {
           <section className="home-new">
             <div className="home-title">
               <i className="iconfont icon-circle"></i>
-              <span className="title-txt">新音乐推荐</span>
+              <span className="title-txt">新碟上架</span>
             </div>
             <div className="home-new-list">
               <CarouselBox speed={0.9}>
-                <NewAlbum playList={newAlbumList.slice(0, 5)} getPlayId={this.play.bind(this)} />
-                <NewAlbum playList={newAlbumList.slice(5, 10)} getPlayId={this.play.bind(this)} />
+                <NewAlbum playList={newAlbumList.slice(0, 5)} getPlayId={this.fetchAlbum.bind(this)} />
+                <NewAlbum playList={newAlbumList.slice(5, 10)} getPlayId={this.fetchAlbum.bind(this)} />
               </CarouselBox>
               <div
                 onClick={this.swipeNext.bind(this)}
@@ -98,7 +142,7 @@ class Home extends Component {
               </div>
             </div>
           </section>
-          <PlayBox playListId={playId} />
+          <PlayBox playList={playList} id={playId} />
         </main>
       </div>
     );

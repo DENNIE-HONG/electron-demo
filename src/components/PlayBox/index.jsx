@@ -1,11 +1,12 @@
 /**
  * 音乐播放器模块, 默认音量长度为80
- * @param {Number} playListId, 歌单id
+ * @param {Array}  playList, 歌曲列表
+ * @param {Number} id, 歌单id
  * @author luyanhong 2018-11-20
 */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { getMusic, getPlaylistDetail } from 'api/home';
+import { getMusic } from 'api/home';
 import showMessage from 'coms/message';
 import './PlayBox.scss';
 import defaultImg from './img/music.jpg';
@@ -18,9 +19,11 @@ let index = 0;
 let isMouseDown = false;
 const initVolume = 0.2;
 const PROGRESS_WIDTH = 500;
+let badlength = 0;
 class PlayBox extends Component {
   static propTypes = {
-    playListId: PropTypes.number.isRequired
+    playList: PropTypes.array.isRequired,
+    id: PropTypes.number.isRequired
   }
 
   constructor (props) {
@@ -28,7 +31,7 @@ class PlayBox extends Component {
     this.state = {
       name: '暂无歌曲',
       picUrl: '',
-      playlist: null,
+      // playlist: null,
       playState: READY,
       duration: 0,
       playProgress: 0,
@@ -71,14 +74,15 @@ class PlayBox extends Component {
 
   // 当数据改变
   componentDidUpdate (prevProps) {
-    if (prevProps.playListId !== this.props.playListId) {
-      this.fetchDetail();
+    if (prevProps.id !== this.props.id) {
+      this.resetData();
+      this.updateMusic();
     }
   }
 
   // 播放事件
   onPlay () {
-    if (!this.state.playlist) {
+    if (!this.props.playList.length) {
       return;
     }
     this.myRef.current.play();
@@ -127,9 +131,15 @@ class PlayBox extends Component {
     return deltalT;
   }
 
+  resetData () {
+    index = 0;
+    badlength = 0;
+  }
+
   /**
    * 获取音乐, 并开始播放
-   * @param {Number}  音乐id
+   * @param {Number}    音乐id
+   * @return {Boolean}  是否成功获取音乐资源
   */
   async fetchData (id) {
     try {
@@ -142,53 +152,46 @@ class PlayBox extends Component {
         audio.addEventListener('ended', () => {
           this.next();
         }, false);
-      } else {
-        this.next();
+        return true;
       }
+      // url 没有数据时候
+      badlength += 1;
+      if (badlength === this.props.playList.length) {
+        throw Error('歌曲url都是null');
+      }
+      this.next();
     } catch (err) {
       showMessage({
         type: 'error',
-        message: err
+        message: err.message
       });
+      return false;
     }
-  }
-
-  // 获取歌单详情
-  fetchDetail () {
-    getPlaylistDetail(this.props.playListId).then((res) => {
-      if (res.code === 200) {
-        index = 0;
-        this.setState({
-          playlist: res.playlist
-        });
-        this.updateMusic();
-      }
-    }).catch((err) => {
-      console.log(err);
-    });
   }
 
   // 更新歌曲数据，歌名、图片等
   updateMusic () {
-    if (!this.state.playlist.tracks.length) {
+    if (!this.props.playList.length) {
       showMessage({
         type: 'error',
         message: '歌曲暂时不能播放啦'
       });
       return;
     }
-    const play = this.state.playlist.tracks[index];
-    const { name } = play;
-    const { picUrl } = play.al;
-    const duration = parseInt((play.l.size * 8) / play.l.br, 10);
-    this.setState({
-      name,
-      picUrl,
-      duration,
-      playProgress: 0,
-      timeProgress: '00:00'
+    const play = this.props.playList[index];
+    // 没有成功获取资源
+    this.fetchData(play.id).then(() => {
+      const { name } = play;
+      const { picUrl } = play.al;
+      const duration = parseInt((play.l.size * 8) / play.l.br, 10);
+      this.setState({
+        name,
+        picUrl,
+        duration,
+        playProgress: 0,
+        timeProgress: '00:00'
+      });
     });
-    this.fetchData(play.id);
   }
 
   // 暂停事件
@@ -202,12 +205,13 @@ class PlayBox extends Component {
 
   // 下一首
   next () {
-    if (this.state.playState === READY) {
+    const { playList } = this.props;
+    if (!playList.length) {
       return;
     }
-    // 最后一首
-    if (index === this.state.playlist.trackCount) {
-      return;
+    // 最后一首, 在重头开始
+    if (index === playList.length - 1) {
+      index = - 1;
     }
     index += 1;
     this.updateMusic();
@@ -215,8 +219,9 @@ class PlayBox extends Component {
 
   // 上一首
   prev () {
+    // 已经是第一首了, 再重头开始
     if (index === 0) {
-      return;
+      index = 1;
     }
     index -= 1;
     this.updateMusic();
