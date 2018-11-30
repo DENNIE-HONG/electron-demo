@@ -9,6 +9,7 @@ import PlayBox from 'coms/PlayBox';
 import NewAlbum from 'coms/NewAlbum';
 import CarouselBox from 'coms/CarouselBox';
 import showMessage from 'coms/message';
+import TopList from 'coms/TopList';
 import './home.scss';
 class Home extends Component {
   constructor (props) {
@@ -147,6 +148,7 @@ class Home extends Component {
               <i className="iconfont icon-circle"></i>
               <span className="title-txt">榜单</span>
             </div>
+            <TopList />
           </section>
           <PlayBox playList={playList} id={playId} />
         </main>
