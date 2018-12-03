@@ -20,6 +20,7 @@ let isMouseDown = false;
 const initVolume = 0.2;
 const PROGRESS_WIDTH = 500;
 let badlength = 0;
+let progress = null;
 class PlayBox extends Component {
   static propTypes = {
     playList: PropTypes.array.isRequired,
@@ -43,7 +44,6 @@ class PlayBox extends Component {
     };
     this.clientX = 0;
     this.initTime = 0;
-    this.progress = null;
     this.myRef = React.createRef();
     this.playProgressRef = React.createRef();
 
@@ -87,7 +87,6 @@ class PlayBox extends Component {
     }
     this.myRef.current.play();
     this.myRef.current.volume = this.state.volume;
-    this.onProgress();
     this.setState({
       playState: PLAYING
     });
@@ -95,8 +94,8 @@ class PlayBox extends Component {
 
   // 进度条渲染
   onProgress () {
-    let { progress } = this;
     if (progress) {
+      console.log('清理了');
       clearInterval(progress);
     }
     const { playProgress, duration } = this.state;
@@ -148,7 +147,6 @@ class PlayBox extends Component {
         const audio = this.myRef.current;
         audio.src = res.data[0].url;
         this.onPlay();
-        this.onProgress();
         audio.addEventListener('ended', () => {
           this.next();
         }, false);
@@ -191,6 +189,7 @@ class PlayBox extends Component {
         playProgress: 0,
         timeProgress: '00:00'
       });
+      this.onProgress();
     });
   }
 
@@ -268,7 +267,7 @@ class PlayBox extends Component {
     const btn = this.playProgressRef.current;
     // 设置按钮新的起始点
     const { playProgress, duration } = this.state;
-    btn.style.left = `${playProgress * PROGRESS_WIDTH / duration}px`;
+    btn.style.transform = `translate3D(${playProgress * PROGRESS_WIDTH / duration}px, 0, 0)`;
     this.myRef.current.currentTime = this.state.playProgress;
     isMouseDown = false;
   }
@@ -369,7 +368,7 @@ class PlayBox extends Component {
               <h4 className="play-info-name">{name}</h4>
               <div className="play-progress" onMouseMove={this.handleMouseOver}>
                 <progress className="music-progress" value={playProgress} max={duration} onClick={this.changePlayTime}></progress>
-                <div className="play-progress-btn" style={{ left: `${this.progressLeft}px` }} onMouseDown={this.handleMouseDown} ref={this.playProgressRef}></div>
+                <div className="play-progress-btn" style={{ transform: `translate3D(${this.progressLeft}px, 0, 0)` }} onMouseDown={this.handleMouseDown} ref={this.playProgressRef}></div>
                 <div className="play-progress-showtime" style={{ left: `${showPlayTimeLeftPx}px` }}>{showPlayTime}</div>
               </div>
               <div className="play-info-time">

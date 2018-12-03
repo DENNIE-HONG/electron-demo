@@ -81,6 +81,14 @@ class Home extends Component {
     }
   }
 
+  // 回调获取榜单列表
+  fetchTop (playList, playId) {
+    this.setState({
+      playList,
+      playId
+    });
+  }
+
   fail (message) {
     showMessage({
       type: 'error',
@@ -148,7 +156,7 @@ class Home extends Component {
               <i className="iconfont icon-circle"></i>
               <span className="title-txt">榜单</span>
             </div>
-            <TopList />
+            <TopList getPlayList={this.fetchTop.bind(this)} />
           </section>
           <PlayBox playList={playList} id={playId} />
         </main>

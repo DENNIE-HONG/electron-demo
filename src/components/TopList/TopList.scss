@@ -36,6 +36,20 @@
         padding-top: 5px;
         color: nth($fblack, 3);
         font-size: nth($fz, 5);
+        cursor: pointer;
+      }
+    }
+    &-item {
+      padding-left: 30px;
+      line-height: 30px;
+      &-num {
+        padding-right: 10px;
+        font-size: nth($fz, 3);
+        color: nth($fblack, 2);
+        vertical-align: top;
+      }
+      &:nth-child(odd) {
+        background-color: nth($fgray, 5);
       }
     }
   }

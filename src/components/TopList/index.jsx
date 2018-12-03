@@ -1,8 +1,22 @@
+/**
+ * 首页榜单组件
+ * @param {Function} getPlayList, 返回当前榜单的数据
+ * @author luyanhong 2018-12-03
+*/
 import React, { Component } from 'react';
-import { getTopList } from 'server/api/top';
+import PropTypes from 'prop-types';
+import { getTopRecommend } from 'server/api/top';
 import './TopList.scss';
 
 class TopList extends Component {
+  static propTypes = {
+    getPlayList: PropTypes.func
+  }
+
+  static defaultProps = {
+    getPlayList: undefined
+  }
+
   constructor (props) {
     super(props);
     this.state = {
@@ -10,33 +24,54 @@ class TopList extends Component {
     };
   }
 
-  componentDidMount () {
-    getTopList().then((res) => {
+  async componentDidMount () {
+    try {
+      const res = await getTopRecommend();
       if (res.code === 200) {
+        console.log(res);
         this.setState({
-          topList: res.list.slice(0, 3)
+          topList: res.list
         });
       }
-    }).catch((err) => {
+    } catch (err) {
       console.log(err);
-    });
+    }
+  }
+
+  /**
+   * 播放当前榜单音乐
+   * @param {Number} index, 当前第一个榜单
+   * @return {Array} 返回该榜单数据列表,id
+   */
+  play (index) {
+    const result = this.state.topList[index];
+    this.props.getPlayList && this.props.getPlayList(result.tracks, result.id);
   }
 
   render () {
     return (
       <div className="toplist global-clearfix">
-        {this.state.topList.map((item) => (
+        {this.state.topList.map((item, index) => (
           <dl className="toplist-list" key={item.id}>
             <dt className="toplist-list-title">
               <div className="toplist-list-pic">
-                <img src={item.coverImgUrl} alt={item.name} />
+                <img src={`${item.coverImgUrl}?param=80y80`} alt={item.name} />
               </div>
               <div className="toplist-list-info">
                 <h4>{item.name}</h4>
-                <i className="iconfont icon-play"></i>
+                <i className="iconfont icon-play" onClick={this.play.bind(this, index)}></i>
               </div>
             </dt>
-            <dd></dd>
+            <dd>
+              <ol>
+                {item.tracks.map((music, i) => (
+                  <li key={music.id} className="toplist-list-item">
+                    <span className="toplist-list-item-num">{i + 1}</span>
+                    {music.name}
+                  </li>
+                ))}
+              </ol>
+            </dd>
           </dl>
         ))}
       </div>

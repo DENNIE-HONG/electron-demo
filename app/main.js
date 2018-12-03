@@ -1,6 +1,9 @@
 const { app, BrowserWindow } = require('electron');
 const url = require('url');
 const path = require('path');
+
+// 关闭安全警告
+process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = true;
 function createWindow () {
   // 创建浏览器窗口
   const win = new BrowserWindow({
