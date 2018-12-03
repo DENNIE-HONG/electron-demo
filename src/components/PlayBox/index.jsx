@@ -70,6 +70,10 @@ class PlayBox extends Component {
         }
       }
     }, false);
+    // 监听播放完结事件
+    this.myRef.current.addEventListener('ended', () => {
+      this.next();
+    }, false);
   }
 
   // 当数据改变
@@ -80,7 +84,7 @@ class PlayBox extends Component {
     }
   }
 
-  // 播放事件
+  // 播放事件, 或者暂停后播放
   onPlay () {
     if (!this.props.playList.length) {
       return;
@@ -89,32 +93,34 @@ class PlayBox extends Component {
     this.myRef.current.volume = this.state.volume;
     this.setState({
       playState: PLAYING
-    });
+    }, this.onProgress);
   }
 
-  // 进度条渲染
+  // 进度条渲染, 用setTimeout模拟setInterval
   onProgress () {
     if (progress) {
-      console.log('清理了');
-      clearInterval(progress);
+      clearTimeout(progress);
     }
     const { playProgress, duration } = this.state;
     const audio = this.myRef.current;
-    progress = setInterval(() => {
-      // 暂停
+    const interval = () => {
       const { playState } = this.state;
       if (playState !== PLAYING) {
-        clearInterval(progress);
+        clearTimeout(progress);
+        return;
       }
       // 时间到了停止
       if (playProgress >= duration) {
-        clearInterval(progress);
+        clearTimeout(progress);
+        return;
       }
       this.setState(() => ({
         playProgress: audio.currentTime,
         timeProgress: this.timePretty(audio.currentTime)
       }));
-    }, 1000);
+      progress = setTimeout(interval, 1000);
+    };
+    interval();
   }
 
   get progressLeft () {
@@ -146,10 +152,6 @@ class PlayBox extends Component {
       if (res.code === 200 && res.data[0].url) {
         const audio = this.myRef.current;
         audio.src = res.data[0].url;
-        this.onPlay();
-        audio.addEventListener('ended', () => {
-          this.next();
-        }, false);
         return true;
       }
       // url 没有数据时候
@@ -189,7 +191,8 @@ class PlayBox extends Component {
         playProgress: 0,
         timeProgress: '00:00'
       });
-      this.onProgress();
+      // 开始播放
+      this.onPlay();
     });
   }
 
