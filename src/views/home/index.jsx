@@ -10,6 +10,7 @@ import NewAlbum from 'coms/NewAlbum';
 import CarouselBox from 'coms/CarouselBox';
 import showMessage from 'coms/message';
 import TopList from 'coms/TopList';
+import Loading from 'coms/Loading';
 import './home.scss';
 class Home extends Component {
   constructor (props) {
@@ -31,7 +32,7 @@ class Home extends Component {
         getPersonalizedNew(10)
       ]);
       this.setState({
-        musicList: musicListRes.result.slice(0, 8),
+        musicList: musicListRes.result.slice(0, 4),
         newAlbumList: newAlbumListRes.albums
       });
     } catch (err) {
@@ -116,7 +117,7 @@ class Home extends Component {
                 <li className="home-list-item" key={item.id}>
                   <div className="item-info">
                     <div className="item-info-pic">
-                      <img src={item.picUrl} />
+                      <img src={item.picUrl} alt={item.name} />
                     </div>
                     <div className="item-info-play">
                       <i className="iconfont icon-headset"></i>
@@ -159,6 +160,7 @@ class Home extends Component {
             <TopList getPlayList={this.fetchTop.bind(this)} />
           </section>
           <PlayBox playList={playList} id={playId} />
+          <Loading height="100px" width="100px" />
         </main>
       </div>
     );

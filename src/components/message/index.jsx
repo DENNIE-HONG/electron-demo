@@ -11,7 +11,8 @@ import './message.scss';
 class Message extends Component {
   static propTypes = {
     type: PropTypes.string,
-    message: PropTypes.string.isRequired
+    message: PropTypes.string.isRequired,
+    domNode: PropTypes.node.isRequired
   }
 
   static defaultProps = {

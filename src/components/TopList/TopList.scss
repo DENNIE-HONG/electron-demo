@@ -1,10 +1,11 @@
 .toplist {
+  display: flex;
   width: 100%;
   border: 1px solid nth($fgray, 4);
   background-color: nth($fgray, 3);
+  box-sizing: border-box;
   &-list {
-    float: left;
-    width: 33%;
+    flex: 1;
     border-right: 1px solid nth($fgray, 4);
     &:last-child {
       border-right: 0;
@@ -37,19 +38,59 @@
         color: nth($fblack, 3);
         font-size: nth($fz, 5);
         cursor: pointer;
+        transition: all 0.3s;
+        &:hover {
+          color: nth($fblack, 2);
+        }
       }
     }
     &-item {
       padding-left: 30px;
+      padding-right: 10px;
       line-height: 30px;
+      cursor: pointer;
+      &-txt {
+        display: inline-block;
+        line-height: 1;
+        vertical-align: middle;
+      }
       &-num {
         padding-right: 10px;
         font-size: nth($fz, 3);
         color: nth($fblack, 2);
         vertical-align: top;
+        &.active {
+          color: nth($fred, 1);
+        }
+      }
+      &-actions {
+        visibility: hidden;
+        float: right;
+        color: nth($fblack, 3);
+        .iconfont {
+          &:hover {
+            color: nth($fblack, 2);
+          }
+        }
       }
       &:nth-child(odd) {
         background-color: nth($fgray, 5);
+      }
+      &:hover {
+        .toplist-list-item-actions {
+          visibility: visible;
+        }
+        .toplist-list-item-txt {
+          max-width: 75%;
+          @include txthid;
+          @include hid;
+        }
+      }
+      &.more {
+        background-color: nth($fgray, 5);
+        .iconfont {
+          font-size: nth($fz, 1);
+        }
       }
     }
   }

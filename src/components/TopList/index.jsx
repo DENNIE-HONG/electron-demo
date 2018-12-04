@@ -28,7 +28,6 @@ class TopList extends Component {
     try {
       const res = await getTopRecommend();
       if (res.code === 200) {
-        console.log(res);
         this.setState({
           topList: res.list
         });
@@ -48,6 +47,14 @@ class TopList extends Component {
     this.props.getPlayList && this.props.getPlayList(result.tracks, result.id);
   }
 
+  /**
+   * 播放当前单曲
+   */
+  playSingle (column, row) {
+    const result = this.state.topList[column].tracks[row];
+    this.props.getPlayList && this.props.getPlayList([result], result.id);
+  }
+
   render () {
     return (
       <div className="toplist global-clearfix">
@@ -65,12 +72,21 @@ class TopList extends Component {
             <dd>
               <ol>
                 {item.tracks.map((music, i) => (
-                  <li key={music.id} className="toplist-list-item">
-                    <span className="toplist-list-item-num">{i + 1}</span>
-                    {music.name}
+                  <li key={music.id} className="toplist-list-item global-clearfix">
+                    <span className={`toplist-list-item-num ${i < 3 ? 'active' : ''}`}>{i + 1}</span>
+                    <span className="toplist-list-item-txt">{music.name}</span>
+                    <span className="toplist-list-item-actions">
+                      <i className="iconfont icon-play" onClick={this.playSingle.bind(this, index, i)}></i>
+                    </span>
                   </li>
                 ))}
               </ol>
+              <div className="toplist-list-item global-clearfix more">
+                <div className="pull-right">
+                  查看更多
+                  <i className="iconfont icon-right"></i>
+                </div>
+              </div>
             </dd>
           </dl>
         ))}
