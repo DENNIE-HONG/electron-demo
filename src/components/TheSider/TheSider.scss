@@ -33,17 +33,29 @@
       }
       &-item {
         display: flex;
-        padding-left: 10px;
         line-height: 30px;
         font-size: nth($fz, 2);
         border-radius: 2px;
+        cursor: pointer;
+        transition: all 0.3s ease;
         .iconfont {
           padding-right: 5px;
           font-size: nth($fz, 4);
         }
-        &.active {
-          background-color: nth($fblue, 1);
-          color: white;
+        a {
+          display: block;
+          width: 100%;
+          padding-left: 10px;
+          &.active {
+            background-color: nth($fblue, 1);
+            color: white;
+          }
+        }
+        h3 {
+          display: inline;
+        }
+        &:hover {
+          background-color: nth($fgray, 1);
         }
       }
     }

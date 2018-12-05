@@ -34,3 +34,5 @@ export const getTopRecommend = () => {
     }
   });
 }
+
+export const getTopListDetail = () => request.get('/wy/toplist/detail')

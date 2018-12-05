@@ -114,7 +114,7 @@ class CarouselBox extends Component {
             className="carousel-list-item"
           >{children[length - 1]}
           </li>
-          {children.map((item, index) => (
+          {React.Children.map((item, index) => (
             <li
               key={index + 1}
               className="carousel-list-item"

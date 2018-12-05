@@ -3,7 +3,7 @@
  * @author luyanhong 2018-11-20
 */
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import './TheSider.scss';
 import avatar from 'assets/img/user.jpg';
 const Siderbar = () => (
@@ -15,16 +15,18 @@ const Siderbar = () => (
       <h4 className="com-sider-name">electron宝宝</h4>
     </header>
     <dl className="com-sider-list">
-      <dt className="sider-list-title">音乐馆</dt>
-      <dd className="sider-list-item active">
-        <i className="iconfont icon-music"></i>
-        <span>推荐啊</span>
+      <dt className="sider-list-title"><h2>音乐馆</h2></dt>
+      <dd className="sider-list-item">
+        <NavLink exact to="/" activeClassName="active">
+          <i className="iconfont icon-music"></i>
+          <h3>推荐</h3>
+        </NavLink>
       </dd>
       <dd className="sider-list-item">
-        <Link to="/top">
+        <NavLink to="/top" activeClassName="active">
           <i className="iconfont icon-music"></i>
-          <span>排行</span>
-        </Link>
+          <h3>排行</h3>
+        </NavLink>
       </dd>
     </dl>
   </aside>

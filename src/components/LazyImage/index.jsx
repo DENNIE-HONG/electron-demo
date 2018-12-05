@@ -30,12 +30,17 @@ class LazyImage extends Component {
     document.lazyLoadInstance.update();
   }
 
+  componentDidUpdate () {
+    document.lazyLoadInstance.update();
+  }
+
   render () {
     const { alt, src, className } = this.props;
     return (
       <img
         alt={alt}
         data-src={src}
+        data-setsrc={src}
         className={`lazy ${className}`}
       />
     );
