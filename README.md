@@ -7,4 +7,6 @@ https://binaryify.github.io/NeteaseCloudMusicApi/
 ###2、播放器进度条上的圆点动画
 改用translate3d, 变成复合图层，开启硬件加速，避免普通图层的回流/重绘
 
-###3、使用react-lazyload实现图片懒加载
+###3、使用vanilla-lazyload实现图片懒加载
+
+###4、react-router改用hash模式

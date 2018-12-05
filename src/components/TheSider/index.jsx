@@ -3,6 +3,7 @@
  * @author luyanhong 2018-11-20
 */
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './TheSider.scss';
 import avatar from 'assets/img/user.jpg';
 const Siderbar = () => (
@@ -17,7 +18,13 @@ const Siderbar = () => (
       <dt className="sider-list-title">音乐馆</dt>
       <dd className="sider-list-item active">
         <i className="iconfont icon-music"></i>
-        <span>推荐</span>
+        <span>推荐啊</span>
+      </dd>
+      <dd className="sider-list-item">
+        <Link to="/top">
+          <i className="iconfont icon-music"></i>
+          <span>排行</span>
+        </Link>
       </dd>
     </dl>
   </aside>

@@ -38,7 +38,7 @@ module.exports = (env) => merge(devConfig(env), {
         changeOrigin: true,
         pathRewrite: { '^/wy': '' }
       }
-    }
+    },
     // historyApiFallback: true
   },
   plugins: [
