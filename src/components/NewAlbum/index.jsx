@@ -6,6 +6,7 @@
 */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import LazyImage from 'coms/LazyImage';
 import './NewAlbum.scss';
 class NewAlbum extends Component {
   static propTypes = {
@@ -32,7 +33,7 @@ class NewAlbum extends Component {
             title={item.name}
           >
             <div className="newalbum-list-pic">
-              <img src={`${item.picUrl}?param=130y130`} alt={item.name} />
+              <LazyImage src={`${item.picUrl}?param=130y130`} alt={item.name} />
             </div>
             <h4 className="newalbum-list-name">{item.name}</h4>
             <span className="newalbum-list-txt">{item.artist.name}</span>

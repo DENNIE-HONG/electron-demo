@@ -117,8 +117,7 @@ class Home extends Component {
                 <li className="home-list-item" key={item.id}>
                   <div className="item-info">
                     <div className="item-info-pic">
-                      {/* <img src={item.picUrl} alt={item.name} /> */}
-                      <LazyImage src={item.picUrl} alt={item.name} />
+                      <LazyImage src={`${item.picUrl}?param=160y160`} alt={item.name} />
                     </div>
                     <div className="item-info-play">
                       <i className="iconfont icon-headset"></i>

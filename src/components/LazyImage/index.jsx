@@ -1,13 +1,31 @@
+/**
+ * 懒加载图片模块
+ * @param {String} src, 图片url
+ * @param {String} alt, 图片描述
+ * @param {String} className, 类名
+ * @author luyanhong 2018-12-05
+ */
 import React, { Component } from 'react';
 import LazyLoad from 'vanilla-lazyload';
-import loadingImage from 'assets/img/loading.gif';
+import PropTypes from 'prop-types';
 if (!document.lazyLoadInstance) {
   document.lazyLoadInstance = new LazyLoad({
-    element_selector: '.lazy',
-    data_bg: loadingImage
+    element_selector: '.lazy'
   });
 }
 class LazyImage extends Component {
+  static propTypes = {
+    alt: PropTypes.string,
+    src: PropTypes.string,
+    className: PropTypes.string
+  }
+
+  static defaultProps = {
+    alt: '',
+    src: '',
+    className: ''
+  }
+
   componentDidMount () {
     document.lazyLoadInstance.update();
   }
@@ -17,8 +35,8 @@ class LazyImage extends Component {
     return (
       <img
         alt={alt}
-        className={`lazy ${className}`}
         data-src={src}
+        className={`lazy ${className}`}
       />
     );
   }

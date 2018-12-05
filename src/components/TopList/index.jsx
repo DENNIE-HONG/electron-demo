@@ -5,6 +5,7 @@
 */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import LazyImage from 'coms/LazyImage';
 import { getTopRecommend } from 'server/api/top';
 import './TopList.scss';
 
@@ -62,7 +63,7 @@ class TopList extends Component {
           <dl className="toplist-list" key={item.id}>
             <dt className="toplist-list-title">
               <div className="toplist-list-pic">
-                <img src={`${item.coverImgUrl}?param=80y80`} alt={item.name} />
+                <LazyImage src={`${item.coverImgUrl}?param=80y80`} alt={item.name} />
               </div>
               <div className="toplist-list-info">
                 <h4>{item.name}</h4>
