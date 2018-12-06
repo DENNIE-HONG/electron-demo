@@ -41,6 +41,10 @@ class Top extends Component {
     }
   }
 
+  play (id) {
+    // this.props.setMusic && this.props.setMusic([], 1);
+  }
+
   render () {
     return (
       <div className="top">
@@ -54,7 +58,7 @@ class Top extends Component {
                     <div className="top-list-pic">
                       <LazyImage src={`${item.coverImgUrl}?param=120y120`} alt={item.name} />
                     </div>
-                    <button className="top-list-btn" type="button">
+                    <button className="top-list-btn" type="button" onClick={this.play.bind(this)}>
                     </button>
                     <span className="top-list-item-count">{this.prettyCount(item.playCount)}</span>
                   </div>

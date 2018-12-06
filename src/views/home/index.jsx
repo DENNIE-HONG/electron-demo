@@ -5,7 +5,6 @@ import {
   getPlaylistDetail,
   getAlbum
 } from 'api/home';
-import PlayBox from 'coms/PlayBox';
 import NewAlbum from 'coms/NewAlbum';
 import CarouselBox from 'coms/CarouselBox';
 import showMessage from 'coms/message';
@@ -17,11 +16,14 @@ class Home extends Component {
     super(props);
     this.state = {
       musicList: [],
-      playId: 0,
-      newAlbumList: [],
-      playList: []
+      newAlbumList: []
     };
     this.fetch();
+  }
+
+  // 回调，设置播放音乐列表
+  setPlayMusic = (playList, playId) => {
+    this.props.setMusic && this.props.setMusic(playList, playId);
   }
 
   async fetch () {
@@ -53,10 +55,7 @@ class Home extends Component {
     try {
       const res = await getPlaylistDetail(playId);
       if (res.code === 200) {
-        this.setState({
-          playList: res.playlist.tracks,
-          playId
-        });
+        this.setPlayMusic(res.playlist.tracks, playId);
       } else {
         this.fail('资源获取失败了');
       }
@@ -70,24 +69,13 @@ class Home extends Component {
     try {
       const res = await getAlbum(playId);
       if (res.code === 200) {
-        this.setState({
-          playList: res.songs,
-          playId
-        });
+        this.setPlayMusic(res.songs, playId);
       } else {
         this.fail('资源获取失败啦');
       }
     } catch (err) {
       this.fail(err.message);
     }
-  }
-
-  // 回调获取榜单列表
-  fetchTop (playList, playId) {
-    this.setState({
-      playList,
-      playId
-    });
   }
 
   fail (message) {
@@ -100,9 +88,7 @@ class Home extends Component {
   render () {
     const {
       musicList,
-      newAlbumList,
-      playList,
-      playId
+      newAlbumList
     } = this.state;
     return (
       <div className="home">
@@ -157,9 +143,9 @@ class Home extends Component {
               <i className="iconfont icon-circle"></i>
               <span className="title-txt">榜单</span>
             </div>
-            <TopList getPlayList={this.fetchTop.bind(this)} />
+            <TopList getPlayList={this.setPlayMusic} />
           </section>
-          <PlayBox playList={playList} id={playId} />
+          {/* <PlayBox playList={playList} id={playId} /> */}
         </main>
       </div>
     );

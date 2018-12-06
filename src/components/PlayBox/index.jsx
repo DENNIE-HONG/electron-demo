@@ -32,7 +32,6 @@ class PlayBox extends Component {
     this.state = {
       name: '暂无歌曲',
       picUrl: '',
-      // playlist: null,
       playState: READY,
       duration: 0,
       playProgress: 0,
@@ -134,6 +133,10 @@ class PlayBox extends Component {
   getDetalTime (detalX) {
     const deltalT = detalX * this.state.duration / PROGRESS_WIDTH;
     return deltalT;
+  }
+
+  open (id) {
+    console.log(id);
   }
 
   resetData () {

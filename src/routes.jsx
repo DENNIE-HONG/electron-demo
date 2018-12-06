@@ -2,19 +2,44 @@ import React, { Component } from 'react';
 import { HashRouter as Router, Route } from 'react-router-dom';
 import Footer from 'coms/TheFooter';
 import Siderbar from 'coms/TheSider';
+import PlayBox from 'coms/PlayBox';
 import Home from '@/views/home';
 import Top from '@/views/top';
 // import NotFound from '@/views/404';
 class RouteMap extends Component {
+  constructor (props) {
+    super(props);
+    this.state = {
+      playList: [],
+      playId: 0
+    };
+  }
+
+  setMusic = (playList, playId) => {
+    this.setState({
+      playList,
+      playId
+    });
+  }
+
   render () {
+    const { playList, playId } = this.state;
     return (
       <Router>
         <React.Fragment>
           <Siderbar />
           <div className="main">
             <div className="content">
-              <Route path="/top" component={Top} />
-              <Route path="/" exact component={Home} />
+              <Route
+                path="/top"
+                render={(p) => (<Top setMusic={this.setMusic} />)}
+              />
+              <Route
+                path="/"
+                exact
+                render={() => (<Home setMusic={this.setMusic} />)}
+              />
+              <PlayBox playList={playList} id={playId} />
             </div>
             <Footer />
           </div>
