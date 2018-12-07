@@ -35,4 +35,5 @@ export const getTopRecommend = () => {
   });
 }
 
+// 榜单内容摘要
 export const getTopListDetail = () => request.get('/wy/toplist/detail')

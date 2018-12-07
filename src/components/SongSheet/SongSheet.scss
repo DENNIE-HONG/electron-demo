@@ -1,0 +1,57 @@
+.songsheet {
+  &-list {
+    display: flex;
+    width: 100%;
+    margin-top: 20px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    &-item {
+      width: 125px;
+      min-width: 125px;
+      margin-bottom: 20px;
+      .item-info {
+        position: relative;
+        border: 1px solid nth($fblack, 3);
+        &-pic {
+          height: 123px;
+          img {
+            width: 100%;
+          }
+        }
+        &-play {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          height: 25px;
+          padding: 0 5px;
+          box-sizing: border-box;
+          background-color: rgba(0, 0, 0, 0.4);
+          color: nth($fgray, 5);
+          line-height: 22px;
+          border-top: 1px solid nth($fblack, 3);
+          .iconfont {
+            font-size: nth($fz, 1);
+          }
+          &-btn.iconfont {
+            cursor: pointer;
+            font-size: nth($fz, 2);
+            &:hover {
+              color: white;
+            }
+          }
+        }
+        &-count {
+          padding-left: 5px;
+        }
+      }
+      .item-title {
+        margin-top: 7px;
+        @include wordbreak;
+      }
+      .item-txt {
+        color: nth($fblack, 3);
+      }
+    }
+  }
+}

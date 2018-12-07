@@ -13,15 +13,15 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.icon-mute:before { content: "\e7dc"; }
+.icon-ranking:before { content: "\e630"; }
+
+.icon-radio:before { content: "\e61b"; }
 
 .icon-next:before { content: "\e603"; }
 
 .icon-prev:before { content: "\e650"; }
 
 .icon-pause:before { content: "\e655"; }
-
-.icon-volume:before { content: "\e708"; }
 
 .icon-circle:before { content: "\e6ca"; }
 
@@ -39,10 +39,19 @@
 
 .icon-left:before { content: "\e7ec"; }
 
+.icon-mv:before { content: "\e880"; }
+
 .icon-headset:before { content: "\e60d"; }
 
 .icon-github:before { content: "\e68d"; }
 
 .icon-play:before { content: "\e679"; }
 
+.icon-playlist:before { content: "\e8eb"; }
+
 .icon-swap-right:before { content: "\e8f1"; }
+
+.icon-volume:before { content: "\eca6"; }
+
+.icon-mute:before { content: "\eca9"; }
+

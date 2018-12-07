@@ -4,6 +4,7 @@
   left: 0;
   right: 0;
   height: 60px;
+  z-index: 1000;
   &-content {
     display: flex;
     height: 100%;
@@ -36,7 +37,7 @@
       margin-left: 20px;
       color: nth($fblack, 2);
       > .iconfont {
-        font-size: nth($fz, 3);
+        font-size: nth($fz, 5);
       }
       .volume-box {
         position: absolute;

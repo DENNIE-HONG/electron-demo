@@ -24,8 +24,14 @@ const Siderbar = () => (
       </dd>
       <dd className="sider-list-item">
         <NavLink to="/top" activeClassName="active">
-          <i className="iconfont icon-music"></i>
+          <i className="iconfont icon-ranking"></i>
           <h3>排行</h3>
+        </NavLink>
+      </dd>
+      <dd className="sider-list-item">
+        <NavLink to="/playlist" activeClassName="active">
+          <i className="iconfont icon-playlist"></i>
+          <h3>歌单</h3>
         </NavLink>
       </dd>
     </dl>

@@ -5,6 +5,7 @@ import Siderbar from 'coms/TheSider';
 import PlayBox from 'coms/PlayBox';
 import Home from '@/views/home';
 import Top from '@/views/top';
+import Playlist from '@/views/playlist';
 // import NotFound from '@/views/404';
 class RouteMap extends Component {
   constructor (props) {
@@ -29,18 +30,22 @@ class RouteMap extends Component {
         <React.Fragment>
           <Siderbar />
           <div className="main">
-            <div className="content">
+            <main className="content">
               <Route
                 path="/top"
-                render={(p) => (<Top setMusic={this.setMusic} />)}
+                render={() => (<Top setMusic={this.setMusic} />)}
               />
               <Route
                 path="/"
                 exact
                 render={() => (<Home setMusic={this.setMusic} />)}
               />
+              <Route
+                path="/playlist"
+                render={() => (<Playlist setMusic={this.setMusic} />)}
+              />
               <PlayBox playList={playList} id={playId} />
-            </div>
+            </main>
             <Footer />
           </div>
         </React.Fragment>

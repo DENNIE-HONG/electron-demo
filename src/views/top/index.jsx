@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { getTopListDetail } from 'server/api/top';
+import { getPlaylistDetail } from 'server/api/home';
 import LazyImage from 'coms/LazyImage';
+import showMessage from 'coms/message';
 import './top.scss';
 class Top extends Component {
   constructor (props) {
@@ -17,6 +19,7 @@ class Top extends Component {
         }
       ]
     };
+    this.playId = 0;
   }
 
   componentDidMount () {
@@ -41,8 +44,28 @@ class Top extends Component {
     }
   }
 
-  play (id) {
-    // this.props.setMusic && this.props.setMusic([], 1);
+  async play (id) {
+    try {
+      if (this.playId === id) {
+        showMessage({
+          type: 'warning',
+          message: '已经在播放当前榜单了呢'
+        });
+        return;
+      }
+      this.playId = id;
+      const res = await getPlaylistDetail(id);
+      if (res.code === 200) {
+        this.props.setMusic && this.props.setMusic(res.playlist.tracks.slice(0, 20), id);
+      } else {
+        throw Error('数据获取失败');
+      }
+    } catch (err) {
+      showMessage({
+        type: 'error',
+        message: err.toString()
+      });
+    }
   }
 
   render () {
@@ -58,7 +81,7 @@ class Top extends Component {
                     <div className="top-list-pic">
                       <LazyImage src={`${item.coverImgUrl}?param=120y120`} alt={item.name} />
                     </div>
-                    <button className="top-list-btn" type="button" onClick={this.play.bind(this)}>
+                    <button className="top-list-btn" type="button" onClick={this.play.bind(this, item.id)}>
                     </button>
                     <span className="top-list-item-count">{this.prettyCount(item.playCount)}</span>
                   </div>

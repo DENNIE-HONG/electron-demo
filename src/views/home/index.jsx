@@ -10,6 +10,7 @@ import CarouselBox from 'coms/CarouselBox';
 import showMessage from 'coms/message';
 import TopList from 'coms/TopList';
 import LazyImage from 'coms/LazyImage';
+import SongSheet from 'coms/SongSheet';
 import './home.scss';
 class Home extends Component {
   constructor (props) {
@@ -34,7 +35,7 @@ class Home extends Component {
         getPersonalizedNew(10)
       ]);
       this.setState({
-        musicList: musicListRes.result.slice(0, 4),
+        musicList: musicListRes.result.slice(0, 5),
         newAlbumList: newAlbumListRes.albums
       });
     } catch (err) {
@@ -98,7 +99,12 @@ class Home extends Component {
               <i className="iconfont icon-circle"></i>
               <span className="title-txt">热门推荐</span>
             </div>
-            <ul className="home-list">
+            <SongSheet
+              playList={musicList}
+              isShowArtist={false}
+              onPlay={this.fetchPlaylistDetail.bind(this)}
+            />
+            {/* <ul className="home-list">
               {musicList.map((item) => (
                 <li className="home-list-item" key={item.id}>
                   <div className="item-info">
@@ -114,7 +120,7 @@ class Home extends Component {
                   <h4 className="item-title">{item.name}</h4>
                 </li>
               ))}
-            </ul>
+            </ul> */}
           </section>
           <section className="home-new">
             <div className="home-title">

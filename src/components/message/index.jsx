@@ -12,7 +12,7 @@ class Message extends Component {
   static propTypes = {
     type: PropTypes.string,
     message: PropTypes.string.isRequired,
-    domNode: PropTypes.node.isRequired
+    domNode: PropTypes.object.isRequired
   }
 
   static defaultProps = {
