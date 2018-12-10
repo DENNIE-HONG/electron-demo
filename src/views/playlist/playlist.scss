@@ -1,5 +1,76 @@
 .playlist {
-  &-box {
-    padding: 20px;
+  padding: 0 20px;
+  &-title {
+    position: relative;
+    line-height: 50px;
+    border-bottom: 2px solid nth($fblue, 1);
+    .title-txt {
+      display: inline;
+      font-size: nth($fz, 4);
+    }
+    .title-btn-box {
+      border-collapse: collapse;
+    }
+    .title-btn {
+      padding: 6px;
+      cursor: pointer;
+      &.active {
+        color: white;
+        background-color: nth($fblue, 1);
+        border-color: nth($fblue, 1);
+        &:active {
+          border-color: nth($fblue, 2);
+          background-color: nth($fblue, 2);
+        }
+      }
+    }
+    &-btn {
+      display: inline-block;
+      cursor: pointer;
+    }
+  }
+  &-catlist {
+    position: absolute;
+    top: 110%;
+    left: 0;
+    right: 23%;
+    padding: 10px 0 20px 30px;
+    background-color: white;
+    z-index: 100;
+    @include boxShadow;
+    border-radius: 4px;
+    line-height: 26px;
+    cursor: pointer;
+    &::after {
+      position: absolute;
+      top: -8px;
+      left: 20px;
+      height: 0;
+      width: 0;
+      border-style: solid;
+      border-width: 8px;
+      border-color: white white transparent transparent;
+      content: '';
+      transform: rotate(-45deg);
+      box-shadow: 2px -2px 2px rgba(0, 0, 0, 0.08);
+    }
+    .active {
+      color: nth($fblue, 1);
+    }
+    &-title {
+      float: left;
+      color: nth($fblack, 3);
+    }
+    &-box {
+      margin-left: 50px;
+    }
+    &-item {
+      display: inline-block;
+      padding-right: 40px;
+      transition: all 0.3s;
+      &:hover {
+        color: nth($fblue, 1);
+      }
+    }
   }
 }

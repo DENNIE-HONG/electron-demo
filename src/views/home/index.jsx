@@ -9,7 +9,6 @@ import NewAlbum from 'coms/NewAlbum';
 import CarouselBox from 'coms/CarouselBox';
 import showMessage from 'coms/message';
 import TopList from 'coms/TopList';
-import LazyImage from 'coms/LazyImage';
 import SongSheet from 'coms/SongSheet';
 import './home.scss';
 class Home extends Component {
@@ -104,23 +103,6 @@ class Home extends Component {
               isShowArtist={false}
               onPlay={this.fetchPlaylistDetail.bind(this)}
             />
-            {/* <ul className="home-list">
-              {musicList.map((item) => (
-                <li className="home-list-item" key={item.id}>
-                  <div className="item-info">
-                    <div className="item-info-pic">
-                      <LazyImage src={`${item.picUrl}?param=160y160`} alt={item.name} />
-                    </div>
-                    <div className="item-info-play">
-                      <i className="iconfont icon-headset"></i>
-                      <span className="item-info-count">{item.playCount > 10000 ? `${Math.round(item.playCount / 10000)}万` : item.playCount}</span>
-                      <i className="iconfont icon-play item-info-play-btn pull-right" onClick={this.fetchPlaylistDetail.bind(this, item.id)}></i>
-                    </div>
-                  </div>
-                  <h4 className="item-title">{item.name}</h4>
-                </li>
-              ))}
-            </ul> */}
           </section>
           <section className="home-new">
             <div className="home-title">
@@ -151,7 +133,6 @@ class Home extends Component {
             </div>
             <TopList getPlayList={this.setPlayMusic} />
           </section>
-          {/* <PlayBox playList={playList} id={playId} /> */}
         </main>
       </div>
     );

@@ -7,8 +7,6 @@
 import React, { Component } from 'react';
 import LazyImage from 'coms/LazyImage';
 import PropTypes from 'prop-types';
-import LazyLoad from 'react-lazyload';
-import Loading from 'coms/Loading';
 import './SongSheet.scss';
 class SongSheet extends Component {
   static propTypes = {
@@ -35,10 +33,7 @@ class SongSheet extends Component {
             <li className="songsheet-list-item" key={item.id}>
               <div className="item-info">
                 <div className="item-info-pic">
-                  <LazyLoad placeholder={<Loading />} debounce={300} height={600} overflow>
-                    <img src={item.coverImgUrl ? `${item.coverImgUrl}?param=120y120` : `${item.picUrl}?param=120y120`} alt={item.name} />
-                  </LazyLoad>
-                  {/* <LazyImage src={item.coverImgUrl ? `${item.coverImgUrl}?param=120y120` : `${item.picUrl}?param=120y120`} alt={item.name} /> */}
+                  <LazyImage src={item.coverImgUrl ? `${item.coverImgUrl}?param=120y120` : `${item.picUrl}?param=120y120`} alt={item.name} />
                 </div>
                 <div className="item-info-play">
                   <i className="iconfont icon-headset"></i>

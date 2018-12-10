@@ -19,3 +19,37 @@ export const getTopPlayList = ({ order, cat, limit, offset }) => {
     params
   });
 }
+// 歌单分类
+export const getPlaylistCatList = () => new Promise(async (resolve, reject) => {
+  try {
+    const res = await request('/wy/playlist/catlist');
+    const result = [];
+
+    if (res.code === 200) {
+      for (const cat in res.categories) {
+        result[cat] = {};
+        result[cat].type = res.categories[cat];
+        result[cat].subs = [];
+      }
+      for (let i = 0; i < res.sub.length; i++) {
+        const item = res.sub[i];
+        const { category } = item;
+        result[category].subs.push(item);
+      }
+      resolve({
+        code: 200,
+        categories: result
+      });
+    } else {
+      reject({
+        code: 1,
+        msg: '请求出错'
+      })
+    }
+  } catch (err) {
+    reject({
+      code: err.code,
+      msg: err
+    });
+  }
+})
