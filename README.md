@@ -10,3 +10,5 @@ https://binaryify.github.io/NeteaseCloudMusicApi/
 ###3、使用react-lazyload实现图片懒加载
 
 ###4、react-router改用hash模式
+
+###5、一定要装eslint-plugin-html, vscode才有提示

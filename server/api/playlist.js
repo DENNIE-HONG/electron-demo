@@ -18,7 +18,7 @@ export const getTopPlayList = ({ order, cat, limit, offset }) => {
     url: '/wy/top/playlist',
     params
   });
-}
+};
 // 歌单分类
 export const getPlaylistCatList = () => new Promise(async (resolve, reject) => {
   try {
@@ -31,7 +31,7 @@ export const getPlaylistCatList = () => new Promise(async (resolve, reject) => {
         result[cat].type = res.categories[cat];
         result[cat].subs = [];
       }
-      for (let i = 0; i < res.sub.length; i++) {
+      for (let i = 0; i < res.sub.length; i ++) {
         const item = res.sub[i];
         const { category } = item;
         result[category].subs.push(item);
@@ -44,7 +44,7 @@ export const getPlaylistCatList = () => new Promise(async (resolve, reject) => {
       reject({
         code: 1,
         msg: '请求出错'
-      })
+      });
     }
   } catch (err) {
     reject({
@@ -52,4 +52,4 @@ export const getPlaylistCatList = () => new Promise(async (resolve, reject) => {
       msg: err
     });
   }
-})
+});
