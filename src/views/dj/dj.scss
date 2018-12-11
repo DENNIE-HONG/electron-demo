@@ -1,0 +1,57 @@
+.dj {
+  padding: 20px;
+  &-classification {
+    border-bottom: 1px solid nth($fgray, 1);
+    &-list {
+      display: flex;
+      max-width: 100%;
+      flex-wrap: wrap;
+    }
+    &-item {
+      white-space: nowrap;
+      padding-right: 20px;
+    }
+  }
+  &-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    &-item {
+      width: 48%;
+      padding: 20px 0;
+      border-bottom: 1px solid nth($fgray, 1);
+      box-sizing: border-box;
+    }
+    &-pic {
+      float: left;
+      width: 120px;
+      @include hid;
+      > img {
+        width: 100%;
+      }
+    }
+    &-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      height: 100%;
+      margin-left: 140px;
+      &-artist {
+        margin-bottom: 5px;
+        color: nth($fblack, 2);
+      }
+      &-txt {
+        color: nth($fblack, 3);
+      }
+      &-periods {
+        padding-right: 10px;
+      }
+    }
+    &-name {
+      // margin-top: 15px;
+      margin-bottom: 10px;
+      font-size: nth($fz, 3);
+      @include wordbreak;
+    }
+  }
+}

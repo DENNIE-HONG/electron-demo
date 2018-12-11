@@ -5,6 +5,10 @@
     "type": "git",
     "url": "git+https://github.com/DENNIE-HONG/electron-demo.git"
   },
+  "sideEffects": [
+    "*.scss",
+    "*.css"
+  ],
   "author": "luyanhong",
   "scripts": {
     "dev": "webpack --env.production=false --config build/webpack.dev.config.js",

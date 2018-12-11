@@ -34,6 +34,12 @@ const Siderbar = () => (
           <h3>歌单</h3>
         </NavLink>
       </dd>
+      <dd className="sider-list-item">
+        <NavLink to="/dj" activeClassName="active">
+          <i className="iconfont icon-radio"></i>
+          <h3>电台</h3>
+        </NavLink>
+      </dd>
     </dl>
   </aside>
 );

@@ -5,7 +5,7 @@ const required = () => {
   throw Error('Missing parameter!');
 };
 // 所有榜单
-export const getTopList = () => request.get('/wy/toplist')
+export const getTopList = () => request.get('/wy/toplist');
 
 // 获取榜单
 export const getTopRecommend = () => {
@@ -17,11 +17,11 @@ export const getTopRecommend = () => {
         let i = 0;
         const [...topList] = results;
         const [...tracks] = await Promise.all([
-          getPlaylistDetail(topList[i++].id),
-          getPlaylistDetail(topList[i++].id),
-          getPlaylistDetail(topList[i++].id)
+          getPlaylistDetail(topList[i ++].id),
+          getPlaylistDetail(topList[i ++].id),
+          getPlaylistDetail(topList[i ++].id)
         ]);
-        for (let j = 0; j < topList.length; j++) {
+        for (let j = 0; j < topList.length; j ++) {
           topList[j].tracks = tracks[j].playlist.tracks.slice(0, 10);
         }
         resolve({
@@ -33,7 +33,7 @@ export const getTopRecommend = () => {
       reject(err);
     }
   });
-}
+};
 
 // 榜单内容摘要
-export const getTopListDetail = () => request.get('/wy/toplist/detail')
+export const getTopListDetail = () => request.get('/wy/toplist/detail');

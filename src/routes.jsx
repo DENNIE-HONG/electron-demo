@@ -6,6 +6,7 @@ import PlayBox from 'coms/PlayBox';
 import Home from '@/views/home';
 import Top from '@/views/top';
 import Playlist from '@/views/playlist';
+import Dj from '@/views/dj';
 // import NotFound from '@/views/404';
 class RouteMap extends Component {
   constructor (props) {
@@ -43,6 +44,10 @@ class RouteMap extends Component {
               <Route
                 path="/playlist"
                 render={() => (<Playlist setMusic={this.setMusic} />)}
+              />
+              <Route
+                path="/dj"
+                render={() => (<Dj />)}
               />
               <PlayBox playList={playList} id={playId} />
             </main>
