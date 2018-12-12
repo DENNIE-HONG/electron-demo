@@ -1,0 +1,33 @@
+.program {
+  padding: 20px;
+  &-head {
+    &-pic {
+      float: left;
+      width: 150px;
+      padding: 5px;
+      border: 1px solid nth($fgray, 1);
+      > img {
+        width: 100%;
+        vertical-align: middle;
+      }
+    }
+    &-info {
+      margin-left: 190px;
+      .info-name {
+        font-size: nth($fz, 4);
+      }
+      .info-artist {
+        margin-top: 10px;
+        color: nth($fblue, 1);
+        img {
+          width: 30px;
+          margin-right: 10px;
+          vertical-align: middle;
+        }
+      }
+      .info-btn {
+        margin-top: 20px;
+      }
+    }
+  }
+}

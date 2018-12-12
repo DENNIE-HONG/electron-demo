@@ -25,3 +25,11 @@
 @mixin lines {
   border-bottom: 1px solid nth($fgray, 1);
 }
+
+@mixin linehid($rows) {
+  display: -webkit-box;
+  -webkit-line-clamp: $rows;
+  word-break: break-all;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

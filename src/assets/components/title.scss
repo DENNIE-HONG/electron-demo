@@ -1,0 +1,11 @@
+.title {
+  padding: 5px 10px;
+  border-bottom: 2px solid nth($fblue, 1);
+  > .iconfont {
+    padding-right: 5px;
+    color: nth($fblue, 1);
+  }
+  &-txt {
+    font-size: nth($fz, 4);
+  }
+}
