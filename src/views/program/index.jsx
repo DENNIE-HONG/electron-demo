@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import LazyImage from 'coms/LazyImage';
 import { getDjDetail, getDjProgram } from 'server/api/dj';
 import { NavLink } from 'react-router-dom';
+import Pagination from 'coms/Pagination';
 import './program.scss';
+const PAGE_SIZE = 30;
 class Program extends Component {
   constructor (props) {
     super(props);
@@ -103,6 +105,7 @@ class Program extends Component {
             ))}
           </ol>
         </div>
+        <Pagination total={Math.ceil(info.programCount / PAGE_SIZE)} />
       </div>
     );
   }
