@@ -86,7 +86,7 @@
     "react/no-direct-mutation-state": 2,
     "react/no-unknown-property": 2,
     "react/prefer-es6-class": 2,
-    "react/prop-types": [1, {"ignore": ["children", "setMusic"]}],
+    "react/prop-types": [1, {"ignore": ["children", "setMusic", "match"]}],
     "no-extra-boolean-cast": 0,
     "react/no-deprecated": 1,
     "react/jsx-equals-spacing": 2,

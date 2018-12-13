@@ -3,7 +3,7 @@
   &-head {
     &-pic {
       float: left;
-      width: 150px;
+      width: 160px;
       padding: 5px;
       border: 1px solid nth($fgray, 1);
       > img {
@@ -26,7 +26,73 @@
         }
       }
       .info-btn {
-        margin-top: 20px;
+        margin-top: 12px;
+        .btn-primary {
+          margin-right: 6px;
+        }
+      }
+      .info-desc {
+        margin-top: 12px;
+        line-height: 20px;
+      }
+      .info-cate {
+        margin-right: 10px;
+        padding: 2px 6px;
+        border: 1px solid nth($fred, 1);
+        color: nth($fred, 1);
+        border-radius: 3px;
+      }
+    }
+  }
+  &-box {
+    margin-top: 20px;
+    .title {
+      i {
+        padding-left: 20px;
+        color: nth($fblack, 3);
+      }
+    }
+  }
+  &-list {
+    border: 1px solid nth($fgray, 5);
+  }
+  &-item {
+    padding: 0 30px;
+    line-height: 40px;
+    color: nth($fblack, 2);
+    &:hover {
+      background-color: nth($fgray, 1);
+    }
+    &-order {
+      padding-right: 20px;
+      color: nth($fblack, 3);
+    }
+    &-name {
+      display: inline-block;
+      width: 50%;
+      vertical-align: middle;
+    }
+    &-count {
+      display: inline-block;
+      width: 50px;
+      padding-right: 30px;
+    }
+    &-time {
+      padding-right: 30px;
+    }
+    .iconfont {
+      padding-right: 10px;
+      color: nth($fblack, 3);
+      cursor: pointer;
+      vertical-align: middle;
+      &:hover {
+        color: nth($fblack, 2);
+      }
+    }
+    &:nth-child(even) {
+      background-color: nth($fgray, 3);
+      &:hover {
+        background-color: nth($fgray, 1);
       }
     }
   }

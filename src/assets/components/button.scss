@@ -5,11 +5,18 @@
   border-radius: 3px;
   cursor: pointer;
   background-color: #fdfdfd;
-  &:hover,
-  &.active {
-    background-color: white;
+  line-height: 14px;
+  color: nth($fblack, 2);
+  &:active {
+    filter: hue-rotate(15deg);
+  }
+  .iconfont {
+    padding-right: 5px;
+    font-size: nth($fz, 1);
   }
 }
 .btn-primary {
-  filter: hue-rotate(30deg);
+  color: white;
+  background-color: nth($fblue, 1);
+  border-color: nth($fblue, 1);
 }

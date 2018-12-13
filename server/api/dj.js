@@ -11,3 +11,21 @@ export const getDjRecommend = (type) => request.get(`/wy/dj/recommend/type?type=
 
 // 电台详情, rid是节目id
 export const getDjDetail = (rid) => request.get(`/wy/dj/detail?rid=${rid}`);
+
+/**
+ * 电台节目
+ * @param {Number} 必选参数 : rid: 电台 的 id
+ * @param {Number} limit : 返回数量 , 默认为 30
+ * @param {Number} offset : 偏移数量，用于分页
+*/
+export const getDjProgram = ({ rid, offset, limit }) => {
+  const params = {
+    rid,
+    offset,
+    limit
+  };
+  return request({
+    params,
+    url: '/wy/dj/program'
+  });
+};

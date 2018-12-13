@@ -25,6 +25,9 @@
 @mixin lines {
   border-bottom: 1px solid nth($fgray, 1);
 }
+@mixin dropShadow {
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.2));
+}
 
 @mixin linehid($rows) {
   display: -webkit-box;
