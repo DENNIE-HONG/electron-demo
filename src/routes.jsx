@@ -52,7 +52,7 @@ class RouteMap extends Component {
               />
               <Route
                 path="/program/:id"
-                render={(props) => (<Program {...props} />)}
+                render={(props) => (<Program setMusic={this.setMusic} {...props} />)}
               />
               <PlayBox playList={playList} id={playId} />
             </main>

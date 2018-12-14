@@ -92,6 +92,17 @@ class Program extends Component {
     });
   }
 
+  play (playList, id) {
+    this.props.setMusic && this.props.setMusic(playList, id);
+  }
+
+  playAll () {
+    const { id } = this.state.info;
+    let playList = [];
+    playList = this.state.programList.map((item) => item.mainSong);
+    this.play(playList, id);
+  }
+
   render () {
     const { info, programList } = this.state;
     return info && (
@@ -108,7 +119,11 @@ class Program extends Component {
             </div>
             <div className="info-btn">
               <button type="button" className="btn-primary">{`订阅(${info.subCount})`}</button>
-              <button type="button" className="btn">
+              <button
+                type="button"
+                className="btn"
+                onClick={this.playAll.bind(this)}
+              >
                 <i className="iconfont icon-play"></i>
                 播放全部
               </button>
@@ -125,11 +140,11 @@ class Program extends Component {
             <i>共{info.programCount}期</i>
           </div>
           <ol className="program-list">
-            {programList.map((item) => (
+            {programList.map((item, index) => (
               <li className="program-item" key={item.id}>
                 <i className="program-item-order">{item.serialNum}</i>
-                <i className="iconfont icon-play"></i>
-                <h4 className="program-item-name">{item.name}</h4>
+                <i className="iconfont icon-play" onClick={this.play.bind(this, [programList[index].mainSong], item.mainSong.id)}></i>
+                <h4 className="program-item-name" title={item.name}>{item.name}</h4>
                 <span className="program-item-count">播放{item.listenerCount}</span>
                 <span>赞{item.likedCount}</span>
                 <div className="pull-right">

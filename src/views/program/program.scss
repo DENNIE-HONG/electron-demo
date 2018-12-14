@@ -71,7 +71,10 @@
     &-name {
       display: inline-block;
       width: 50%;
+      padding-right: 10px;
       vertical-align: middle;
+      @include txthid;
+      @include hid;
     }
     &-count {
       display: inline-block;

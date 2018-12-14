@@ -18,7 +18,7 @@ class VolumeBox extends Component {
   }
 
   static defaultProps = {
-    volume: 0.2,
+    volume: 0.4,
     isOpen: false,
     change: undefined
   }

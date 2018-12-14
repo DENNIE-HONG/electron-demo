@@ -17,7 +17,7 @@ const PLAYING = 1;
 const PAUSE = 2;
 let index = 0;
 let isMouseDown = false;
-const initVolume = 0.2;
+const initVolume = 0.4;
 const PROGRESS_WIDTH = 500;
 let badlength = 0;
 let progress = null;
@@ -152,10 +152,19 @@ class PlayBox extends Component {
   async fetchData (id) {
     try {
       const res = await getMusic(id);
-      if (res.code === 200 && res.data[0].url) {
+      const music = res.data[0];
+      if (res.code === 200 && music.url) {
         const audio = this.myRef.current;
-        audio.src = res.data[0].url;
-        return true;
+        audio.src = music.url;
+        return new Promise((resolve, reject) => {
+          audio.src = music.url;
+          audio.onerror = () => {
+            reject('暂时不能播放, 可能是付费');
+          };
+          audio.onloadeddata = () => {
+            resolve(music);
+          };
+        });
       }
       // url 没有数据时候
       badlength += 1;
@@ -183,10 +192,10 @@ class PlayBox extends Component {
     }
     const play = this.props.playList[index];
     // 没有成功获取资源
-    this.fetchData(play.id).then(() => {
+    this.fetchData(play.id).then((data) => {
       const { name } = play;
-      const { picUrl } = play.al;
-      const duration = parseInt((play.l.size * 8) / play.l.br, 10);
+      const { picUrl } = play.al || play.album;
+      const duration = parseInt((data.size * 8) / data.br, 10);
       this.setState({
         name,
         picUrl,
@@ -196,6 +205,11 @@ class PlayBox extends Component {
       });
       // 开始播放
       this.onPlay();
+    }).catch((err) => {
+      showMessage({
+        type: 'error',
+        message: err
+      });
     });
   }
 
