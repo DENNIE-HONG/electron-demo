@@ -50,6 +50,8 @@
     line-height: 26px;
     @include dropShadow;
     cursor: pointer;
+    transition: all 0.3s;
+    transform-origin: center top;
     &::after {
       position: absolute;
       top: -12px;
@@ -60,6 +62,10 @@
       border-bottom-color: white;
       border-top-width: 0;
       content: '';
+    }
+    &.hide {
+      display: block;
+      transform: scaleY(0);
     }
     .active {
       color: nth($fblue, 1);

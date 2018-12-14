@@ -12,3 +12,5 @@ https://binaryify.github.io/NeteaseCloudMusicApi/
 ###4、react-router改用hash模式
 
 ###5、一定要装eslint-plugin-html, vscode才有提示
+
+###6、在componentDidMount绑定了原生事件后，记得在WillUnmount解除绑定

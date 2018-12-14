@@ -3,6 +3,7 @@ import LazyImage from 'coms/LazyImage';
 import { getDjDetail, getDjProgram } from 'server/api/dj';
 import { NavLink } from 'react-router-dom';
 import Pagination from 'coms/Pagination';
+import showMessage from 'coms/message';
 import './program.scss';
 const PAGE_SIZE = 30;
 class Program extends Component {
@@ -13,6 +14,7 @@ class Program extends Component {
       programList: []
     };
     this.offset = 0;
+    this.isLoading = false;
   }
 
   async componentDidMount () {
@@ -27,10 +29,11 @@ class Program extends Component {
         programList: programRes.programs
       });
     } catch (err) {
-      console.log(err);
+      this.fail(err.toString());
     }
   }
 
+  // 获取节目资源
   fetch (offset = 0) {
     const sentData = {
       offset,
@@ -39,6 +42,7 @@ class Program extends Component {
     return getDjProgram(sentData);
   }
 
+  // 格式化节目时长
   prettyDuration (duration) {
     if (!duration) {
       return '00:00';
@@ -51,10 +55,41 @@ class Program extends Component {
     return `${min}:${sec}`;
   }
 
+  // 格式化日期
   prettyDate (time) {
     let date = new Date(time).toLocaleDateString();
     date = date.replace(/\//g, '-');
     return date;
+  }
+
+  // 跳页
+  async changePage (pageNum) {
+    try {
+      if (this.isLoading) {
+        return;
+      }
+      this.isLoading = true;
+      const offset = (pageNum - 1) * PAGE_SIZE;
+      const res = await this.fetch(offset);
+      if (res.code === 200) {
+        this.setState({
+          programList: res.programs
+        });
+        this.offset = offset;
+        document.querySelector('.main').scrollTo(0, 0);
+      }
+    } catch (err) {
+      this.fail(err.toString());
+    } finally {
+      this.isLoading = false;
+    }
+  }
+
+  fail (message) {
+    showMessage({
+      type: 'error',
+      message
+    });
   }
 
   render () {
@@ -105,7 +140,10 @@ class Program extends Component {
             ))}
           </ol>
         </div>
-        <Pagination total={Math.ceil(info.programCount / PAGE_SIZE)} />
+        <Pagination
+          total={Math.ceil(info.programCount / PAGE_SIZE)}
+          change={this.changePage.bind(this)}
+        />
       </div>
     );
   }

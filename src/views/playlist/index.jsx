@@ -23,30 +23,42 @@ class Playlist extends Component {
       order: 'hot',
       cat: '全部'
     };
+    this.debounceFun = debounce(300, this.loadMore.bind(this));
+    this.closeCatList = this.closeCatList.bind(this);
   }
 
   componentDidMount () {
     this.fetch();
-    this.fetchGategories();
     this.$scrollNode = document.querySelector('.main');
-    const loadMore = debounce(300, this.loadMore.bind(this));
-    this.$scrollNode.addEventListener('scroll', loadMore, false);
+    this.$scrollNode.addEventListener('scroll', this.debounceFun, false);
     // 点击其他区域关闭分类模块
-    document.addEventListener('click', () => {
-      if (!this.state.isHideCat) {
-        this.setState({
-          isHideCat: true
-        });
-      }
-    }, false);
+    document.addEventListener('click', this.closeCatList, false);
+  }
+
+  componentWillUnmount () {
+    // 要解除绑定
+    this.$scrollNode = document.querySelector('.main');
+    this.$scrollNode.removeEventListener('scroll', this.debounceFun, false);
+    document.removeEventListener('click', this.closeCatList, false);
   }
 
   openCatList (evt) {
     evt.nativeEvent.stopImmediatePropagation();
     evt.stopPropagation();
+    if (!this.state.categories.length) {
+      this.fetchGategories();
+    }
     this.setState((prev) => ({
       isHideCat: !prev.isHideCat
     }));
+  }
+
+  closeCatList () {
+    if (!this.state.isHideCat) {
+      this.setState({
+        isHideCat: true
+      });
+    }
   }
 
   // 获取播放列表

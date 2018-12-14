@@ -31,21 +31,14 @@ class Pagination extends Component {
     this.state = {
       current: this.props.current
     };
+    this.cachePageList = {};
   }
 
-  change (current) {
-    if (current < 1 || current > this.props.total) {
-      return;
-    }
-    this.setState({
-      current
-    }, () => {
-      this.props.change && this.props.change(current);
-    });
-  }
-
-  createPage () {
+  get range () {
     const { current } = this.state;
+    if (this.cachePageList[current]) {
+      return this.cachePageList[current];
+    }
     const { pagerCount, total } = this.props;
     const result = [];
     let start;
@@ -63,14 +56,27 @@ class Pagination extends Component {
     for (let i = start; i < end; i += 1) {
       result.push(i);
     }
+    this.cachePageList[current] = result;
     return result;
+  }
+
+  change (current) {
+    if (current === this.state.current) {
+      return;
+    }
+    if (current < 1 || current > this.props.total) {
+      return;
+    }
+    this.setState({
+      current
+    }, () => {
+      this.props.change && this.props.change(current);
+    });
   }
 
   render () {
     const { total, pagerCount } = this.props;
     const { current } = this.state;
-    const list = this.createPage();
-    console.log('渲染了');
     return (
       <div className="pager">
         {total > pagerCount
@@ -79,7 +85,7 @@ class Pagination extends Component {
             <i className="iconfont icon-left"></i>
           </span>
         )}
-        {list.map((item) => (
+        {this.range.map((item) => (
           <span className={`pager-btn ${current === item ? 'active' : ''}`} key={item} onClick={this.change.bind(this, item)}>{item}</span>
         ))}
         {total > pagerCount
