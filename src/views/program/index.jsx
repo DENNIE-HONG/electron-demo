@@ -105,6 +105,7 @@ class Program extends Component {
 
   render () {
     const { info, programList } = this.state;
+    const total = info && Math.ceil(info.programCount / PAGE_SIZE);
     return info && (
       <div className="program">
         <header className="program-head">
@@ -145,7 +146,7 @@ class Program extends Component {
                 <i className="program-item-order">{item.serialNum}</i>
                 <i className="iconfont icon-play" onClick={this.play.bind(this, [programList[index].mainSong], item.mainSong.id)}></i>
                 <h4 className="program-item-name" title={item.name}>{item.name}</h4>
-                <span className="program-item-count">播放{item.listenerCount}</span>
+                <span className="program-item-count">播放{item.listenerCount > 10000 ? `${Math.trunc(item.listenerCount / 10000)}万` : item.listenerCount}</span>
                 <span>赞{item.likedCount}</span>
                 <div className="pull-right">
                   <span className="program-item-time">{this.prettyDate(item.createTime)}</span>
@@ -155,10 +156,13 @@ class Program extends Component {
             ))}
           </ol>
         </div>
-        <Pagination
-          total={Math.ceil(info.programCount / PAGE_SIZE)}
-          change={this.changePage.bind(this)}
-        />
+        {total > 1 && (
+          <Pagination
+            total={total}
+            change={this.changePage.bind(this)}
+          />
+        )
+        }
       </div>
     );
   }
