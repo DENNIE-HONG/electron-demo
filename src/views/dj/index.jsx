@@ -10,7 +10,7 @@ class Dj extends Component {
       programs: [],
       cateList: [],
       newList: [],
-      type: ''
+      categoryId: Number(props.match.params.categoryId)
     };
   }
 
@@ -24,17 +24,23 @@ class Dj extends Component {
         programs: programRes.programs,
         cateList: cateListRes.categories
       });
+      const { categoryId } = this.state;
+      categoryId && this.fetch(categoryId);
     } catch (err) {
       console.log(err);
     }
   }
 
+  /**
+   * 获取推荐新电台资源
+   * @param {Number}  电台分类id
+  */
   fetch (id) {
     getDjRecommend(id).then((res) => {
       if (res.code === 200) {
         this.setState({
           newList: res.djRadios.slice(0, 5),
-          type: res.djRadios[0].category
+          categoryId: id
         });
       }
     }).catch((err) => {
@@ -44,7 +50,7 @@ class Dj extends Component {
 
   render () {
     const {
-      programs, cateList, newList, type
+      programs, cateList, newList, categoryId
     } = this.state;
     return (
       <div className="dj">
@@ -53,7 +59,7 @@ class Dj extends Component {
             {cateList.map((li) => (
               <li
                 key={li.id}
-                className={`dj-classification-item ${type === li.name ? 'active' : ''}`}
+                className={`dj-classification-item ${categoryId === li.id ? 'active' : ''}`}
                 onClick={() => this.fetch(li.id)}
               >{li.name}
               </li>
@@ -69,12 +75,12 @@ class Dj extends Component {
             <ul className="dj-new-list">
               {newList.map((sub) => (
                 <li className="dj-new-item" key={sub.id}>
-                  <NavLink to={`/program/${sub.id}`}>
+                  <NavLink to={`/djRadio/${sub.id}`}>
                     <div className="dj-new-pic">
                       <LazyImage src={`${sub.picUrl}?param=160y160`} alt={sub.name} />
                     </div>
                     <h4 className="dj-new-name">{sub.name}</h4>
-                    <span>{sub.rcmdtext}</span>
+                    <span className="dj-new-txt">{sub.rcmdtext}</span>
                   </NavLink>
                 </li>
               ))}

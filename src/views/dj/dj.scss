@@ -90,6 +90,9 @@
       color: nth($fblack, 1);
       @include linehid(2);
     }
+    &-txt {
+      color: nth($fblack, 3);
+    }
   }
   &-recommend {
     margin-top: 20px;

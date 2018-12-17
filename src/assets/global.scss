@@ -15,6 +15,7 @@ a {
   color: #333;
   text-decoration: none;
   outline: none;
+  transition: all 0.3s;
 }
 
 /* 清除浮动 */
@@ -84,4 +85,9 @@ html {
 }
 .hide {
   display: none;
+}
+
+pre {
+  display: block;
+  white-space: pre;
 }

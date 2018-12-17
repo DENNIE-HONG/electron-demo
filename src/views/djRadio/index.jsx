@@ -4,19 +4,23 @@ import { getDjDetail, getDjProgram } from 'server/api/dj';
 import { NavLink } from 'react-router-dom';
 import Pagination from 'coms/Pagination';
 import showMessage from 'coms/message';
-import './program.scss';
+import './djRadio.scss';
 const PAGE_SIZE = 30;
-class Program extends Component {
+class DjRadio extends Component {
   constructor (props) {
     super(props);
     this.state = {
       info: null,
-      programList: []
+      programList: [],
+      isShowDesc: false,
+      hasDescBtn: false
     };
     this.offset = 0;
     this.isLoading = false;
     this.playAll = this.playAll.bind(this);
     this.changePage = this.changePage.bind(this);
+    this.showDesc = this.showDesc.bind(this);
+    this.$desc = React.createRef();
   }
 
   async componentDidMount () {
@@ -31,10 +35,23 @@ class Program extends Component {
           info: detail.djRadio,
           programList: programRes.programs
         });
+        // 简介字数少
+        if (detail.djRadio.desc.length < 160) {
+          return;
+        }
+        if (this.$desc.current.clientHeight > 60) {
+          this.setState({
+            hasDescBtn: true
+          });
+        }
       }
     } catch (err) {
       this.fail(err.toString());
     }
+  }
+
+  get total () {
+    return Math.ceil(this.state.info.programCount / PAGE_SIZE);
   }
 
   play (playList, id) {
@@ -107,9 +124,17 @@ class Program extends Component {
     this.play(playList, id);
   }
 
+  // 展开、收起
+  showDesc () {
+    this.setState((prev) => ({
+      isShowDesc: !prev.isShowDesc
+    }));
+  }
+
   render () {
-    const { info, programList } = this.state;
-    const total = info && Math.ceil(info.programCount / PAGE_SIZE);
+    const {
+      info, programList, isShowDesc, hasDescBtn
+    } = this.state;
     return info && (
       <div className="program">
         <header className="program-head">
@@ -117,7 +142,9 @@ class Program extends Component {
             <LazyImage src={info.picUrl} alt={info.name} />
           </div>
           <div className="program-head-info">
-            <h3 className="info-name">{info.name}</h3>
+            <h3 className="info-name">
+              <span className="info-name-tag">电台</span>{info.name}
+            </h3>
             <div className="info-artist">
               <LazyImage src={info.dj.avatarUrl} alt={info.dj.nickname} />
               <span>{info.dj.nickname}</span>
@@ -133,10 +160,18 @@ class Program extends Component {
                 播放全部
               </button>
             </div>
-            <p className="info-desc">
-              <NavLink to="/dj" className="info-cate">{info.category}</NavLink>
-              {info.desc}
-            </p>
+            <div className={`info-desc ${isShowDesc ? '' : 'active'}`}>
+              <NavLink to={`/dj/${info.categoryId}`} className="info-cate"> {info.category}</NavLink>
+              <pre ref={this.$desc}>{info.desc}</pre>
+            </div>
+            {hasDescBtn && (
+              <div className="pull-right info-desc-btn" onClick={this.showDesc}>
+                <span className="on">展开</span>
+                <span className="off">收起</span>
+                <i className="iconfont icon-down on"></i>
+                <i className="iconfont icon-up off"></i>
+              </div>
+            )}
           </div>
         </header>
         <div className="program-box">
@@ -160,9 +195,9 @@ class Program extends Component {
             ))}
           </ol>
         </div>
-        {total > 1 && (
+        {this.total > 1 && (
           <Pagination
-            total={total}
+            total={this.total}
             change={this.changePage}
           />
         )
@@ -171,4 +206,4 @@ class Program extends Component {
     );
   }
 }
-export default Program;
+export default DjRadio;

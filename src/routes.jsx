@@ -7,7 +7,7 @@ import Home from '@/views/home';
 import Top from '@/views/top';
 import Playlist from '@/views/playlist';
 import Dj from '@/views/dj';
-import Program from '@/views/program';
+import DjRadio from '@/views/djRadio';
 // import NotFound from '@/views/404';
 class RouteMap extends Component {
   constructor (props) {
@@ -47,12 +47,12 @@ class RouteMap extends Component {
                 render={(props) => (<Playlist setMusic={this.setMusic} {...props} />)}
               />
               <Route
-                path="/dj"
+                path="/dj/:categoryId?"
                 component={Dj}
               />
               <Route
-                path="/program/:id"
-                render={(props) => (<Program setMusic={this.setMusic} {...props} />)}
+                path="/djRadio/:id"
+                render={(props) => (<DjRadio setMusic={this.setMusic} {...props} />)}
               />
               <PlayBox playList={playList} id={playId} />
             </main>

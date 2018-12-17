@@ -53,6 +53,9 @@
         display: inline-block;
         line-height: 1;
         vertical-align: middle;
+        max-width: 80%;
+        @include txthid;
+        @include hid;
       }
       &-num {
         padding-right: 10px;
@@ -82,8 +85,6 @@
         }
         .toplist-list-item-txt {
           max-width: 75%;
-          @include txthid;
-          @include hid;
         }
       }
       &.more {

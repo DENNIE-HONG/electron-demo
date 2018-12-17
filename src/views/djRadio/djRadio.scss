@@ -13,8 +13,32 @@
     }
     &-info {
       margin-left: 190px;
+      min-height: 160px;
       .info-name {
         font-size: nth($fz, 4);
+        &-tag {
+          position: relative;
+          display: inline-block;
+          width: 40px;
+          height: 20px;
+          margin-right: 20px;
+          background-color: red;
+          color: white;
+          text-align: center;
+          font-size: nth($fz, 1);
+          vertical-align: middle;
+          &::after {
+            position: absolute;
+            right: -10px;
+            top: 0;
+            height: 0;
+            width: 0;
+            border: 10px solid transparent;
+            border-left-color: red;
+            border-right-width: 0;
+            content: ".";
+          }
+        }
       }
       .info-artist {
         margin-top: 10px;
@@ -34,13 +58,47 @@
       .info-desc {
         margin-top: 12px;
         line-height: 20px;
+        &.active {
+          max-height: 78px;
+          @include hid;
+        }
+        pre {
+          @include wordbreak;
+          white-space: pre-wrap;
+        }
       }
       .info-cate {
+        float: left;
         margin-right: 10px;
         padding: 2px 6px;
         border: 1px solid nth($fred, 1);
         color: nth($fred, 1);
         border-radius: 3px;
+        line-height: 1;
+        &:hover {
+          background-color: nth($fred, 2);
+        }
+      }
+      .info-desc-btn {
+        color: nth($fblue, 1);
+        cursor: pointer;
+        .off {
+          display: none;
+        }
+        .on {
+          display: inline;
+        }
+        > .iconfont {
+          font-size: nth($fz, 1);
+        }
+        &.active {
+          .off {
+            display: inline;
+          }
+          .on {
+            display: none;
+          }
+        }
       }
     }
   }
@@ -84,7 +142,8 @@
       padding-right: 30px;
     }
     &-time {
-      padding-right: 30px;
+      width: 88px;
+      display: inline-block;
     }
     .iconfont {
       padding-right: 10px;
