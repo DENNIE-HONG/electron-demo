@@ -37,7 +37,7 @@ class NewAlbum extends Component {
             </div>
             <h4 className="newalbum-list-name">{item.name}</h4>
             <span className="newalbum-list-txt">{item.artist.name}</span>
-            <div className="newalbum-play-btn" onClick={this.play.bind(this, item.id)}>
+            <div className="newalbum-play-btn" onClick={() => this.play(item.id)}>
               <i className="iconfont icon-play"></i>
             </div>
           </li>

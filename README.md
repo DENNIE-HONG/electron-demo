@@ -14,3 +14,7 @@ https://binaryify.github.io/NeteaseCloudMusicApi/
 ###5、一定要装eslint-plugin-html, vscode才有提示
 
 ###6、在componentDidMount绑定了原生事件后，记得在WillUnmount解除绑定
+
+###7、事件
+事件bind尽量写在construct里，只绑定一次
+需要传参时，用箭头函数

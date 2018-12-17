@@ -81,7 +81,7 @@ class Top extends Component {
                     <div className="top-list-pic">
                       <LazyImage src={`${item.coverImgUrl}?param=120y120`} alt={item.name} />
                     </div>
-                    <button className="top-list-btn" type="button" onClick={this.play.bind(this, item.id)}>
+                    <button className="top-list-btn" type="button" onClick={() => this.play(item.id)}>
                     </button>
                     <span className="top-list-item-count">{this.prettyCount(item.playCount)}</span>
                   </div>

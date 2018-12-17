@@ -81,16 +81,16 @@ class Pagination extends Component {
       <div className="pager">
         {total > pagerCount
         && (
-          <span className="pager-btn" onClick={this.change.bind(this, current - 1)}>
+          <span className="pager-btn" onClick={() => this.change(current - 1)}>
             <i className="iconfont icon-left"></i>
           </span>
         )}
         {this.range.map((item) => (
-          <span className={`pager-btn ${current === item ? 'active' : ''}`} key={item} onClick={this.change.bind(this, item)}>{item}</span>
+          <span className={`pager-btn ${current === item ? 'active' : ''}`} key={item} onClick={() => this.change(item)}>{item}</span>
         ))}
         {total > pagerCount
         && (
-          <span className="pager-btn" onClick={this.change.bind(this, current + 1)}>
+          <span className="pager-btn" onClick={() => this.change(current + 1)}>
             <i className="iconfont icon-right"></i>
           </span>
         )}

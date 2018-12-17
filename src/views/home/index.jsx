@@ -19,6 +19,10 @@ class Home extends Component {
       newAlbumList: []
     };
     this.fetch();
+    this.fetchPlaylistDetail = this.fetchPlaylistDetail.bind(this);
+    this.fetchAlbum = this.fetchAlbum.bind(this);
+    this.swipeNext = this.swipeNext.bind(this);
+    this.swipePrev = this.swipePrev.bind(this);
   }
 
   // 回调，设置播放音乐列表
@@ -101,7 +105,7 @@ class Home extends Component {
             <SongSheet
               playList={musicList}
               isShowArtist={false}
-              onPlay={this.fetchPlaylistDetail.bind(this)}
+              onPlay={this.fetchPlaylistDetail}
             />
           </section>
           <section className="home-new">
@@ -111,16 +115,16 @@ class Home extends Component {
             </div>
             <div className="home-new-list">
               <CarouselBox speed={0.9}>
-                <NewAlbum playList={newAlbumList.slice(0, 5)} getPlayId={this.fetchAlbum.bind(this)} />
-                <NewAlbum playList={newAlbumList.slice(5, 10)} getPlayId={this.fetchAlbum.bind(this)} />
+                <NewAlbum playList={newAlbumList.slice(0, 5)} getPlayId={this.fetchAlbum} />
+                <NewAlbum playList={newAlbumList.slice(5, 10)} getPlayId={this.fetchAlbum} />
               </CarouselBox>
               <div
-                onClick={this.swipeNext.bind(this)}
+                onClick={this.swipeNext}
                 className="home-new-nextbtn"
               ><i className="iconfont icon-right"></i>
               </div>
               <div
-                onClick={this.swipePrev.bind(this)}
+                onClick={this.swipePrev}
                 className="home-new-prevbtn"
               ><i className="iconfont icon-left"></i>
               </div>

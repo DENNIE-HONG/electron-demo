@@ -25,6 +25,7 @@ class Playlist extends Component {
     };
     this.debounceFun = debounce(300, this.loadMore.bind(this));
     this.closeCatList = this.closeCatList.bind(this);
+    this.openCatList = this.openCatList.bind(this);
   }
 
   componentDidMount () {
@@ -137,6 +138,9 @@ class Playlist extends Component {
 
   // 改变标签
   changeCat (cat) {
+    if (cat === this.sentData.cat) {
+      return;
+    }
     this.sentData.offset = 0;
     this.sentData.cat = cat;
     this.setState({
@@ -158,7 +162,7 @@ class Playlist extends Component {
     return (
       <div className="playlist">
         <div className="playlist-title">
-          <div className="playlist-title-btn" onClick={this.openCatList.bind(this)}>
+          <div className="playlist-title-btn" onClick={this.openCatList}>
             <h3 className="title-txt">{cat}</h3>
             <i className={`iconfont icon-down ${isHideCat ? '' : 'active'}`}></i>
           </div>
@@ -168,7 +172,7 @@ class Playlist extends Component {
           >
             <div
               className={cat === '全部' ? 'active' : ''}
-              onClick={this.changeCat.bind(this, '全部')}
+              onClick={() => this.changeCat('全部')}
             >全部
             </div>
             {categories.map((item, index) => (
@@ -179,7 +183,7 @@ class Playlist extends Component {
                     <span
                       className={`playlist-catlist-item ${cat === dd.name && 'active'}`}
                       key={`${index}-${i}`}
-                      onClick={this.changeCat.bind(this, dd.name)}
+                      onClick={() => this.changeCat(dd.name)}
                     >{dd.name}
                     </span>
                   ))}
@@ -191,13 +195,13 @@ class Playlist extends Component {
             <button
               className={`title-btn ${order === 'hot' ? 'active' : ''}`}
               type="button"
-              onClick={this.changeOrder.bind(this, 'hot')}
+              onClick={() => this.changeOrder('hot')}
             >热门
             </button>
             <button
               className={`title-btn ${order === 'new' ? 'active' : ''}`}
               type="button"
-              onClick={this.changeOrder.bind(this, 'new')}
+              onClick={() => this.changeOrder('new')}
             >最新
             </button>
           </div>

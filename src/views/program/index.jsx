@@ -15,6 +15,8 @@ class Program extends Component {
     };
     this.offset = 0;
     this.isLoading = false;
+    this.playAll = this.playAll.bind(this);
+    this.changePage = this.changePage.bind(this);
   }
 
   async componentDidMount () {
@@ -24,13 +26,19 @@ class Program extends Component {
         getDjDetail(id),
         this.fetch()
       ]);
-      this.setState({
-        info: detail.djRadio,
-        programList: programRes.programs
-      });
+      if (detail.code === 200 && programRes.code === 200) {
+        this.setState({
+          info: detail.djRadio,
+          programList: programRes.programs
+        });
+      }
     } catch (err) {
       this.fail(err.toString());
     }
+  }
+
+  play (playList, id) {
+    this.props.setMusic && this.props.setMusic(playList, id);
   }
 
   // 获取节目资源
@@ -92,10 +100,6 @@ class Program extends Component {
     });
   }
 
-  play (playList, id) {
-    this.props.setMusic && this.props.setMusic(playList, id);
-  }
-
   playAll () {
     const { id } = this.state.info;
     let playList = [];
@@ -123,7 +127,7 @@ class Program extends Component {
               <button
                 type="button"
                 className="btn"
-                onClick={this.playAll.bind(this)}
+                onClick={this.playAll}
               >
                 <i className="iconfont icon-play"></i>
                 播放全部
@@ -144,7 +148,7 @@ class Program extends Component {
             {programList.map((item, index) => (
               <li className="program-item" key={item.id}>
                 <i className="program-item-order">{item.serialNum}</i>
-                <i className="iconfont icon-play" onClick={this.play.bind(this, [programList[index].mainSong], item.mainSong.id)}></i>
+                <i className="iconfont icon-play" onClick={() => this.play([programList[index].mainSong], item.mainSong.id)}></i>
                 <h4 className="program-item-name" title={item.name}>{item.name}</h4>
                 <span className="program-item-count">播放{item.listenerCount > 10000 ? `${Math.trunc(item.listenerCount / 10000)}万` : item.listenerCount}</span>
                 <span>赞{item.likedCount}</span>
@@ -159,7 +163,7 @@ class Program extends Component {
         {total > 1 && (
           <Pagination
             total={total}
-            change={this.changePage.bind(this)}
+            change={this.changePage}
           />
         )
         }

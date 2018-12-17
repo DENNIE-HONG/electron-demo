@@ -67,7 +67,7 @@ class TopList extends Component {
               </div>
               <div className="toplist-list-info">
                 <h4>{item.name}</h4>
-                <i className="iconfont icon-play" onClick={this.play.bind(this, index)}></i>
+                <i className="iconfont icon-play" onClick={() => this.play(index)}></i>
               </div>
             </dt>
             <dd>
@@ -77,7 +77,7 @@ class TopList extends Component {
                     <span className={`toplist-list-item-num ${i < 3 ? 'active' : ''}`}>{i + 1}</span>
                     <span className="toplist-list-item-txt">{music.name}</span>
                     <span className="toplist-list-item-actions">
-                      <i className="iconfont icon-play" onClick={this.playSingle.bind(this, index, i)}></i>
+                      <i className="iconfont icon-play" onClick={() => this.playSingle(index, i)}></i>
                     </span>
                   </li>
                 ))}

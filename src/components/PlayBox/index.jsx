@@ -54,6 +54,8 @@ class PlayBox extends Component {
     this.openVolume = this.openVolume.bind(this);
     this.handleChangeVolume = this.handleChangeVolume.bind(this);
     this.changePlayTime = this.changePlayTime.bind(this);
+    this.prev = this.prev.bind(this);
+    this.next = this.next.bind(this);
   }
 
   componentDidMount () {
@@ -368,12 +370,12 @@ class PlayBox extends Component {
       <div className="play">
         <div className="play-content">
           <div className="play-action">
-            <div><i className="iconfont icon-prev" onClick={this.prev.bind(this)}></i></div>
+            <div><i className="iconfont icon-prev" onClick={this.prev}></i></div>
             <div className="play-action-start">
               <i className={`iconfont icon-play playing ${isPlaying ? 'hide' : ''}`} onClick={this.onPlay}></i>
               <i className={`iconfont icon-pause pause ${!isPlaying ? 'hide' : ''}`} onClick={this.pause}></i>
             </div>
-            <div><i className="iconfont icon-next" onClick={this.next.bind(this)}></i></div>
+            <div><i className="iconfont icon-next" onClick={this.next}></i></div>
             <div className="play-action-volume" onClick={this.openVolume}>
               <i className={`iconfont icon-volume ${volume <= 0.01 ? 'hide' : ''}`}></i>
               <i className={`iconfont icon-mute ${volume <= 0.01 ? '' : 'hide'}`}></i>

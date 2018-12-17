@@ -38,7 +38,7 @@ class SongSheet extends Component {
                 <div className="item-info-play">
                   <i className="iconfont icon-headset"></i>
                   <span className="item-info-count">{item.playCount > 10000 ? `${Math.round(item.playCount / 10000)}万` : item.playCount}</span>
-                  <i className="iconfont icon-play item-info-play-btn pull-right" onClick={this.onPlay.bind(this, item.id)}></i>
+                  <i className="iconfont icon-play item-info-play-btn pull-right" onClick={() => this.onPlay(item.id)}></i>
                 </div>
               </div>
               <h4 className="item-title">{item.name}</h4>

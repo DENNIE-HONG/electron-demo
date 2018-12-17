@@ -54,7 +54,7 @@ class Dj extends Component {
               <li
                 key={li.id}
                 className={`dj-classification-item ${type === li.name ? 'active' : ''}`}
-                onClick={this.fetch.bind(this, li.id)}
+                onClick={() => this.fetch(li.id)}
               >{li.name}
               </li>
             ))}

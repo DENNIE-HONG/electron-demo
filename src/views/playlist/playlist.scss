@@ -50,7 +50,7 @@
     line-height: 26px;
     @include dropShadow;
     cursor: pointer;
-    transition: all 0.3s;
+    transition: all 0.2s;
     transform-origin: center top;
     &::after {
       position: absolute;
