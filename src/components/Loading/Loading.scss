@@ -4,35 +4,66 @@
   justify-content: center;
   align-items: center;
   background-color: white;
+  &-box {
+    position: relative;
+    width: 80px;
+    height: 70px;
+    background: url(../../assets/img/loading.gif) top/100% no-repeat;
+  }
   &-item {
-    width: 6%;
-    height: 10%;
-    margin-right: 3%;
+    position: absolute;
+    width: 4px;
+    height: 4px;
     background-color: nth($fblue, 1);
-    animation: loading 1s infinite;
-    border-radius: 6px;
-    &:last-child {
-      margin-right: 0;
+    animation: loading 1.04s infinite;
+    border-radius: 50%;
+    &:nth-child(1) {
+      left: 0;
+      top: 13px;
+      animation-delay: 0.13s;
     }
     &:nth-child(2) {
-      animation-delay: 0.1s;
+      animation-delay: 0.26s;
+      left: 6px;
+      top: 4px;
     }
     &:nth-child(3) {
-      animation-delay: 0.2s;
+      left: 13px;
+      top: 0;
+      animation-delay: 0.39s;
     }
     &:nth-child(4) {
-      animation-delay: 0.3;
+      top: 4px;
+      right: 5px;
+      animation-delay: 0.52;
     }
     &:nth-child(5) {
-      animation-delay: 0.4s;
+      top: 13px;
+      right: 0;
+      animation-delay: 0.65s;
+    }
+    &:nth-child(6) {
+      bottom: 5px;
+      right: 5px;
+      animation-delay: 0.78s;
+    }
+    &:nth-child(7) {
+      bottom: 0;
+      left: 13px;
+      animation-delay: 0.91s;
+    }
+    &:nth-child(8) {
+      bottom: 5px;
+      left: 5px;
+      animation-delay: 1.04s;
     }
   }
 }
 @keyframes loading {
-  50% {
-    transform: scaleY(1.8);
+  0% {
+    opacity: 1;
   }
   100% {
-    transform: scaleY(1);
+    opacity: 0.2;
   }
 }

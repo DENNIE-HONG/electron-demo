@@ -29,3 +29,6 @@ export const getDjProgram = ({ rid, offset, limit }) => {
     url: '/wy/dj/program'
   });
 };
+
+// 电台节目详情
+export const getProgramDetail = (id) => request.get(`/wy/dj/program/detail?id=${id}`);

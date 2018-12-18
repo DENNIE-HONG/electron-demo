@@ -1,0 +1,54 @@
+.program-header {
+  &-pic {
+    float: left;
+    width: 160px;
+    padding: 5px;
+    border: 1px solid nth($fgray, 1);
+    > img {
+      width: 100%;
+      vertical-align: middle;
+    }
+  }
+  &-info {
+    margin-left: 190px;
+    min-height: 160px;
+  }
+  &-name {
+    font-size: nth($fz, 4);
+  }
+  &-tag {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 20px;
+    margin-right: 20px;
+    background-color: red;
+    color: white;
+    text-align: center;
+    font-size: nth($fz, 1);
+    vertical-align: middle;
+    &::after {
+      position: absolute;
+      right: -10px;
+      top: 0;
+      height: 0;
+      width: 0;
+      border: 10px solid transparent;
+      border-left-color: red;
+      border-right-width: 0;
+      content: '';
+    }
+    &::before {
+      position: absolute;
+      top: 50%;
+      right: -2px;
+      width: 4px;
+      height: 4px;
+      border-radius: 3px;
+      background-color: white;
+      content: '';
+      transform: translate(0, -50%);
+      z-index: 1;
+    }
+  }
+}

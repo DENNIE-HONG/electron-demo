@@ -5,7 +5,7 @@ import Footer from 'coms/TheFooter';
 import Siderbar from 'coms/TheSider';
 import PlayBox from 'coms/PlayBox';
 import Loading from 'coms/Loading';
-import Dj from '@/views/dj';
+// import Dj from '@/views/dj';
 // import DjRadio from '@/views/djRadio';
 // import Program from '@/views/program';
 // import NotFound from '@/views/404';
@@ -46,6 +46,20 @@ class RouteMap extends Component {
         return <loaded.default setMusic={self.setMusic} {...rest} />;
       }
     });
+    this.AsyncProgram = Loadable({
+      loader: () => import(/* webpackChunkName: 'program' */ '@/views/program'),
+      loading: Loading,
+      render (loaded, rest) {
+        return <loaded.default setMusic={self.setMusic} {...rest} />;
+      }
+    });
+    this.AsyncDj = Loadable({
+      loader: () => import(/* webpackChunkName: 'dj' */ '@/views/dj'),
+      loading: Loading,
+      render (loaded, rest) {
+        return <loaded.default {...rest} />;
+      }
+    });
   }
 
   setMusic = (playList, playId) => {
@@ -78,11 +92,15 @@ class RouteMap extends Component {
               />
               <Route
                 path="/dj/:categoryId?"
-                component={Dj}
+                component={this.AsyncDj}
               />
               <Route
                 path="/djRadio/:id"
                 component={this.AsyncDjRadio}
+              />
+              <Route
+                path="/program/:id"
+                component={this.AsyncProgram}
               />
               <PlayBox playList={playList} id={playId} />
             </main>

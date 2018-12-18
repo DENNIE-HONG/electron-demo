@@ -185,7 +185,9 @@ class DjRadio extends Component {
               <li className="djradio-item" key={item.id}>
                 <i className="djradio-item-order">{item.serialNum}</i>
                 <i className="iconfont icon-play" onClick={() => this.play([programList[index].mainSong], item.mainSong.id)}></i>
-                <h4 className="djradio-item-name" title={item.name}>{item.name}</h4>
+                <NavLink to={`/program/${item.id}`}>
+                  <h4 className="djradio-item-name" title={item.name}>{item.name}</h4>
+                </NavLink>
                 <span className="djradio-item-count">播放{item.listenerCount > 10000 ? `${Math.trunc(item.listenerCount / 10000)}万` : item.listenerCount}</span>
                 <span>赞{item.likedCount}</span>
                 <div className="pull-right">
