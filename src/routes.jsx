@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { HashRouter as Router, Route } from 'react-router-dom';
+import Loadable from 'react-loadable';
 import Footer from 'coms/TheFooter';
 import Siderbar from 'coms/TheSider';
 import PlayBox from 'coms/PlayBox';
-import Home from '@/views/home';
-import Top from '@/views/top';
-import Playlist from '@/views/playlist';
+import Loading from 'coms/Loading';
 import Dj from '@/views/dj';
-import DjRadio from '@/views/djRadio';
+// import DjRadio from '@/views/djRadio';
+// import Program from '@/views/program';
 // import NotFound from '@/views/404';
 class RouteMap extends Component {
   constructor (props) {
@@ -16,6 +16,36 @@ class RouteMap extends Component {
       playList: [],
       playId: 0
     };
+    const self = this;
+    this.AsyncHome = Loadable({
+      loader: () => import(/* webpackChunkName: "home" */ '@/views/home'),
+      loading: Loading,
+      render (loaded, rest) {
+        const Home = loaded.default;
+        return <Home setMusic={self.setMusic} {...rest} />;
+      }
+    });
+    this.AsyncPlaylist = Loadable({
+      loader: () => import(/* webpackChunkName: "playlist" */ '@/views/playlist'),
+      loading: Loading,
+      render (loaded, rest) {
+        return <loaded.default setMusic={self.setMusic} {...rest} />;
+      }
+    });
+    this.AsyncTop = Loadable({
+      loader: () => import(/* webpackChunkName: 'top' */ '@/views/top'),
+      loading: Loading,
+      render (loaded, rest) {
+        return <loaded.default setMusic={self.setMusic} {...rest} />;
+      }
+    });
+    this.AsyncDjRadio = Loadable({
+      loader: () => import(/* webpackChunkName: 'djRadio' */ '@/views/djRadio'),
+      loading: Loading,
+      render (loaded, rest) {
+        return <loaded.default setMusic={self.setMusic} {...rest} />;
+      }
+    });
   }
 
   setMusic = (playList, playId) => {
@@ -29,22 +59,22 @@ class RouteMap extends Component {
     const { playList, playId } = this.state;
     return (
       <Router>
-        <React.Fragment>
+        <>
           <Siderbar />
           <div className="main">
             <main className="content">
               <Route
                 path="/top"
-                render={(props) => (<Top setMusic={this.setMusic} {...props} />)}
+                component={this.AsyncTop}
               />
               <Route
                 path="/"
                 exact
-                render={(props) => (<Home setMusic={this.setMusic} {...props} />)}
+                component={this.AsyncHome}
               />
               <Route
                 path="/playlist"
-                render={(props) => (<Playlist setMusic={this.setMusic} {...props} />)}
+                component={this.AsyncPlaylist}
               />
               <Route
                 path="/dj/:categoryId?"
@@ -52,13 +82,13 @@ class RouteMap extends Component {
               />
               <Route
                 path="/djRadio/:id"
-                render={(props) => (<DjRadio setMusic={this.setMusic} {...props} />)}
+                component={this.AsyncDjRadio}
               />
               <PlayBox playList={playList} id={playId} />
             </main>
             <Footer />
           </div>
-        </React.Fragment>
+        </>
       </Router>
     );
   }

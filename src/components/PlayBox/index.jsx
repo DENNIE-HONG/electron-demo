@@ -137,10 +137,6 @@ class PlayBox extends Component {
     return deltalT;
   }
 
-  open (id) {
-    console.log(id);
-  }
-
   resetData () {
     index = 0;
     badlength = 0;
@@ -155,10 +151,10 @@ class PlayBox extends Component {
     try {
       const res = await getMusic(id);
       const music = res.data[0];
-      if (res.code === 200 && music.url) {
-        const audio = this.myRef.current;
-        audio.src = music.url;
-        return new Promise((resolve, reject) => {
+      return new Promise((resolve, reject) => {
+        if (res.code === 200 && music.url) {
+          const audio = this.myRef.current;
+          audio.src = music.url;
           audio.src = music.url;
           audio.onerror = () => {
             reject('暂时不能播放, 可能是付费');
@@ -166,20 +162,15 @@ class PlayBox extends Component {
           audio.onloadeddata = () => {
             resolve(music);
           };
-        });
-      }
-      // url 没有数据时候
-      badlength += 1;
-      if (badlength === this.props.playList.length) {
-        throw Error('歌曲url都是null');
-      }
-      this.next();
+        } else {
+          reject('歌曲暂时不能播放, 播放下一首');
+        }
+      });
     } catch (err) {
       showMessage({
         type: 'error',
         message: err.message
       });
-      return false;
     }
   }
 
@@ -208,6 +199,15 @@ class PlayBox extends Component {
       // 开始播放
       this.onPlay();
     }).catch((err) => {
+      badlength += 1;
+      if (badlength === this.props.playList.length) {
+        showMessage({
+          type: 'error',
+          message: '歌曲url都是null'
+        });
+        return;
+      }
+      this.next();
       showMessage({
         type: 'error',
         message: err

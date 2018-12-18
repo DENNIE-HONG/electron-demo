@@ -9,8 +9,8 @@ const root = document.createElement('div');
 root.className = 'page';
 document.body.appendChild(root);
 render(
-  <React.Fragment>
+  <>
     <RouteMap />
-  </React.Fragment>,
+  </>,
   root
 );

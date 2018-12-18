@@ -1,4 +1,4 @@
-.program {
+.djradio {
   padding: 20px;
   &-head {
     &-pic {
@@ -36,7 +36,19 @@
             border: 10px solid transparent;
             border-left-color: red;
             border-right-width: 0;
-            content: ".";
+            content: '';
+          }
+          &::before {
+            position: absolute;
+            top: 50%;
+            right: -2px;
+            width: 4px;
+            height: 4px;
+            border-radius: 3px;
+            background-color: white;
+            content: '';
+            transform: translate(0, -50%);
+            z-index: 1;
           }
         }
       }

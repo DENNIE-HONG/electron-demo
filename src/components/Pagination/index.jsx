@@ -5,10 +5,10 @@
  * @param {Number}  pagerCount, 按钮个数， 一般是3个，奇数
  * @param {Funtion} change, 点击按钮的回调事件
 */
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import './Pagination.scss';
-class Pagination extends Component {
+class Pagination extends PureComponent {
   static propTypes = {
     total: PropTypes.number.isRequired,
     current: PropTypes.number,

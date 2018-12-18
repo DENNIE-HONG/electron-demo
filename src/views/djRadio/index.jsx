@@ -21,6 +21,7 @@ class DjRadio extends Component {
     this.changePage = this.changePage.bind(this);
     this.showDesc = this.showDesc.bind(this);
     this.$desc = React.createRef();
+    console.log(this);
   }
 
   async componentDidMount () {
@@ -136,12 +137,12 @@ class DjRadio extends Component {
       info, programList, isShowDesc, hasDescBtn
     } = this.state;
     return info && (
-      <div className="program">
-        <header className="program-head">
-          <div className="program-head-pic">
+      <div className="djradio">
+        <header className="djradio-head">
+          <div className="djradio-head-pic">
             <LazyImage src={info.picUrl} alt={info.name} />
           </div>
-          <div className="program-head-info">
+          <div className="djradio-head-info">
             <h3 className="info-name">
               <span className="info-name-tag">电台</span>{info.name}
             </h3>
@@ -174,21 +175,21 @@ class DjRadio extends Component {
             )}
           </div>
         </header>
-        <div className="program-box">
+        <div className="djradio-box">
           <div className="title">
             <span className="title-txt">节目列表</span>
             <i>共{info.programCount}期</i>
           </div>
-          <ol className="program-list">
+          <ol className="djradio-list">
             {programList.map((item, index) => (
-              <li className="program-item" key={item.id}>
-                <i className="program-item-order">{item.serialNum}</i>
+              <li className="djradio-item" key={item.id}>
+                <i className="djradio-item-order">{item.serialNum}</i>
                 <i className="iconfont icon-play" onClick={() => this.play([programList[index].mainSong], item.mainSong.id)}></i>
-                <h4 className="program-item-name" title={item.name}>{item.name}</h4>
-                <span className="program-item-count">播放{item.listenerCount > 10000 ? `${Math.trunc(item.listenerCount / 10000)}万` : item.listenerCount}</span>
+                <h4 className="djradio-item-name" title={item.name}>{item.name}</h4>
+                <span className="djradio-item-count">播放{item.listenerCount > 10000 ? `${Math.trunc(item.listenerCount / 10000)}万` : item.listenerCount}</span>
                 <span>赞{item.likedCount}</span>
                 <div className="pull-right">
-                  <span className="program-item-time">{this.prettyDate(item.createTime)}</span>
+                  <span className="djradio-item-time">{this.prettyDate(item.createTime)}</span>
                   <span>{this.prettyDuration(item.duration)}</span>
                 </div>
               </li>

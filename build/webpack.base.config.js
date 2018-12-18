@@ -9,7 +9,7 @@ const path = require('path');
 const { WEBPACK_COMMON_CONFIG } = require('../config');
 const resolve = (dir) => {
   return path.join(__dirname, '..', dir);
-}
+};
 module.exports = (env) => {
   const isProd = env.production === true;
   return {
@@ -22,6 +22,28 @@ module.exports = (env) => {
         coms: resolve('src/components'),
         server: resolve('server'),
         api: resolve('server/api'),
+      }
+    },
+    optimization: {
+      splitChunks: {
+        cacheGroups: {
+          common: {
+            minChunks: 6,
+            name: 'common',
+            minSize: 1000,
+            chunks: 'initial'
+          },
+          vendors: {
+            test: /node_modules/,
+            name: 'vendors',
+            priority: 10,
+            enforce: true,
+            chunks: 'all'
+          }
+        }
+      },
+      runtimeChunk: {
+        name: 'manifest'
       }
     },
     module: {
@@ -109,5 +131,5 @@ module.exports = (env) => {
         // favicon: path.resolve(__dirname, '../favicon.ico')
       })
     ]
-  }
-}
+  };
+};

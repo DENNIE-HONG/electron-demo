@@ -13,7 +13,8 @@ module.exports = (env) => merge(devConfig(env), {
   output: {
     filename: 'js/[name].js',
     path: WEBPACK_DEV_CONFIG.assetsDirectory,
-    publicPath: WEBPACK_DEV_CONFIG.assetsPublicPath
+    publicPath: WEBPACK_DEV_CONFIG.assetsPublicPath,
+    chunkFilename: 'js/[name].js'
   },
   devServer: {
     contentBase: WEBPACK_DEV_CONFIG.assetsDirectory,
