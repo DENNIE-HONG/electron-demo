@@ -22,6 +22,7 @@ module.exports = (env) => {
         coms: resolve('src/components'),
         server: resolve('server'),
         api: resolve('server/api'),
+        utils: resolve('src/utils')
       }
     },
     optimization: {

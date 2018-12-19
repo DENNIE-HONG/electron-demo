@@ -1,1 +1,53 @@
-
+.program {
+  padding: 0 20px;
+  &-head {
+    margin-top: 30px;
+    &-brand {
+      margin-top: 20px;
+      color: nth($fblack, 2);
+      font-size: nth($fz, 3);
+      .iconfont {
+        padding-right: 5px;
+        font-size: nth($fz, 4);
+        vertical-align: middle;
+      }
+      .btn {
+        margin-left: 15px;
+      }
+    }
+  }
+  &-action {
+    margin-top: 15px;
+    > button {
+      margin-right: 10px;
+    }
+  }
+  &-header-name {
+    margin-top: 20px;
+  }
+  &-radio {
+    margin-top: 30px;
+    &-name {
+      display: inline;
+      padding-left: 10px;
+      font-size: nth($fz, 2);
+    }
+    &-serial {
+      padding-left: 10px;
+    }
+    &-time {
+      padding-left: 20px;
+      color: nth($fblack, 3);
+    }
+    &-count {
+      color: nth($fred, 1);
+    }
+    &-date {
+      padding-right: 25px;
+    }
+  }
+  &-desc {
+    margin-top: 15px;
+    color: nth($fblack, 2);
+  }
+}

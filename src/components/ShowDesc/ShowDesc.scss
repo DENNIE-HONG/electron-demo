@@ -1,0 +1,24 @@
+.show-desc {
+  @include hid;
+  &-btn {
+    color: nth($fblue, 1);
+    cursor: pointer;
+    .off {
+      display: none;
+    }
+    .on {
+      display: inline;
+    }
+    > .iconfont {
+      font-size: nth($fz, 1);
+    }
+    &.active {
+      .off {
+        display: inline;
+      }
+      .on {
+        display: none;
+      }
+    }
+  }
+}

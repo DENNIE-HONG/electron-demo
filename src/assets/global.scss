@@ -18,6 +18,10 @@ a {
   transition: all 0.3s;
 }
 
+a:hover {
+  color: nth($fblue, 1);
+}
+
 /* 清除浮动 */
 .global-clearfix:after {
   content: '.';
@@ -90,4 +94,5 @@ html {
 pre {
   display: block;
   white-space: pre;
+  white-space: pre-wrap;
 }

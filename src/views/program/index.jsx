@@ -1,14 +1,20 @@
 import React, { Component } from 'react';
 import { getProgramDetail } from 'server/api/dj';
-import LazyImage from 'coms/LazyImage';
+import BaseButton from 'coms/BaseButton';
 import ProgramHeader from 'coms/ProgramHeader';
+import { prettyDate } from 'utils/pretty-time';
+import { NavLink } from 'react-router-dom';
+import ShowDesc from 'coms/ShowDesc';
 import './program.scss';
 class Program extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      info: null
+      info: null,
+      hasDescBtn: false,
+      isShowDesc: false
     };
+    this.$desc = React.createRef();
   }
 
   async componentDidMount () {
@@ -20,24 +26,56 @@ class Program extends Component {
       this.setState({
         info: detailRes.program
       });
+      // 简介字数少时候
+      if (detailRes.program.description.length < 160) {
+        return;
+      }
+      console.log(this.$desc.current.clientHeight);
+      if (this.$desc.current.clientHeight > 100) {
+        this.setState({
+          hasDescBtn: true
+        });
+      }
     } catch (err) {
+      console.log(err);
       console.log('网络出现问题');
     }
   }
 
   render () {
-    const { info } = this.state;
+    const { info, hasDescBtn, isShowDesc } = this.state;
     return (
       info && (
         <div className="program">
           <header className="program-head">
-            <ProgramHeader picUrl={info.coverUrl} name={info.name}>
+            <ProgramHeader picUrl={`${info.coverUrl}?param=120y120`} name={info.name} tag="电台节目" width={120}>
               <div className="program-head-brand">
                 <i className="iconfont icon-music"></i>
-                {info.dj.brand}
+                <NavLink to={`/djRadio/${info.radio.id}`}>{info.dj.brand}</NavLink>
+                <BaseButton icon="star">订阅({info.subscribedCount})</BaseButton>
               </div>
             </ProgramHeader>
           </header>
+          <div className="program-action">
+            <BaseButton type="primary" icon="play">播放</BaseButton>
+            <BaseButton icon="like">({info.likedCount})</BaseButton>
+            <BaseButton icon="comment">({info.commentCount})</BaseButton>
+          </div>
+          <div className="program-radio">
+            <NavLink className="program-header-cate" to={`/dj/${info.radio.categoryId}`}>{info.radio.category}</NavLink>
+            <h4 className="program-radio-name">{info.radio.name}
+              <i className="program-radio-serial">第{info.serialNum}期</i>
+            </h4>
+            <span className="program-radio-time">
+              <span className="program-radio-date">{prettyDate(info.createTime)}创建</span>
+              <span>播放: <span className="program-radio-count">{info.listenerCount}</span>次</span>
+            </span>
+          </div>
+          <div className="program-desc">
+            <ShowDesc isOpen={isShowDesc} hasDescBtn={hasDescBtn} maxHeight={100}>
+              <pre ref={this.$desc}>介绍：{info.description}</pre>
+            </ShowDesc>
+          </div>
         </div>
       )
     );

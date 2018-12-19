@@ -1,7 +1,6 @@
 .program-header {
   &-pic {
     float: left;
-    width: 160px;
     padding: 5px;
     border: 1px solid nth($fgray, 1);
     > img {
@@ -10,8 +9,7 @@
     }
   }
   &-info {
-    margin-left: 190px;
-    min-height: 160px;
+    @include hid;
   }
   &-name {
     font-size: nth($fz, 4);
@@ -19,7 +17,7 @@
   &-tag {
     position: relative;
     display: inline-block;
-    width: 40px;
+    padding: 0 8px;
     height: 20px;
     margin-right: 20px;
     background-color: red;
@@ -49,6 +47,17 @@
       content: '';
       transform: translate(0, -50%);
       z-index: 1;
+    }
+  }
+  &-cate {
+    padding: 2px 6px;
+    border: 1px solid nth($fred, 1);
+    color: nth($fred, 1);
+    border-radius: 3px;
+    line-height: 1;
+    &:hover {
+      background-color: nth($fred, 2);
+      color: nth($fred, 1);
     }
   }
 }

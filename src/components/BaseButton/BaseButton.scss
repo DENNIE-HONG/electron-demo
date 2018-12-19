@@ -1,18 +1,21 @@
 .btn,
 .btn-primary {
-  padding: 5px 12px;
+  padding: 4px 10px;
   border: 1px solid nth($fgray, 5);
   border-radius: 3px;
   cursor: pointer;
   background-color: #fdfdfd;
   line-height: 14px;
   color: nth($fblack, 2);
-  &:active {
+  transition: all 0.3s;
+  &:active,
+  &:hover {
     filter: hue-rotate(15deg);
   }
   .iconfont {
     padding-right: 5px;
-    font-size: nth($fz, 1);
+    font-size: nth($fz, 2);
+    vertical-align: middle;
   }
 }
 .btn-primary {
