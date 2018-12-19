@@ -67,15 +67,23 @@ class Program extends Component {
               <i className="program-radio-serial">第{info.serialNum}期</i>
             </h4>
             <span className="program-radio-time">
-              <span className="program-radio-date">{prettyDate(info.createTime)}创建</span>
+              <span className="program-radio-date">{prettyDate(info.createTime)}&nbsp;创建</span>
               <span>播放: <span className="program-radio-count">{info.listenerCount}</span>次</span>
             </span>
           </div>
-          <div className="program-desc">
+          <div className="program-desc global-clearfix">
             <ShowDesc isOpen={isShowDesc} hasDescBtn={hasDescBtn} maxHeight={100}>
               <pre ref={this.$desc}>介绍：{info.description}</pre>
             </ShowDesc>
           </div>
+          {info.commentCount > 0 && (
+            <section className="program-comment">
+              <div className="title">
+                <span className="title-txt">评论</span>
+                <i>共{info.commentCount}条评论</i>
+              </div>
+            </section>
+          )}
         </div>
       )
     );
