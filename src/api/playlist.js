@@ -7,7 +7,9 @@ import request from '../plugins/axios';
  * @param {Number}, limit
  * @param {Number}, offset,
 */
-export const getTopPlayList = ({ order, cat, limit, offset }) => {
+export const getTopPlayList = ({
+  order, cat, limit, offset
+}) => {
   const params = {
     order: order || 'hot',
     cat: cat || '全部',
@@ -26,12 +28,20 @@ export const getPlaylistCatList = () => new Promise(async (resolve, reject) => {
     const result = [];
 
     if (res.code === 200) {
-      for (const cat in res.categories) {
-        result[cat] = {};
-        result[cat].type = res.categories[cat];
-        result[cat].subs = [];
-      }
-      for (let i = 0; i < res.sub.length; i ++) {
+      // for (const cat in res.categories) {
+      //   if (res.categories.hasOwnProperty(cat)) {
+      //     result[cat] = {};
+      //     result[cat].type = res.categories[cat];
+      //     result[cat].subs = [];
+      //   }
+      // }
+      Object.keys(res.categories).map((key) => {
+        const cate = res.categories[key];
+        result[cate] = {};
+        result[cate].type = res.categories[cate];
+        result[cate].subs = [];
+      });
+      for (let i = 0; i < res.sub.length; i += 1) {
         const item = res.sub[i];
         const { category } = item;
         result[category].subs.push(item);

@@ -5,5 +5,8 @@
   "description": "electron start",
   "scripts": {
     "start": "electron ."
+  },
+  "devDependencies": {
+    "electron": "^3.0.13"
   }
 }

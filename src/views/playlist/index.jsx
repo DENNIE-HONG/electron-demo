@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import SongSheet from 'coms/SongSheet';
-import { getTopPlayList, getPlaylistCatList } from 'server/api/playlist';
-import { getPlaylistDetail } from 'server/api/home';
+import { getTopPlayList, getPlaylistCatList } from '@/api/playlist';
+import { getPlaylistDetail } from '@/api/home';
 import showMessage from 'coms/message';
 import scrollBottom from '@/utils/scroll-bottom';
 import { debounce } from 'throttle-debounce';

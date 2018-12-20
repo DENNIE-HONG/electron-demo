@@ -6,7 +6,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import LazyImage from 'coms/LazyImage';
-import { getTopRecommend } from 'server/api/top';
+import { getTopRecommend } from 'api/top';
 import './TopList.scss';
 
 class TopList extends Component {

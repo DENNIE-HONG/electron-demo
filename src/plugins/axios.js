@@ -2,7 +2,12 @@
  * 请求实例插件，并注入配置
 */
 import axios from 'axios';
-import { requestSuccessFunc, requestFailFunc, responseSuccessFunc, responseFailFunc } from '../../config/interceptors/axios';
+import {
+  requestSuccessFunc,
+  requestFailFunc,
+  responseSuccessFunc,
+  responseFailFunc
+} from '../../config/interceptors/axios';
 const config = require('../../config');
 const { AXIOS_DEFAULT_CONFIG } = config;
 

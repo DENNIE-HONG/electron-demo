@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { getProgramDetail } from 'server/api/dj';
+import { getProgramDetail } from '@/api/dj';
 import BaseButton from 'coms/BaseButton';
 import ProgramHeader from 'coms/ProgramHeader';
 import { prettyDate } from 'utils/pretty-time';

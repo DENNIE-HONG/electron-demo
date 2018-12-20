@@ -10,7 +10,7 @@ import LazyLoad from 'vanilla-lazyload';
 import PropTypes from 'prop-types';
 if (!document.lazyLoadInstance) {
   document.lazyLoadInstance = new LazyLoad({
-    element_selector: '.lazy'
+    element_selector: 'img.lazy'
   });
 }
 class LazyImage extends Component {

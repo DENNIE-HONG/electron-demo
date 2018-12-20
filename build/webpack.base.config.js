@@ -21,7 +21,7 @@ module.exports = (env) => {
         assets: resolve('src/assets'),
         coms: resolve('src/components'),
         server: resolve('server'),
-        api: resolve('server/api'),
+        api: resolve('src/api'),
         utils: resolve('src/utils')
       }
     },
@@ -51,12 +51,8 @@ module.exports = (env) => {
       rules: [
         {
           test: /\.js(x?)$/,
-          include: WEBPACK_COMMON_CONFIG.sourceCode,
-          use: [
-            'babel-loader',
-            'eslint-loader'
-          ],
-          exclude: /node_modules/
+          use: isProd ? 'babel-loader' : ['babel-loader', 'eslint-loader'],
+          include: [WEBPACK_COMMON_CONFIG.sourceCode, resolve('config')]
         },
         {
           test: /\.(css|scss)$/,

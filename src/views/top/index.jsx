@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { getTopListDetail } from 'server/api/top';
-import { getPlaylistDetail } from 'server/api/home';
+import { getTopListDetail } from 'api/top';
+import { getPlaylistDetail } from 'api/home';
 import LazyImage from 'coms/LazyImage';
 import showMessage from 'coms/message';
 import './top.scss';

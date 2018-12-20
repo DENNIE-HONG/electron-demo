@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import LazyImage from 'coms/LazyImage';
-import { getDjDetail, getDjProgram } from 'server/api/dj';
+import { getDjDetail, getDjProgram } from 'api/dj';
 import { NavLink } from 'react-router-dom';
 import Pagination from 'coms/Pagination';
 import showMessage from 'coms/message';

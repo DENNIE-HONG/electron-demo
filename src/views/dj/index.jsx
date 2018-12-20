@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { getProgramRecommend, getDjCatelist, getDjRecommend } from 'server/api/dj';
+import { getProgramRecommend, getDjCatelist, getDjRecommend } from 'api/dj';
 import LazyImage from 'coms/LazyImage';
 import { NavLink } from 'react-router-dom';
 import './dj.scss';

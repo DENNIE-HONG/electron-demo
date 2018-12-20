@@ -9,7 +9,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const baseConfig = require('./webpack.base.config');
 const { WEBPACK_PROD_CONFIG } = require('../config');
 module.exports = (env) => {
-  const config = {
+  const webpackConfig = merge(baseConfig(env), {
     mode: 'production',
     output: {
       filename: 'js/[name].[chunkhash:7].js',
@@ -47,11 +47,11 @@ module.exports = (env) => {
         filename: 'css/[name].[contenthash:7].css'
       })
     ]
-  };
+  });
   if (process.env.npm_config_report) {
     const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
-    config.plugins.push(new BundleAnalyzerPlugin());
+    webpackConfig.plugins.push(new BundleAnalyzerPlugin());
   }
-  return merge(baseConfig(env), config);
+  return webpackConfig;
 };
 
