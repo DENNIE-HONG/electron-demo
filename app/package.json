@@ -2,6 +2,7 @@
   "name": "electron-demo",
   "version": "0.1.0",
   "main": "main.js",
+  "description": "electron start",
   "scripts": {
     "start": "electron ."
   }
