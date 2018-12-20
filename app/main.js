@@ -6,7 +6,7 @@ const path = require('path');
 process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = true;
 function createWindow () {
   // 创建浏览器窗口
-  const win = new BrowserWindow({
+  let win = new BrowserWindow({
     width: 1000,
     height: 800,
     transparent: true,
@@ -34,6 +34,6 @@ app.on('window-all-closed', () => {
   // 在 macOS 上，除非用户用 Cmd + Q 确定地退出，
   // 否则绝大部分应用及其菜单栏会保持激活。
   if (process.platform !== 'darwin') {
-    app.quit()
+    app.quit();
   }
 });
