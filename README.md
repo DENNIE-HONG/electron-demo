@@ -19,4 +19,4 @@ https://binaryify.github.io/NeteaseCloudMusicApi/
 事件bind尽量写在construct里，只绑定一次
 需要传参时，用箭头函数
 
-###8、react-loadable 路由懒加载
+## 8、react-loadable 路由懒加载
