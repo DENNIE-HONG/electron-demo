@@ -8,4 +8,8 @@
   &-txt {
     font-size: nth($fz, 4);
   }
+  &-desc {
+    padding-left: 20px;
+    color: nth($fblack, 2);
+  }
 }

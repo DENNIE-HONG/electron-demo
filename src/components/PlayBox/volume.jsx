@@ -33,6 +33,7 @@ class VolumeBox extends Component {
     this.adjustVolume = this.adjustVolume.bind(this);
     this.handleMouseUp = this.handleMouseUp.bind(this);
     this.handleMouseDown = this.handleMouseDown.bind(this);
+    this.volumeRefLeft = props.volume * VOLUME_H - 2;
   }
 
   // 调节音量
@@ -80,10 +81,26 @@ class VolumeBox extends Component {
     const { isOpen } = this.props;
     const { volume } = this.state;
     return (
-      <div className={`volume-box ${isOpen ? '' : 'hide'}`} onMouseUp={this.handleMouseUp} onClick={(e) => e.stopPropagation()} onMouseMove={this.adjustVolume}>
+      <div
+        className={`volume-box ${isOpen ? '' : 'hide'}`}
+        onMouseUp={this.handleMouseUp}
+        onClick={(e) => e.stopPropagation()}
+        onMouseMove={this.adjustVolume}
+      >
         <div className="volume-box-progress">
-          <progress className="volume-progress" value={volume} max="1"></progress>
-          <div ref={this.volumeRef} className="volume-progress-btn" onMouseDown={this.handleMouseDown}></div>
+          <progress
+            className="volume-progress"
+            value={volume}
+            max="1"
+          >
+          </progress>
+          <div
+            ref={this.volumeRef}
+            className="volume-progress-btn"
+            style={{ left: `${this.volumeRefLeft}px` }}
+            onMouseDown={this.handleMouseDown}
+          >
+          </div>
         </div>
       </div>
     );

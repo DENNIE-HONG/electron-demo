@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import { getProgramDetail } from '@/api/dj';
+import { getProgramDetail } from 'api/dj';
+import { getCommentDj } from 'api/comment';
 import BaseButton from 'coms/BaseButton';
 import ProgramHeader from 'coms/ProgramHeader';
 import { prettyDate } from 'utils/pretty-time';
 import { NavLink } from 'react-router-dom';
 import ShowDesc from 'coms/ShowDesc';
+import CommentList from 'coms/CommentList';
 import './program.scss';
 class Program extends Component {
   constructor (props) {
@@ -12,7 +14,8 @@ class Program extends Component {
     this.state = {
       info: null,
       hasDescBtn: false,
-      isShowDesc: false
+      isShowDesc: false,
+      commentList: []
     };
     this.$desc = React.createRef();
   }
@@ -26,6 +29,7 @@ class Program extends Component {
       this.setState({
         info: detailRes.program
       });
+
       // 简介字数少时候
       if (detailRes.program.description.length < 160) {
         return;
@@ -43,7 +47,13 @@ class Program extends Component {
   }
 
   render () {
-    const { info, hasDescBtn, isShowDesc } = this.state;
+    const {
+      info,
+      hasDescBtn,
+      isShowDesc,
+      commentList
+    } = this.state;
+    const { id } = this.props.match.params;
     return (
       info && (
         <div className="program">
@@ -80,8 +90,9 @@ class Program extends Component {
             <section className="program-comment">
               <div className="title">
                 <span className="title-txt">评论</span>
-                <i>共{info.commentCount}条评论</i>
+                <i className="title-desc">共{info.commentCount}条评论</i>
               </div>
+              <CommentList id={id} getUrl={getCommentDj} />
             </section>
           )}
         </div>
