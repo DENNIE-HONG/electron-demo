@@ -1,16 +1,16 @@
 import request from '../plugins/axios';
 
 // 推荐电台
-export const getProgramRecommend = () => request.get('/wy/program/recommend');
+export const getProgramRecommend = () => request.get('/program/recommend');
 
 // 电台分类
-export const getDjCatelist = () => request.get('/wy/dj/catelist');
+export const getDjCatelist = () => request.get('/dj/catelist');
 
 // 电台列表, type是电台id
-export const getDjRecommend = (type) => request.get(`/wy/dj/recommend/type?type=${type}`);
+export const getDjRecommend = (type) => request.get(`/dj/recommend/type?type=${type}`);
 
 // 电台详情, rid是节目id
-export const getDjDetail = (rid) => request.get(`/wy/dj/detail?rid=${rid}`);
+export const getDjDetail = (rid) => request.get(`/dj/detail?rid=${rid}`);
 
 /**
  * 电台节目
@@ -26,9 +26,9 @@ export const getDjProgram = ({ rid, offset, limit }) => {
   };
   return request({
     params,
-    url: '/wy/dj/program'
+    url: '/dj/program'
   });
 };
 
 // 电台节目详情
-export const getProgramDetail = (id) => request.get(`/wy/dj/program/detail?id=${id}`);
+export const getProgramDetail = (id) => request.get(`/dj/program/detail?id=${id}`);

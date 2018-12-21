@@ -25,10 +25,22 @@ const WEBPACK_DEV_CONFIG = {
 // webpack 生产环境配置
 const WEBPACK_PROD_CONFIG = {
   assetsPublicPath: '/',
-  assetsDirectory: resolve('app/dist'),//资源路径
+  assetsDirectory: resolve('app/dist'),//资源路径,
+  indexView: resolve('app/dist/index.html'), // 首页
+  port: 2222
+};
+// axios 默认配置
+const AXIOS_DEFAULT_CONFIG = {
+  timeout: 20000,
+  maxContentLength: 20000,
+  baseURL: 'http://localhost:3000',
+  headers: {
+    Accept: 'application/json'
+  }
 };
 module.exports = {
   WEBPACK_COMMON_CONFIG,
   WEBPACK_DEV_CONFIG,
-  WEBPACK_PROD_CONFIG
+  WEBPACK_PROD_CONFIG,
+  AXIOS_DEFAULT_CONFIG
 };

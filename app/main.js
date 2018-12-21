@@ -1,6 +1,7 @@
 const { app, BrowserWindow } = require('electron');
 const url = require('url');
 const path = require('path');
+const isDev = process.env.NODE_ENV !== 'production';
 
 // 关闭安全警告
 process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = true;
@@ -14,12 +15,18 @@ function createWindow () {
     maximizable: false,
     backgroundColor: '#00FFFFFF',
   });
+  let Url;
+  if (isDev) {
+    Url = url.format({
+      pathname: path.join('localhost:2222'),
+      protocol: 'http',
+      slashes: true
+    });
+  } else {
+    Url = `file://${__dirname}/dist/index.html`;
+  }
   // 加载应用页面
-  win.loadURL(url.format({
-    pathname: path.join('localhost:2222'),
-    protocol: 'http',
-    slashes: true
-  }));
+  win.loadURL(Url);
   // 打开开发者工具
   win.webContents.openDevTools();
 

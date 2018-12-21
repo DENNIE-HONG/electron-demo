@@ -4,9 +4,11 @@
   "main": "main.js",
   "description": "electron start",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "build": "cross-env NODE_ENV=production electron ."
   },
   "devDependencies": {
+    "cross-env": "^5.2.0",
     "electron": "^3.0.13"
   }
 }

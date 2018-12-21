@@ -14,7 +14,7 @@ module.exports = (env) => {
     output: {
       filename: 'js/[name].[chunkhash:7].js',
       path: WEBPACK_PROD_CONFIG.assetsDirectory,
-      publicPath: WEBPACK_PROD_CONFIG.assetsPublicPath,
+      publicPath: '',
       chunkFilename: 'js/[name].[chunkhash:7].js'
     },
     optimization: {

@@ -34,13 +34,6 @@ module.exports = (env) => merge(devConfig(env), {
     watchOptions: {
       ignored: /node_modules/
     },
-    proxy: {
-      '/wy': {
-        target: 'http://localhost:3000',
-        changeOrigin: true,
-        pathRewrite: { '^/wy': '' }
-      }
-    },
     // historyApiFallback: true
   },
   plugins: [

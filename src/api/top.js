@@ -2,7 +2,7 @@
 import request from '../plugins/axios';
 import { getPlaylistDetail } from './home';
 // 所有榜单
-export const getTopList = () => request.get('/wy/toplist');
+export const getTopList = () => request.get('/toplist');
 
 // 获取榜单
 export const getTopRecommend = () => new Promise(async (resolve, reject) => {
@@ -31,4 +31,4 @@ export const getTopRecommend = () => new Promise(async (resolve, reject) => {
 });
 
 // 榜单内容摘要
-export const getTopListDetail = () => request.get('/wy/toplist/detail');
+export const getTopListDetail = () => request.get('/toplist/detail');

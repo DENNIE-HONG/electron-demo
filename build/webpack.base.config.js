@@ -10,6 +10,7 @@ const { WEBPACK_COMMON_CONFIG } = require('../config');
 const resolve = (dir) => {
   return path.join(__dirname, '..', dir);
 };
+console.log(WEBPACK_COMMON_CONFIG.assetsDirectory);
 module.exports = (env) => {
   const isProd = env.production === true;
   return {
@@ -106,7 +107,8 @@ module.exports = (env) => {
               loader: 'url-loader',
               options: {
                 limit: 2048,
-                name: isProd ? 'fonts/[name].[hash:7].[ext]' : 'fonts/[name].[ext]'
+                publicPath: isProd ? `file:///${WEBPACK_COMMON_CONFIG.assetsDirectory}`: WEBPACK_COMMON_CONFIG.assetsPublicPath,
+                name: isProd ? 'font/[name].[hash:7].[ext]' : 'fonts/[name].[ext]'
               }
             }
           ]

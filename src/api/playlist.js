@@ -17,14 +17,14 @@ export const getTopPlayList = ({
     offset: offset || 0
   };
   return request({
-    url: '/wy/top/playlist',
+    url: '/top/playlist',
     params
   });
 };
 // 歌单分类
 export const getPlaylistCatList = () => new Promise(async (resolve, reject) => {
   try {
-    const res = await request('/wy/playlist/catlist');
+    const res = await request('/playlist/catlist');
     const result = [];
 
     if (res.code === 200) {
