@@ -28,6 +28,7 @@ class Top extends Component {
         const list = [];
         list.push(Object.assign(this.state.topList[0], { list: res.list.slice(0, 4) }));
         list.push(Object.assign(this.state.topList[1], { list: res.list.slice(5) }));
+        console.log(list);
         this.setState({
           topList: list
         });

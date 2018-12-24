@@ -7,6 +7,7 @@
 import React, { Component } from 'react';
 import LazyImage from 'coms/LazyImage';
 import PropTypes from 'prop-types';
+import { NavLink } from 'react-router-dom';
 import './SongSheet.scss';
 class SongSheet extends Component {
   static propTypes = {
@@ -32,16 +33,20 @@ class SongSheet extends Component {
           {playList.map((item) => (
             <li className="songsheet-list-item" key={item.id}>
               <div className="item-info">
-                <div className="item-info-pic">
-                  <LazyImage src={item.coverImgUrl ? `${item.coverImgUrl}?param=120y120` : `${item.picUrl}?param=120y120`} alt={item.name} />
-                </div>
+                <NavLink to={`/playlist/${item.id}`}>
+                  <div className="item-info-pic">
+                    <LazyImage src={item.coverImgUrl ? `${item.coverImgUrl}?param=120y120` : `${item.picUrl}?param=120y120`} alt={item.name} />
+                  </div>
+                </NavLink>
                 <div className="item-info-play">
                   <i className="iconfont icon-headset"></i>
                   <span className="item-info-count">{item.playCount > 10000 ? `${Math.round(item.playCount / 10000)}万` : item.playCount}</span>
                   <i className="iconfont icon-play item-info-play-btn pull-right" onClick={() => this.onPlay(item.id)}></i>
                 </div>
               </div>
-              <h4 className="item-title">{item.name}</h4>
+              <NavLink to={`/playlist/${item.id}`}>
+                <h4 className="item-title">{item.name}</h4>
+              </NavLink>
               {isShowArtist && <span className="item-txt">{item.creator.nickname}</span>}
             </li>
           ))}

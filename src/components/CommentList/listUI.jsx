@@ -48,13 +48,15 @@ CommentUI.propTypes = {
   name: PropTypes.string,
   content: PropTypes.string,
   time: PropTypes.number,
-  replied: PropTypes.array
+  replied: PropTypes.array,
+  likedCount: PropTypes.number
 };
 CommentUI.defaultProps = {
   avatarUrl: '',
   name: '',
   content: '',
   time: 0,
-  replied: []
+  replied: [],
+  likedCount: 0
 };
 export default CommentUI;

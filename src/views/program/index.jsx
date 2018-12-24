@@ -33,7 +33,6 @@ class Program extends Component {
       if (detailRes.program.description.length < 160) {
         return;
       }
-      console.log(this.$desc.current.clientHeight);
       if (this.$desc.current.clientHeight > 100) {
         this.setState({
           hasDescBtn: true

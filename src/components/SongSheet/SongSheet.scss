@@ -30,6 +30,7 @@
           color: nth($fgray, 5);
           line-height: 22px;
           border-top: 1px solid nth($fblack, 3);
+          z-index: 10;
           .iconfont {
             font-size: nth($fz, 1);
           }
