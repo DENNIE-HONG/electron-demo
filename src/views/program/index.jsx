@@ -14,8 +14,7 @@ class Program extends Component {
     this.state = {
       info: null,
       hasDescBtn: false,
-      isShowDesc: false,
-      commentList: []
+      isShowDesc: false
     };
     this.$desc = React.createRef();
   }
@@ -50,8 +49,7 @@ class Program extends Component {
     const {
       info,
       hasDescBtn,
-      isShowDesc,
-      commentList
+      isShowDesc
     } = this.state;
     const { id } = this.props.match.params;
     return (
@@ -91,6 +89,9 @@ class Program extends Component {
               <div className="title">
                 <span className="title-txt">评论</span>
                 <i className="title-desc">共{info.commentCount}条评论</i>
+              </div>
+              <div className="program-comment-input">
+                假装这里能输入评论
               </div>
               <CommentList id={id} getUrl={getCommentDj} />
             </section>

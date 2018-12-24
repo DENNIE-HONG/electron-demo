@@ -1,9 +1,56 @@
 .comment {
+  &-item {
+    padding: 12px 0;
+    border-top: 1px dashed nth($fgray, 4);
+  }
   &-pic {
+    float: left;
     width: 40px;
     height: 40px;
     > img {
       width: 100%;
     }
+  }
+  &-info {
+    margin-left: 50px;
+  }
+  &-content {
+    @include wordbreak;
+  }
+  &-name {
+    color: nth($fblue, 1);
+  }
+  &-time {
+    margin-top: 10px;
+  }
+  &-replied {
+    position: relative;
+    margin-top: 10px;
+    padding: 7px 20px;
+    background-color: nth($fgray, 3);
+    border: 1px solid nth($fgray, 5);
+    &::before {
+      position: absolute;
+      top: -4px;
+      left: 20px;
+      width: 5px;
+      height: 5px;
+      border-top: 1px solid nth($fgray, 5);
+      border-right: 1px solid nth($fgray, 5);
+      content: '';
+      background-color: nth($fgray, 3);
+      transform: rotate(-45deg);
+    }
+  }
+  &-like {
+    padding-right: 8px;
+    border-right: 1px solid nth($fgray, 1);
+    .iconfont {
+      color: nth($fblue, 1);
+      vertical-align: middle;
+    }
+  }
+  &-action-replay {
+    padding-left: 10px;
   }
 }

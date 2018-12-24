@@ -27,3 +27,14 @@ export const prettyDuration = (duration) => {
   sec = sec < 10 ? `0${sec}` : sec;
   return `${min}:${sec}`;
 };
+
+export const prettyTime = (timeStamp) => {
+  const dateInstance = new Date(timeStamp);
+  const date = prettyDate(timeStamp);
+  let hour = dateInstance.getHours();
+  let min = dateInstance.getMinutes();
+  hour < 10 && (hour = `0${hour}`);
+  min < 10 && (min = `0${min}`);
+  const time = `${date} ${hour}:${min}`;
+  return time;
+};

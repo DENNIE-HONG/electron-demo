@@ -50,4 +50,11 @@
     margin-top: 15px;
     color: nth($fblack, 2);
   }
+  &-comment {
+    margin-top: 20px;
+    padding-bottom: 20px;
+    &-input {
+      padding: 20px 0;
+    }
+  }
 }
