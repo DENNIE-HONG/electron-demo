@@ -19,9 +19,6 @@
     .info-desc {
       margin-top: 12px;
       line-height: 20px;
-      pre {
-        @include wordbreak;
-      }
     }
     .info-cate {
       float: left;

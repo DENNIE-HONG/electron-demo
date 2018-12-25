@@ -1,30 +1,49 @@
 /**
  * 简介展开收起模块
- * @param {Boolean} hasDescBtn, 是否有展开按钮, 默认没有
+ * @param {String}  text, 必须，文案
  * @param {Boolean} isOpen,  是否展开，默认收起
- * @param {Number}  maxHeight, 收起时候最大高度
+ * @param {Number}  maxHeight, 收起时候最大高度, 默认100px
 */
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import './ShowDesc.scss';
 class ShowDesc extends PureComponent {
   static propTypes = {
-    hasDescBtn: PropTypes.bool,
     isOpen: PropTypes.bool,
-    maxHeight: PropTypes.number.isRequired
+    maxHeight: PropTypes.number,
+    text: PropTypes.string.isRequired
   }
 
   static defaultProps = {
-    hasDescBtn: false,
-    isOpen: false
+    isOpen: false,
+    maxHeight: 100
   }
 
   constructor (props) {
     super(props);
     this.state = {
-      isOpen: props.isOpen
+      isOpen: props.isOpen,
+      hasDescBtn: false
     };
     this.showDesc = this.showDesc.bind(this);
+    this.$desc = React.createRef();
+  }
+
+  componentDidMount () {
+    const { text, maxHeight } = this.props;
+    // 字数太少, 直接展示
+    if (text.length < 160) {
+      this.setState({
+        isOpen: true
+      });
+      return;
+    }
+    // 字数超过限制，并且高度也超过限制
+    if (this.$desc.current.clientHeight > maxHeight) {
+      this.setState({
+        hasDescBtn: true
+      });
+    }
   }
 
   // 展开、收起
@@ -35,8 +54,10 @@ class ShowDesc extends PureComponent {
   }
 
   render () {
-    const { children, hasDescBtn, maxHeight } = this.props;
-    const { isOpen } = this.state;
+    const {
+      children, maxHeight, text
+    } = this.props;
+    const { isOpen, hasDescBtn } = this.state;
     const style = isOpen ? null : { maxHeight: `${maxHeight}px` };
     return (
       <>
@@ -45,6 +66,7 @@ class ShowDesc extends PureComponent {
           style={style}
         >
           {children}
+          <pre ref={this.$desc} className="show-desc-txt">{text}</pre>
         </div>
         {hasDescBtn && (
           <div

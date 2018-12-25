@@ -12,9 +12,7 @@ class Program extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      info: null,
-      hasDescBtn: false,
-      isShowDesc: false
+      info: null
     };
     this.$desc = React.createRef();
   }
@@ -28,16 +26,6 @@ class Program extends Component {
       this.setState({
         info: detailRes.program
       });
-
-      // 简介字数少时候
-      if (detailRes.program.description.length < 160) {
-        return;
-      }
-      if (this.$desc.current.clientHeight > 100) {
-        this.setState({
-          hasDescBtn: true
-        });
-      }
     } catch (err) {
       console.log(err);
       console.log('网络出现问题');
@@ -46,9 +34,7 @@ class Program extends Component {
 
   render () {
     const {
-      info,
-      hasDescBtn,
-      isShowDesc
+      info
     } = this.state;
     const { id } = this.props.match.params;
     return (
@@ -79,9 +65,7 @@ class Program extends Component {
             </span>
           </div>
           <div className="program-desc global-clearfix">
-            <ShowDesc isOpen={isShowDesc} hasDescBtn={hasDescBtn} maxHeight={100}>
-              <pre ref={this.$desc}>介绍：{info.description}</pre>
-            </ShowDesc>
+            <ShowDesc maxHeight={100} text={info.description} />
           </div>
           {info.commentCount > 0 && (
             <section className="program-comment">

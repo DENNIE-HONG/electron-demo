@@ -10,12 +10,12 @@ export const getTopRecommend = () => new Promise(async (resolve, reject) => {
     const res = await getTopList();
     if (res.code === 200) {
       const results = res.list.slice(0, 3);
-      let i = 1;
+      let i = 0;
       const [...topList] = results;
       const [...tracks] = await Promise.all([
         getPlaylistDetail(topList[i ++].id),
         getPlaylistDetail(topList[i ++].id),
-        getPlaylistDetail(topList[i ++].id)
+        getPlaylistDetail(topList[i].id)
       ]);
       for (let j = 0; j < topList.length; j += 1) {
         topList[j].tracks = tracks[j].playlist.tracks.slice(0, 10);

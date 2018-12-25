@@ -1,0 +1,10 @@
+.table {
+  width: 100%;
+  border: 1px solid nth($fgray, 1);
+  &-tr {
+    line-height: 30px;
+    &:nth-child(even) {
+      background-color: nth($fgray, 3);
+    }
+  }
+}

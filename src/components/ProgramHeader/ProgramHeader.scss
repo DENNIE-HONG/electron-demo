@@ -14,6 +14,11 @@
   &-name {
     font-size: nth($fz, 4);
   }
+  &-title {
+    display: inline-block;
+    max-width: 80%;
+    vertical-align: top;
+  }
   &-tag {
     position: relative;
     display: inline-block;

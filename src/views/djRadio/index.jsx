@@ -15,9 +15,7 @@ class DjRadio extends Component {
     super(props);
     this.state = {
       info: null,
-      programList: [],
-      isShowDesc: false,
-      hasDescBtn: false
+      programList: []
     };
     this.offset = 0;
     this.isLoading = false;
@@ -38,15 +36,6 @@ class DjRadio extends Component {
           info: detail.djRadio,
           programList: programRes.programs
         });
-        // 简介字数少
-        if (detail.djRadio.desc.length < 160) {
-          return;
-        }
-        if (this.$desc.current.clientHeight > 60) {
-          this.setState({
-            hasDescBtn: true
-          });
-        }
       }
     } catch (err) {
       this.fail(err.toString());
@@ -109,7 +98,7 @@ class DjRadio extends Component {
 
   render () {
     const {
-      info, programList, isShowDesc, hasDescBtn
+      info, programList
     } = this.state;
     return info && (
       <div className="djradio">
@@ -128,9 +117,8 @@ class DjRadio extends Component {
               <BaseButton icon="play" onClick={this.playAll}>播放全部</BaseButton>
             </div>
             <div className="info-desc">
-              <ShowDesc hasDescBtn={hasDescBtn} isOpen={isShowDesc} maxHeight={78}>
+              <ShowDesc maxHeight={78} text={info.desc}>
                 <NavLink to={`/dj/${info.categoryId}`} className="info-cate"> {info.category}</NavLink>
-                <pre ref={this.$desc}>{info.desc}</pre>
               </ShowDesc>
             </div>
           </ProgramHeader>

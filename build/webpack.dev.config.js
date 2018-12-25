@@ -9,7 +9,7 @@ const { WEBPACK_DEV_CONFIG } = require('../config');
 const devConfig = require('./webpack.base.config');
 module.exports = (env) => merge(devConfig(env), {
   mode: 'development',
-  devtool: 'cheap-module-source-map',
+  devtool: 'cheap-module-eval-source-map',
   output: {
     filename: 'js/[name].js',
     path: WEBPACK_DEV_CONFIG.assetsDirectory,
@@ -32,7 +32,9 @@ module.exports = (env) => merge(devConfig(env), {
       chunkModules: false
     },
     watchOptions: {
-      ignored: /node_modules/
+      ignored: /node_modules/,
+      aggregateTimeout: 200,
+      poll: 500
     },
     // historyApiFallback: true
   },

@@ -52,11 +52,12 @@ module.exports = (env) => {
       rules: [
         {
           test: /\.js(x?)$/,
-          use: isProd ? 'babel-loader' : ['babel-loader', 'eslint-loader'],
+          use: isProd ? 'babel-loader?cacheDirectory' : ['babel-loader?cacheDirectory', 'eslint-loader'],
           include: [WEBPACK_COMMON_CONFIG.sourceCode, resolve('config')]
         },
         {
-          test: /\.(css|scss)$/,
+          test: /\.scss$/,
+          include: WEBPACK_COMMON_CONFIG.sourceCode,
           use: [
             MiniCssExtractPlugin.loader,
             {
@@ -90,6 +91,7 @@ module.exports = (env) => {
         },
         {
           test: /\.(png|svg|jpe?g|gif)$/,
+          include: resolve('src'),
           use: [
             {
               loader: 'url-loader',
@@ -102,6 +104,7 @@ module.exports = (env) => {
         },
         {
           test: /\.(woff|woff2|eot|ttf|otf|svg)$/,
+          include: resolve('src/assets/fonts'),
           use: [
             {
               loader: 'url-loader',

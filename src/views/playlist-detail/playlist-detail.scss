@@ -1,0 +1,44 @@
+.playlistDetail {
+  padding: 20px;
+  &-header {
+    .info {
+      margin-top: 15px;
+      color: nth($fblack, 3);
+    }
+    .info-pic {
+      display: inline-block;
+      width: 30px;
+      height: 30px;
+      vertical-align: middle;
+      > img {
+        width: 100%;
+      }
+    }
+    .info-name {
+      padding-left: 10px;
+      padding-right: 15px;
+      color: nth($fblue, 1);
+    }
+    .btn-box {
+      margin-top: 20px;
+    }
+    &-tags {
+      margin-top: 10px;
+      .tag-title {
+        display: inline;
+      }
+      .tag {
+        display: inline;
+        margin-right: 10px;
+        padding: 2px 8px;
+        border: 1px solid nth($fgray, 5);
+        background-color: nth($fgray, 3);
+        border-radius: 8px;
+        color: nth($fblack, 2);
+      }
+    }
+  }
+  &-desc {
+    margin-top: 10px;
+  }
+}

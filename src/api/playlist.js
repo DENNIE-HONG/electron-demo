@@ -28,13 +28,6 @@ export const getPlaylistCatList = () => new Promise(async (resolve, reject) => {
     const result = [];
 
     if (res.code === 200) {
-      // for (const cat in res.categories) {
-      //   if (res.categories.hasOwnProperty(cat)) {
-      //     result[cat] = {};
-      //     result[cat].type = res.categories[cat];
-      //     result[cat].subs = [];
-      //   }
-      // }
       Object.keys(res.categories).map((key) => {
         const cate = res.categories[key];
         result[cate] = {};
@@ -63,3 +56,6 @@ export const getPlaylistCatList = () => new Promise(async (resolve, reject) => {
     });
   }
 });
+
+// 歌单详情
+export const getPlaylistDetail = (id) => request.get(`playlist/detail?id=${id}`);
