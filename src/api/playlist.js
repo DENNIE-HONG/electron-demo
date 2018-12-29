@@ -29,10 +29,10 @@ export const getPlaylistCatList = () => new Promise(async (resolve, reject) => {
 
     if (res.code === 200) {
       Object.keys(res.categories).map((key) => {
-        const cate = res.categories[key];
-        result[cate] = {};
-        result[cate].type = res.categories[cate];
-        result[cate].subs = [];
+        const type = res.categories[key];
+        result[key] = {};
+        result[key].type = type;
+        result[key].subs = [];
       });
       for (let i = 0; i < res.sub.length; i += 1) {
         const item = res.sub[i];

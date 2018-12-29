@@ -58,7 +58,7 @@ class TopList extends Component {
 
   render () {
     return (
-      <div className="toplist global-clearfix">
+      <div className="toplist">
         {this.state.topList.map((item, index) => (
           <dl className="toplist-list" key={item.id}>
             <dt className="toplist-list-title">
