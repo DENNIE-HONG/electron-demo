@@ -30,4 +30,4 @@ https://binaryify.github.io/NeteaseCloudMusicApi/
 
 ### 8、react-loadable 路由懒加载 . 
 
-VSCode配置将token配置到本地: 96b44732649ec1a7d520fe6b1bf6d4599008ea53
+VSCode配置将token配置到本地: GitHub Token: ebbf6ede267c456e29545cf7c2cf14df6bc845ff
