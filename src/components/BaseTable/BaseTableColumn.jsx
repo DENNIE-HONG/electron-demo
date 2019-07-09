@@ -6,7 +6,9 @@ import React from 'react';
 const BaseTableColumn = (props) => {
   const { prop, children, width } = props;
   return (
-    <td style={{ width: `${width}px` }}>{children}</td>
+    <td style={{ width: `${width}px` }} className="table-td">
+      <div className="table-td-content"><span>{children}</span></div>
+    </td>
   );
 };
 export default BaseTableColumn;

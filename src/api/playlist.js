@@ -57,5 +57,18 @@ export const getPlaylistCatList = () => new Promise(async (resolve, reject) => {
   }
 });
 
-// 歌单详情
-export const getPlaylistDetail = (id) => request.get(`playlist/detail?id=${id}`);
+// 歌单详情接口
+export const getPlaylistDetail = async (id) => {
+  try {
+    const res = await request(`/playlist/detail?id=${id}`);
+    const { tracks } = res.playlist;
+    tracks.map((item) => {
+      item.singers = item.ar.map((singer) => singer.name);
+      item.album = item.al.name;
+    });
+    console.log(res);
+    return res;
+  } catch (err) {
+    console.log(err);
+  }
+};

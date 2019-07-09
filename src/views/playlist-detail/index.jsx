@@ -1,3 +1,6 @@
+/**
+ * 歌单详情页
+ */
 import React, { Component } from 'react';
 import { getPlaylistDetail } from 'api/playlist';
 import ProgramHeader from 'coms/ProgramHeader';
@@ -15,17 +18,18 @@ class PlaylistDetail extends Component {
     };
   }
 
-  componentDidMount () {
+  async componentDidMount () {
     const { id } = this.props.match.params;
-    getPlaylistDetail(id).then((res) => {
+    try {
+      const res = await getPlaylistDetail(id);
       if (res.code === 200) {
         this.setState({
           info: res.playlist
         });
       }
-    }).catch((err) => {
+    } catch (err) {
       console.log(err);
-    });
+    }
   }
 
   render () {
@@ -66,10 +70,13 @@ class PlaylistDetail extends Component {
             <i className="title-desc">{info.trackCount}首歌</i>
             <span className="pull-right">播放：</span>
           </div>
-          <BaseTable data={info.tracks} keyName="id">
-            <BaseTableColumn>1</BaseTableColumn>
-            <BaseTableColumn prop="name" />
-            <BaseTableColumn prop="name" secondProp="ar" />
+          <BaseTable data={info.tracks} keyName="id" isIndex>
+            <BaseTableColumn width="30">
+              <i className="iconfont icon-play"></i>
+            </BaseTableColumn>
+            <BaseTableColumn prop="name" label="歌曲标题" />
+            <BaseTableColumn prop="singers" label="歌手" />
+            <BaseTableColumn prop="album" label="专辑" />
           </BaseTable>
         </section>
       </div>

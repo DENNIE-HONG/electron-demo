@@ -7,4 +7,23 @@
       background-color: nth($fgray, 3);
     }
   }
+  &-td {
+    padding-left: 10px;
+    &-content {
+      // @include txthid;
+      @include hid;
+      span {
+        display: inline-block;
+      }
+    }
+  }
+  &-thead {
+    line-height: 40px;
+    background-color: #f7f7f7;
+    border-bottom: 1px solid nth($fgray, 1);
+  }
+  &-th {
+    padding-left: 10px;
+    border-right: 1px solid nth($fgray, 1);
+  }
 }
