@@ -66,7 +66,6 @@ export const getPlaylistDetail = async (id) => {
       item.singers = item.ar.map((singer) => singer.name);
       item.album = item.al.name;
     });
-    console.log(res);
     return res;
   } catch (err) {
     console.log(err);

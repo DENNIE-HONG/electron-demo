@@ -31,23 +31,23 @@ const BaseTable = (props) => {
   );
   // 表单头部
   const headTable = children.map((child) => {
-    const { label = '', prop } = child.props;
+    const { label = '', prop, width } = child.props;
     return (
-      <th key={prop + label} className="table-th">{label}</th>
+      <th key={prop + label} className="table-th" style={{ width: `${width}px` }}>{label}</th>
     );
   });
   return (
     <table className="table">
       <thead className="table-thead">
         <tr>
-          {isIndex && <th></th>}
+          {isIndex && <th className="table-th-index"></th>}
           {headTable}
         </tr>
       </thead>
       <tbody className="">
         {data.map((item, index) => (
           <tr key={item[keyName]} className="table-tr">
-            {isIndex && <BaseTableColumn key={index}>{index + 1}</BaseTableColumn>}
+            {isIndex && <BaseTableColumn key={index} className="table-td-index">{index + 1}</BaseTableColumn>}
             {column(item)}
           </tr>
         ))}

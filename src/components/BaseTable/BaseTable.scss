@@ -1,6 +1,8 @@
 .table {
   width: 100%;
   border: 1px solid nth($fgray, 1);
+  @include wordbreak;
+  table-layout: fixed;
   &-tr {
     line-height: 30px;
     &:nth-child(even) {
@@ -10,11 +12,15 @@
   &-td {
     padding-left: 10px;
     &-content {
-      // @include txthid;
+      width: 100%;
+      @include txthid;
       @include hid;
       span {
         display: inline-block;
       }
+    }
+    &-index {
+      color: nth($fblack, 3);
     }
   }
   &-thead {
@@ -25,5 +31,9 @@
   &-th {
     padding-left: 10px;
     border-right: 1px solid nth($fgray, 1);
+    &-index {
+      padding: 0;
+      width: 30px;
+    }
   }
 }

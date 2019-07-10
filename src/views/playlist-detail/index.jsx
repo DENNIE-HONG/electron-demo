@@ -68,11 +68,13 @@ class PlaylistDetail extends Component {
           <div className="title">
             <span className="title-txt">歌曲列表</span>
             <i className="title-desc">{info.trackCount}首歌</i>
-            <span className="pull-right">播放：</span>
+            <span className="pull-right">播放：
+              <span className="red">{info.playCount}</span>次
+            </span>
           </div>
           <BaseTable data={info.tracks} keyName="id" isIndex>
             <BaseTableColumn width="30">
-              <i className="iconfont icon-play"></i>
+              <i className="playlistDetail-table-iconfont iconfont icon-play"></i>
             </BaseTableColumn>
             <BaseTableColumn prop="name" label="歌曲标题" />
             <BaseTableColumn prop="singers" label="歌手" />
