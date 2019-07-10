@@ -2,6 +2,7 @@
  * 评论模块
  * @param {Funtion} getUrl, 获取数据方法
  * @param {Number}  pageSize, 每页数量，默认20个
+ * @param {String}  id, 歌曲id
  */
 import React, { Component } from 'react';
 import Pagination from 'coms/Pagination';
@@ -11,7 +12,8 @@ import './CommentList.scss';
 class CommentList extends Component {
   static propTypes = {
     getUrl: PropTypes.func,
-    pageSize: PropTypes.number
+    pageSize: PropTypes.number,
+    id: PropTypes.number.isRequired
   }
 
   static defaultProps = {

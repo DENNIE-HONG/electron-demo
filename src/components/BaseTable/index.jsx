@@ -4,6 +4,10 @@
  * @param {String}   keyName, 用data.keyName当做每行表格的key
  * @param {Boolean}  isIndex, 是否需要数字索引，默认否
  * @author luyanhong 2019-07-09
+ * @example
+ * <BaseTable data={xxx}>
+ *  <BaseTableColumn prop="name" label="名字"></BaseTableColumn>
+ * </BaseTable>
  */
 import React from 'react';
 import './BaseTable.scss';

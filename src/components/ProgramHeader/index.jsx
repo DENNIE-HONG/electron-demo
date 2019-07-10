@@ -7,6 +7,7 @@
  * @author luyanhong 2018-12-25
  */
 import React from 'react';
+import PropTypes from 'prop-types';
 import './ProgramHeader.scss';
 import LazyImage from 'coms/LazyImage';
 const ProgramHeader = (props) => {
@@ -15,7 +16,7 @@ const ProgramHeader = (props) => {
     name,
     children,
     tag,
-    width = 160
+    width
   } = props;
   return (
     <>
@@ -31,5 +32,17 @@ const ProgramHeader = (props) => {
       </div>
     </>
   );
+};
+ProgramHeader.propTypes = {
+  picUrl: PropTypes.string,
+  name: PropTypes.string,
+  tag: PropTypes.string,
+  width: PropTypes.number
+};
+ProgramHeader.defaultProps = {
+  picUrl: '',
+  name: '',
+  tag: '',
+  width: 160
 };
 export default ProgramHeader;
