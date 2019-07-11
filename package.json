@@ -14,7 +14,9 @@
     "dev": "webpack --env.production=false --config build/webpack.dev.config.js",
     "devServer": "webpack-dev-server --env.production=false --config build/webpack.dev.config.js",
     "build": "webpack --env.production --config build/webpack.prod.config.js",
-    "build:sit-preview": "npm_config_report=true webpack --env.production --config build/webpack.prod.config.js"
+    "build:sit-preview": "npm_config_report=true webpack --env.production --config build/webpack.prod.config.js",
+    "build-mac": "electron-builder -mwl",
+    "pack-mac": "npm run build && npm run build-mac"
   },
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
@@ -48,6 +50,7 @@
     "babel-plugin-transform-react-remove-prop-types": "^0.4.21",
     "clean-webpack-plugin": "^1.0.0",
     "css-loader": "^1.0.1",
+    "electron-builder": "^21.0.15",
     "eslint": "^5.10.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-loader": "^2.1.1",
@@ -70,5 +73,21 @@
     "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.1.10",
     "webpack-merge": "^4.1.4"
+  },
+  "build": {
+    "productName": "electron-react",
+    "appId": "electron-react",
+    "asar": false,
+    "files": [
+      "package.json",
+      "main.js",
+      "node_modules/",
+      "icon.ico"
+    ],
+    "npmRebuild": false,
+    "mac": {
+      "target": "dmg",
+      "icon": "icon.ico"
+    }
   }
 }

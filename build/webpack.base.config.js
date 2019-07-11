@@ -121,7 +121,6 @@ module.exports = (env) => {
     plugins: [
       new CleanWebpackPlugin([
         `${WEBPACK_COMMON_CONFIG.assetsDirectory}/`,
-        `${WEBPACK_COMMON_CONFIG}/js`,
       ], {
         root: WEBPACK_COMMON_CONFIG.projectRoot
       }),
