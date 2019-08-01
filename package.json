@@ -1,6 +1,7 @@
 {
   "name": "electron-demo",
   "version": "1.0.0",
+  "main": "./app/main.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/DENNIE-HONG/electron-demo.git"
@@ -15,12 +16,16 @@
     "devServer": "webpack-dev-server --env.production=false --config build/webpack.dev.config.js",
     "build": "webpack --env.production --config build/webpack.prod.config.js",
     "build:sit-preview": "npm_config_report=true webpack --env.production --config build/webpack.prod.config.js",
-    "build-mac": "electron-builder -mwl",
-    "pack-mac": "npm run build && npm run build-mac"
+    "build-mac": "rm -rf release && electron-builder -m",
+    "pack-mac": "npm run build && npm run build-mac",
+    "start": "electron .",
+    "start-prod": "cross-env NODE_ENV=production electron ."
   },
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
     "axios": "^0.18.0",
+    "core-js": "^3.1.4",
+    "electron-log": "^3.0.7",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "react-loadable": "^5.5.0",
@@ -50,7 +55,8 @@
     "babel-plugin-transform-react-remove-prop-types": "^0.4.21",
     "clean-webpack-plugin": "^1.0.0",
     "css-loader": "^1.0.1",
-    "electron-builder": "^21.0.15",
+    "electron": "^6.0.0",
+    "electron-builder": "^21.2.0",
     "eslint": "^5.10.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-loader": "^2.1.1",
@@ -60,15 +66,15 @@
     "eslint-plugin-react": "^7.11.1",
     "file-loader": "^2.0.0",
     "html-webpack-plugin": "^3.2.0",
-    "mini-css-extract-plugin": "^0.4.5",
+    "mini-css-extract-plugin": "^0.8.0",
     "node-sass": "^4.10.0",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
     "postcss-loader": "^3.0.0",
     "sass-loader": "^7.1.0",
     "sass-resources-loader": "^2.0.0",
-    "uglifyjs-webpack-plugin": "^2.0.1",
+    "uglifyjs-webpack-plugin": "^2.0.0",
     "url-loader": "^1.1.2",
-    "webpack": "^4.25.1",
+    "webpack": "^4.25.0",
     "webpack-bundle-analyzer": "^3.0.3",
     "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.1.10",
@@ -79,11 +85,14 @@
     "appId": "electron-react",
     "asar": false,
     "files": [
-      "package.json",
-      "main.js",
-      "node_modules/",
-      "icon.ico"
+      "app/dist/",
+      "app/main.js",
+      "package.json"
     ],
+    "directories": {
+      "buildResources": "resources",
+      "output": "release"
+    },
     "npmRebuild": false,
     "mac": {
       "target": "dmg",

@@ -1,19 +1,23 @@
 const { app, BrowserWindow } = require('electron');
+const log = require('electron-log');
 const url = require('url');
 const path = require('path');
-const isDev = process.env.NODE_ENV !== 'production';
+// const isDev = process.env.NODE_ENV !== 'production';
+const isDev = false;
 
 // 关闭安全警告
 process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = true;
+process.env.START_MINIMIZED = false;
+let win;
 function createWindow () {
   // 创建浏览器窗口
-  let win = new BrowserWindow({
+  win = new BrowserWindow({
     width: 1000,
     height: 800,
     transparent: true,
     resizable: false,
     maximizable: false,
-    backgroundColor: '#00FFFFFF',
+    backgroundColor: '#00FFFFFF'
   });
   let Url;
   if (isDev) {
@@ -25,11 +29,11 @@ function createWindow () {
   } else {
     Url = `file://${__dirname}/dist/index.html`;
   }
+  log.info(__dirname);
   // 加载应用页面
   win.loadURL(Url);
   // 打开开发者工具
-  win.webContents.openDevTools();
-
+  isDev && win.webContents.openDevTools();
   // 关闭
   win.on('closed', () => {
     win = null;
@@ -44,3 +48,10 @@ app.on('window-all-closed', () => {
     app.quit();
   }
 });
+app.on('activate', function () {
+  // macOS中点击Dock图标时没有已打开的其余应用窗口时,则通常在应用中重建一个窗口
+  if (win === null) {
+    createWindow();
+  }
+});
+

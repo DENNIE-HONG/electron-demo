@@ -20,6 +20,7 @@ module.exports = (env) => {
     optimization: {
       minimizer: [
         new UglifyJSPlugin({
+          include: [WEBPACK_PROD_CONFIG.sourceCode],
           cache: true,
           parallel: true,
           uglifyOptions: {

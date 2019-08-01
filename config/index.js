@@ -27,7 +27,8 @@ const WEBPACK_PROD_CONFIG = {
   assetsPublicPath: '/',
   assetsDirectory: resolve('app/dist'),//资源路径,
   indexView: resolve('app/dist/index.html'), // 首页
-  port: 2222
+  port: 2222,
+  sourceCode: resolve('src')
 };
 // axios 默认配置
 const AXIOS_DEFAULT_CONFIG = {
