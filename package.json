@@ -1,7 +1,7 @@
 {
   "name": "electron-demo",
   "version": "1.0.0",
-  "main": "./app/main.js",
+  "main": "./app/main.prod.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/DENNIE-HONG/electron-demo.git"
@@ -17,14 +17,15 @@
     "build": "webpack --env.production --config build/webpack.prod.config.js",
     "build:sit-preview": "npm_config_report=true webpack --env.production --config build/webpack.prod.config.js",
     "build-mac": "rm -rf release && electron-builder -m",
-    "pack-mac": "npm run build && npm run build-mac",
-    "start": "electron .",
-    "start-prod": "cross-env NODE_ENV=production electron ."
+    "build-main": "webpack --config build/webpack.main.config.js",
+    "pack-mac": "npm run build && npm run build-main && npm run build-mac",
+    "start": "electron app/main.js",
+    "start-prod": "cross-env NODE_ENV=production electron app/main.js"
   },
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
     "axios": "^0.18.0",
-    "core-js": "^3.1.4",
+    "core-js": "^2.6.9",
     "electron-log": "^3.0.7",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
@@ -66,7 +67,7 @@
     "eslint-plugin-react": "^7.11.1",
     "file-loader": "^2.0.0",
     "html-webpack-plugin": "^3.2.0",
-    "mini-css-extract-plugin": "^0.8.0",
+    "mini-css-extract-plugin": "^0.4.4",
     "node-sass": "^4.10.0",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
     "postcss-loader": "^3.0.0",
@@ -74,10 +75,10 @@
     "sass-resources-loader": "^2.0.0",
     "uglifyjs-webpack-plugin": "^2.0.0",
     "url-loader": "^1.1.2",
-    "webpack": "^4.25.0",
+    "webpack": "^4.25.1",
     "webpack-bundle-analyzer": "^3.0.3",
-    "webpack-cli": "^3.1.2",
-    "webpack-dev-server": "^3.1.10",
+    "webpack-cli": "^3.3.6",
+    "webpack-dev-server": "^3.7.2",
     "webpack-merge": "^4.1.4"
   },
   "build": {
@@ -86,7 +87,7 @@
     "asar": false,
     "files": [
       "app/dist/",
-      "app/main.js",
+      "app/main.prod.js",
       "package.json"
     ],
     "directories": {

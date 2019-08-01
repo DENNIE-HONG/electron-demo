@@ -2,12 +2,11 @@ const { app, BrowserWindow } = require('electron');
 const log = require('electron-log');
 const url = require('url');
 const path = require('path');
-// const isDev = process.env.NODE_ENV !== 'production';
-const isDev = false;
+const isDev = process.env.NODE_ENV !== 'production';
 
 // 关闭安全警告
 process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = true;
-process.env.START_MINIMIZED = false;
+
 let win;
 function createWindow () {
   // 创建浏览器窗口

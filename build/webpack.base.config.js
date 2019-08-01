@@ -10,7 +10,7 @@ const { WEBPACK_COMMON_CONFIG } = require('../config');
 const resolve = (dir) => {
   return path.join(__dirname, '..', dir);
 };
-console.log(WEBPACK_COMMON_CONFIG.assetsDirectory);
+
 module.exports = (env) => {
   const isProd = env.production === true;
   return {
@@ -51,8 +51,8 @@ module.exports = (env) => {
     module: {
       rules: [
         {
-          test: /\.js(x?)$/,
-          use: isProd ? 'babel-loader?cacheDirectory' : ['babel-loader?cacheDirectory', 'eslint-loader'],
+          test: /\.jsx?$/,
+          use: isProd ? 'babel-loader' : ['babel-loader?cacheDirectory', 'eslint-loader'],
           include: [WEBPACK_COMMON_CONFIG.sourceCode, resolve('config')]
         },
         {
