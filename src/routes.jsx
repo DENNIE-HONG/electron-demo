@@ -61,7 +61,7 @@ class RouteMap extends Component {
       loader: () => import(/* webpackChunkName: 'playlist-detail' */ '@/views/playlist-detail'),
       loading: Loading,
       render (loaded, rest) {
-        return <loaded.default {...rest} />;
+        return <loaded.default setMusic={self.setMusic} {...rest} />;
       }
     });
   }

@@ -8,11 +8,20 @@
 --电台分类(dj)  
 --单台节目(program)  
 
-## 推荐页
+## 推荐
 ![home](/img/home.png)
 ## 排行榜
 ![top](/img/top.png)
-
+## 歌单
+![playlist](/img/playlist.png)
+## 电台
+![dj](/img/dj.png)
+## 歌单详情页
+![playlist-detail](/img/playlist-detail.png)
+## 电台节目页
+![djRadio](/img/djRadio.png)
+## 节目详情页
+![program](/img/program.png)
   ## 启动步骤：  
   1、
     开发： npm run devServer  

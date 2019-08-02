@@ -1,14 +1,17 @@
 /**
- * 歌单详情页
+ * @file 歌单详情页
+ * @author luyanhong
  */
 import React, { Component } from 'react';
 import { getPlaylistDetail } from 'api/playlist';
+import { getPlaylistComment } from 'api/comment';
 import ProgramHeader from 'coms/ProgramHeader';
 import LazyImage from 'coms/LazyImage';
 import BaseButton from 'coms/BaseButton';
 import { prettyDate } from 'utils/pretty-time';
 import ShowDesc from 'coms/ShowDesc';
 import BaseTable, { BaseTableColumn } from 'coms/BaseTable';
+import CommentList from 'coms/CommentList';
 import './playlist-detail.scss';
 class PlaylistDetail extends Component {
   constructor (props) {
@@ -16,8 +19,11 @@ class PlaylistDetail extends Component {
     this.state = {
       info: null
     };
+    this.onPlay = this.onPlay.bind(this);
+    this.playAll = this.playAll.bind(this);
   }
 
+  // 获取歌曲列表
   async componentDidMount () {
     const { id } = this.props.match.params;
     try {
@@ -32,8 +38,21 @@ class PlaylistDetail extends Component {
     }
   }
 
-  render () {
+  // 获取音乐资源并播放
+  onPlay (idx) {
     const { info } = this.state;
+    const list = [info.tracks[idx]];
+    this.props.setMusic && this.props.setMusic(list, info.tracks[idx].id);
+  }
+
+  // 播放全部
+  playAll () {
+    const { tracks, id } = this.state.info;
+    this.props.setMusic && this.props.setMusic(tracks, id);
+  }
+
+  render () {
+    const { info, comments } = this.state;
     return info && (
       <div className="playlistDetail">
         <header className="playlistDetail-header">
@@ -49,10 +68,10 @@ class PlaylistDetail extends Component {
               <span className="info-name">{info.creator.nickname}</span>
               <span>{prettyDate(info.createTime)} 创建</span>
             </div>
-            <div className="btn-box">
-              <BaseButton icon="play" type="primary">播放</BaseButton>
-              <BaseButton icon="comment">({info.commentCount})</BaseButton>
-            </div>
+            <ul className="btn-box">
+              <li><BaseButton icon="play" type="primary" onClick={this.playAll}>播放</BaseButton></li>
+              <li><BaseButton icon="comment">({info.commentCount})</BaseButton></li>
+            </ul>
             <dl className="playlistDetail-header-tags">
               <dt className="tag-title">标签：</dt>
               {info.tags.map((tag, index) => (
@@ -73,13 +92,21 @@ class PlaylistDetail extends Component {
             </span>
           </div>
           <BaseTable data={info.tracks} keyName="id" isIndex>
-            <BaseTableColumn width="30">
+            <BaseTableColumn width="30" onClick={this.onPlay}>
               <i className="playlistDetail-table-iconfont iconfont icon-play"></i>
             </BaseTableColumn>
             <BaseTableColumn prop="name" label="歌曲标题" />
             <BaseTableColumn prop="singers" label="歌手" />
             <BaseTableColumn prop="album" label="专辑" />
           </BaseTable>
+        </section>
+        <section className="playlistDetail-comments">
+          <div className="title">
+            <span className="title-txt">评论</span>
+            <i className="title-desc">共{info.commentCount}条评论</i>
+          </div>
+          <p>假装这里能输入评论</p>
+          <CommentList getUrl={getPlaylistComment} id={info.id} />
         </section>
       </div>
     );

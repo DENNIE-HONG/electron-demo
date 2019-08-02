@@ -94,6 +94,9 @@ class Top extends Component {
                         <span className="top-list-info-name">{music.second}</span>
                       </li>
                     ))}
+                    {!item.tracks.length && (
+                      <span className="top-list-info-desc">{item.description}</span>
+                    )}
                   </ol>
                 </li>
               ))}

@@ -1,7 +1,7 @@
 /**
  * 音乐播放器模块, 默认音量长度为80
  * @param {Array}  playList, 歌曲列表
- * @param {Number} id, 歌单id
+ * @param {Number} id, 歌单id,主要用更新播放列表
  * @author luyanhong 2018-11-20
 */
 import React, { Component } from 'react';

@@ -18,12 +18,18 @@ const BaseTable = (props) => {
   const {
     data, keyName, children, isIndex
   } = props;
-  const column = (item) => (
+  const column = (item, idx) => (
     children.map((child, index) => {
-      const { prop } = child.props;
+      const { prop, onClick } = child.props;
       if (prop) {
         return (
-          <BaseTableColumn key={index}>{item[prop]}</BaseTableColumn>
+          <BaseTableColumn key={index} onClick={onClick} idx={idx}>{item[prop]}</BaseTableColumn>
+        );
+      }
+      // 有点击事件
+      if (onClick) {
+        return (
+          <BaseTableColumn key={index} idx={idx} onClick={onClick}>{child.props.children}</BaseTableColumn>
         );
       }
       return (child);
@@ -48,7 +54,7 @@ const BaseTable = (props) => {
         {data.map((item, index) => (
           <tr key={item[keyName]} className="table-tr">
             {isIndex && <BaseTableColumn key={index} className="table-td-index">{index + 1}</BaseTableColumn>}
-            {column(item)}
+            {column(item, index)}
           </tr>
         ))}
       </tbody>

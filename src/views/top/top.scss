@@ -106,6 +106,9 @@
         @include hid;
         vertical-align: top;
       }
+      &-desc {
+        @include linehid(3);
+      }
     }
   }
 }

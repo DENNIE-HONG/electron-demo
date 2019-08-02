@@ -19,3 +19,16 @@ export const getCommentDj = (options) => {
   });
 };
 export const getCommentPlaylist = 1;
+// 歌单评论
+export const getPlaylistComment = (options) => {
+  const { id, limit = 20, offset } = options;
+  const params = {
+    id,
+    limit,
+    offset
+  };
+  return request({
+    url: '/comment/playlist',
+    params
+  });
+};
