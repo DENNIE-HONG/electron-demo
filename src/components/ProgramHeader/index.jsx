@@ -3,7 +3,7 @@
  * @param {String} picUrl, 图片url
  * @param {String} name, 标题
  * @param {String} tag, 标签
- * @param {Number} width, 图片宽度
+ * @param {Number} width, 图片宽度, 默认160px
  * @author luyanhong 2018-12-25
  */
 import React from 'react';

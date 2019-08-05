@@ -1,8 +1,11 @@
 /**
  * 评论模块
+ * @param {String}  id, 必须，歌曲id
  * @param {Funtion} getUrl, 获取数据方法
  * @param {Number}  pageSize, 每页数量，默认20个
- * @param {String}  id, 歌曲id
+ * @param {Boolean} isAnchor, 评论列表容器，翻页是否滚动到顶部
+ * @example
+ * <CommentList getUrl={function () { xxx }} id={xxx} ></CommentList>
  */
 import React, { Component } from 'react';
 import Pagination from 'coms/Pagination';
@@ -13,12 +16,14 @@ class CommentList extends Component {
   static propTypes = {
     getUrl: PropTypes.func,
     pageSize: PropTypes.number,
-    id: PropTypes.number.isRequired
+    id: PropTypes.number.isRequired,
+    isAnchor: PropTypes.bool
   }
 
   static defaultProps = {
     getUrl: undefined,
-    pageSize: 20
+    pageSize: 20,
+    isAnchor: true
   }
 
   constructor (props) {
@@ -28,7 +33,7 @@ class CommentList extends Component {
     };
     this.total = 0;
     this.changePager = this.changePager.bind(this);
-    this.$scrollEle = document.querySelector('.main');
+    this.$container = React.createRef();
   }
 
   async componentDidMount () {
@@ -63,18 +68,18 @@ class CommentList extends Component {
   changePager (currentPage) {
     const offset = this.props.pageSize * (currentPage - 1);
     this.fetch(offset);
-    this.scrollTop();
+    this.props.isAnchor && this.scrollTop();
   }
 
   scrollTop () {
-    this.$scrollEle.scrollTo(0, 0);
+    this.$container.current.scrollIntoView();
   }
 
   render () {
     const { commentList } = this.state;
     return (
       <>
-        <ul className="comment">
+        <ul className="comment" ref={this.$container}>
           {commentList.map((item) => (
             <CommentUI
               key={item.commentId}

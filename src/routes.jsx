@@ -64,6 +64,13 @@ class RouteMap extends Component {
         return <loaded.default setMusic={self.setMusic} {...rest} />;
       }
     });
+    this.AsyncSong = Loadable({
+      loader: () => import(/* webpackChunkName: 'song' */ '@/views/song'),
+      loading: Loading,
+      render (loaded, rest) {
+        return <loaded.default setMusic={self.setMusic} {...rest} />;
+      }
+    });
   }
 
   setMusic = (playList, playId) => {
@@ -110,6 +117,10 @@ class RouteMap extends Component {
               <Route
                 path="/program/:id"
                 component={this.AsyncProgram}
+              />
+              <Route
+                path="/song/:id"
+                component={this.AsyncSong}
               />
               <PlayBox playList={playList} id={playId} />
             </main>

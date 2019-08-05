@@ -95,17 +95,19 @@ class Dj extends Component {
           <ul className="dj-list">
             {programs.map((item) => (
               <li className="dj-list-item" key={item.id}>
-                <div className="dj-list-pic">
-                  <LazyImage src={`${item.coverUrl}?param=120y120 `} alt={item.name} />
-                </div>
-                <div className="dj-list-info">
-                  <h4 className="dj-list-name">{item.name}</h4>
-                  <div className="dj-list-info-artist">{item.radio.name}</div>
-                  <p className="dj-list-info-txt">
-                    <span className="dj-list-info-periods">共{item.radio.programCount}期</span>
-                    <span>订阅{item.radio.subCount}次</span>
-                  </p>
-                </div>
+                <NavLink to={`/program/${item.id}`}>
+                  <div className="dj-list-pic">
+                    <LazyImage src={`${item.coverUrl}?param=120y120 `} alt={item.name} />
+                  </div>
+                  <div className="dj-list-info">
+                    <h4 className="dj-list-name">{item.name}</h4>
+                    <div className="dj-list-info-artist">{item.radio.name}</div>
+                    <p className="dj-list-info-txt">
+                      <span className="dj-list-info-periods">共{item.radio.programCount}期</span>
+                      <span>订阅{item.radio.subCount}次</span>
+                    </p>
+                  </div>
+                </NavLink>
               </li>
             ))}
           </ul>

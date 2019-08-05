@@ -52,7 +52,7 @@ class PlaylistDetail extends Component {
   }
 
   render () {
-    const { info, comments } = this.state;
+    const { info } = this.state;
     return info && (
       <div className="playlistDetail">
         <header className="playlistDetail-header">
