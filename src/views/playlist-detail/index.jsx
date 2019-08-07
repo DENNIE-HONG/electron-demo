@@ -21,6 +21,7 @@ class PlaylistDetail extends Component {
     };
     this.onPlay = this.onPlay.bind(this);
     this.playAll = this.playAll.bind(this);
+    this.navLink = this.navLink.bind(this);
   }
 
   // 获取歌曲列表
@@ -49,6 +50,13 @@ class PlaylistDetail extends Component {
   playAll () {
     const { tracks, id } = this.state.info;
     this.props.setMusic && this.props.setMusic(tracks, id);
+  }
+
+  navLink (idx) {
+    const { id } = this.state.info.tracks[idx];
+    this.props.history.push({
+      pathname: `/song/${id}`
+    });
   }
 
   render () {
@@ -95,7 +103,7 @@ class PlaylistDetail extends Component {
             <BaseTableColumn width="30" onClick={this.onPlay}>
               <i className="playlistDetail-table-iconfont iconfont icon-play"></i>
             </BaseTableColumn>
-            <BaseTableColumn prop="name" label="歌曲标题" />
+            <BaseTableColumn prop="name" label="歌曲标题" onClick={this.navLink} className="playlistDetail-link" />
             <BaseTableColumn prop="singers" label="歌手" />
             <BaseTableColumn prop="album" label="专辑" />
           </BaseTable>

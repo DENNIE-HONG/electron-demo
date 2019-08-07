@@ -7,6 +7,7 @@
 --歌单详情(playlist-detail)  
 --电台分类(dj)  
 --单台节目(program)  
+--单曲页(song)  
 
 ## 推荐
 ![home](/img/home.png)
@@ -22,6 +23,8 @@
 ![djRadio](/img/djRadio.png)
 ## 节目详情页
 ![program](/img/program.png)
+## 歌曲详情页
+![song](/img/song.png)
   ## 启动步骤：  
   1、
     开发： npm run devServer  

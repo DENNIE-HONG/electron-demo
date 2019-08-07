@@ -6,6 +6,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
+const webpack = require('webpack');
 const { WEBPACK_COMMON_CONFIG } = require('../config');
 const resolve = (dir) => {
   return path.join(__dirname, '..', dir);
@@ -110,8 +111,8 @@ module.exports = (env) => {
               loader: 'url-loader',
               options: {
                 limit: 2048,
-                publicPath: isProd ? `file:///${WEBPACK_COMMON_CONFIG.assetsDirectory}`: WEBPACK_COMMON_CONFIG.assetsPublicPath,
-                name: isProd ? 'font/[name].[hash:7].[ext]' : 'fonts/[name].[ext]'
+                publicPath: isProd ? '../': WEBPACK_COMMON_CONFIG.assetsPublicPath,
+                name: isProd ? 'fonts/[name].[hash:7].[ext]' : 'fonts/[name].[ext]'
               }
             }
           ]
@@ -130,6 +131,9 @@ module.exports = (env) => {
         inject: true,
         cache: false,
         // favicon: path.resolve(__dirname, '../favicon.ico')
+      }),
+      new webpack.EnvironmentPlugin({
+        IP_ADRESS: WEBPACK_COMMON_CONFIG.ip
       })
     ]
   };

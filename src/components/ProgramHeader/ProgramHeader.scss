@@ -7,6 +7,9 @@
       width: 100%;
       vertical-align: middle;
     }
+    &.circle {
+      border-radius: 50%;
+    }
   }
   &-info {
     @include hid;

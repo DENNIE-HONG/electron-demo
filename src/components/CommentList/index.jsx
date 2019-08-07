@@ -4,6 +4,8 @@
  * @param {Funtion} getUrl, 获取数据方法
  * @param {Number}  pageSize, 每页数量，默认20个
  * @param {Boolean} isAnchor, 评论列表容器，翻页是否滚动到顶部
+ * @param {String}  title, 评论标题
+ * @author luyanhong 2019-01
  * @example
  * <CommentList getUrl={function () { xxx }} id={xxx} ></CommentList>
  */
@@ -17,19 +19,22 @@ class CommentList extends Component {
     getUrl: PropTypes.func,
     pageSize: PropTypes.number,
     id: PropTypes.number.isRequired,
-    isAnchor: PropTypes.bool
+    isAnchor: PropTypes.bool,
+    title: PropTypes.string
   }
 
   static defaultProps = {
     getUrl: undefined,
     pageSize: 20,
-    isAnchor: true
+    isAnchor: true,
+    title: ''
   }
 
   constructor (props) {
     super(props);
     this.state = {
-      commentList: []
+      commentList: [],
+      totalCount: 0
     };
     this.total = 0;
     this.changePager = this.changePager.bind(this);
@@ -55,7 +60,8 @@ class CommentList extends Component {
             this.total = Math.ceil(res.total / pageSize);
           }
           this.setState({
-            commentList: res.comments
+            commentList: res.comments,
+            totalCount: res.total
           });
         }
       }
@@ -76,9 +82,13 @@ class CommentList extends Component {
   }
 
   render () {
-    const { commentList } = this.state;
+    const { commentList, totalCount } = this.state;
+    const { title } = this.props;
     return (
       <>
+        {title && (
+          <h5 className="comment-title">{title}({totalCount})</h5>
+        )}
         <ul className="comment" ref={this.$container}>
           {commentList.map((item) => (
             <CommentUI

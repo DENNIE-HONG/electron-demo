@@ -1,0 +1,28 @@
+.song {
+  padding-left: 40px;
+  padding-right: 30px;
+  &-header {
+    margin-top: 40px;
+    &-info {
+      color: nth($fblack, 3);
+      margin-top: 20px;
+      .info-singers,
+      .info-album {
+        color: nth($fblue, 1);
+      }
+      .info-singers + .info-singers {
+        padding-left: 10px;
+      }
+    }
+    &-btns {
+      margin-top: 10px;
+      margin-bottom: 40px;
+    }
+  }
+  &-comment {
+    margin-bottom: 40px;
+    &-input {
+      padding: 10px 0;
+    }
+  }
+}

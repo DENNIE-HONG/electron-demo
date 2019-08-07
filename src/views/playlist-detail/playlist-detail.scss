@@ -48,6 +48,7 @@
     .red {
       color: nth($fred, 1);
     }
+
   }
   &-desc {
     margin-top: 10px;
@@ -61,5 +62,11 @@
   }
   &-comments {
     margin-top: 40px;
+  }
+  &-link {
+    cursor: pointer;
+    &:hover {
+      color: nth($fblue, 1);
+    }
   }
 }

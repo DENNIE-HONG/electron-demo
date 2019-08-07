@@ -1,7 +1,13 @@
 .comment {
+  &-title {
+    border-bottom: 1px solid #ccc;
+  }
   &-item {
     padding: 12px 0;
-    border-top: 1px dashed nth($fgray, 4);
+    // border-top: 1px dashed nth($fgray, 4);
+    & + .comment-item {
+      border-top: 1px dotted nth($fgray, 4);
+    }
   }
   &-pic {
     float: left;

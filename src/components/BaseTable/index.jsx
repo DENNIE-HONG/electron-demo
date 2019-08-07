@@ -20,16 +20,16 @@ const BaseTable = (props) => {
   } = props;
   const column = (item, idx) => (
     children.map((child, index) => {
-      const { prop, onClick } = child.props;
+      const { prop, onClick, className } = child.props;
       if (prop) {
         return (
-          <BaseTableColumn key={index} onClick={onClick} idx={idx}>{item[prop]}</BaseTableColumn>
+          <BaseTableColumn key={index} onClick={onClick} idx={idx} className={className}>{item[prop]}</BaseTableColumn>
         );
       }
       // 有点击事件
       if (onClick) {
         return (
-          <BaseTableColumn key={index} idx={idx} onClick={onClick}>{child.props.children}</BaseTableColumn>
+          <BaseTableColumn key={index} idx={idx} onClick={onClick} className={className}>{child.props.children}</BaseTableColumn>
         );
       }
       return (child);

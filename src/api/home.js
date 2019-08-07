@@ -12,5 +12,3 @@ export const getPersonalizedNew = (limit = 50) => request.get(`/top/album?limit=
 // 获取专辑内容
 export const getAlbum = (id = required()) => request.get(`/album?id=${id}`);
 
-// 获取音乐详情
-export const getSongDetail = (ids = required()) => request.get(`/song/detail?ids=${ids}`);

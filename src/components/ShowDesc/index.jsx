@@ -3,6 +3,9 @@
  * @param {String}  text, 必须，文案
  * @param {Boolean} isOpen,  是否展开，默认收起
  * @param {Number}  maxHeight, 收起时候最大高度, 默认100px
+ * @author luyanhong
+ * @example
+ * <ShowDesc text={xxx} />
 */
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
