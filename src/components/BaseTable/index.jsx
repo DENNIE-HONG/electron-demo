@@ -5,7 +5,7 @@
  * @param {Boolean}  isIndex, 是否需要数字索引，默认否
  * @author luyanhong 2019-07-09
  * @example
- * <BaseTable data={xxx}>
+ * <BaseTable data={array}>
  *  <BaseTableColumn prop="name" label="名字"></BaseTableColumn>
  * </BaseTable>
  */

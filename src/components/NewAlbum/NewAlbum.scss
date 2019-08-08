@@ -9,11 +9,6 @@
       margin-bottom: 25px;
       box-sizing: border-box;
       cursor: pointer;
-      &:hover {
-        .newalbum-play-btn {
-          display: block;
-        }
-      }
     }
     &-pic {
       width: 100%;
@@ -37,9 +32,15 @@
       @include txthid;
       @include hid;
     }
+    &-link {
+      &:hover {
+        ~ .newalbum-play-btn {
+          visibility: visible;
+        }
+      }
+    }
   }
   &-play-btn {
-    display: none;
     position: absolute;
     top: 50%;
     right: 35px;
@@ -48,8 +49,14 @@
     color: nth($fgray, 1);
     background-color: rgba(0, 0, 0, 0.4);
     border-radius: 10px;
+    z-index: 1;
+    visibility: hidden;
     > .iconfont {
       font-size: 20px;
+    }
+    &:hover {
+      visibility: visible;
+      background-color: rgba(0, 0, 0, 0.6);
     }
   }
 }

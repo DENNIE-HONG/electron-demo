@@ -1,0 +1,29 @@
+.album {
+  padding-left: 40px;
+  padding-right: 30px;
+  &-header {
+    margin-top: 40px;
+    &-btns {
+      margin-top: 20px;
+      .btn {
+        margin-left: 10px;
+      }
+    }
+  }
+  &-info {
+    margin-top: 10px;
+    color: nth($fblack, 3);
+  }
+  &-desc {
+    margin-top: 20px;
+    &-txt {
+      text-indent: 2em;
+    }
+    &-title {
+      font-weight: bold;
+    }
+  }
+  &-songs {
+    margin-top: 40px;
+  }
+}

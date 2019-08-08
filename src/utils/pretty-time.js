@@ -12,7 +12,7 @@ export const prettyDate = (time) => {
 
 /**
  * 格式化节目时长
- * @param {duration} 时长，单位是毫秒‘
+ * @param {Number} duration, 时长，单位是毫秒‘
  * @return {String}  xx:xx的时间格式
  * @author luyanhong
 */
@@ -27,7 +27,11 @@ export const prettyDuration = (duration) => {
   sec = sec < 10 ? `0${sec}` : sec;
   return `${min}:${sec}`;
 };
-
+/**
+ * 格式化时间
+ * @param {Number} timeStamp, 时间戳
+ * @return {Stiring} 2018-xx-xx xx:xx
+ */
 export const prettyTime = (timeStamp) => {
   const dateInstance = new Date(timeStamp);
   const date = prettyDate(timeStamp);

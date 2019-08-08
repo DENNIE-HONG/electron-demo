@@ -7,6 +7,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import LazyImage from 'coms/LazyImage';
+import { NavLink } from 'react-router-dom';
 import './NewAlbum.scss';
 class NewAlbum extends Component {
   static propTypes = {
@@ -32,10 +33,12 @@ class NewAlbum extends Component {
             key={item.id}
             title={item.name}
           >
-            <div className="newalbum-list-pic">
-              <LazyImage src={`${item.picUrl}?param=130y130`} alt={item.name} />
-            </div>
-            <h4 className="newalbum-list-name">{item.name}</h4>
+            <NavLink to={`/album/${item.id}`} className="newalbum-list-link">
+              <div className="newalbum-list-pic">
+                <LazyImage src={`${item.picUrl}?param=130y130`} alt={item.name} />
+              </div>
+              <h4 className="newalbum-list-name">{item.name}</h4>
+            </NavLink>
             <span className="newalbum-list-txt">{item.artist.name}</span>
             <div className="newalbum-play-btn" onClick={() => this.play(item.id)}>
               <i className="iconfont icon-play"></i>
