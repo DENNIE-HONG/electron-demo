@@ -3,8 +3,7 @@
  * @author luyanhong
  */
 import React, { Component } from 'react';
-import { getPlaylistDetail } from 'api/playlist';
-import { getPlaylistComment } from 'api/comment';
+import { getPlaylistDetail, getPlaylistComment } from 'api/playlist';
 import ProgramHeader from 'coms/ProgramHeader';
 import LazyImage from 'coms/LazyImage';
 import BaseButton from 'coms/BaseButton';

@@ -26,4 +26,20 @@
   &-songs {
     margin-top: 40px;
   }
+  &-comments {
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+  &-table {
+    &-icon {
+      cursor: pointer;
+      color: nth($fblack, 3);
+      &:hover {
+        color: nth($fblack, 1);
+      }
+    }
+  }
+  &-link {
+    cursor: pointer;
+  }
 }

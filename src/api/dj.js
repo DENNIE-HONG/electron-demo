@@ -30,5 +30,4 @@ export const getDjProgram = ({ rid, offset, limit }) => {
   });
 };
 
-// 电台节目详情
-export const getProgramDetail = (id) => request.get(`/dj/program/detail?id=${id}`);
+

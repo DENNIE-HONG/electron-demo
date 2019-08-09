@@ -4,11 +4,12 @@
  */
 import React, { Component } from 'react';
 import ProgramHeader from 'coms/ProgramHeader';
-import { getAlbum } from 'api/home';
+import { getAlbum, getAlbumComment } from 'api/album';
 import BaseButton from 'coms/BaseButton';
 import { prettyDate } from 'utils/pretty-time';
 import ShowDesc from 'coms/ShowDesc';
 import BaseTable, { BaseTableColumn } from 'coms/BaseTable';
+import CommentList from 'coms/CommentList';
 import './album.scss';
 
 class Album extends Component {
@@ -18,6 +19,9 @@ class Album extends Component {
       info: null,
       songs: []
     };
+    this.onPlay = this.onPlay.bind(this);
+    this.navLink = this.navLink.bind(this);
+    this.playAll = this.playAll.bind(this);
   }
 
   async componentDidMount () {
@@ -30,9 +34,26 @@ class Album extends Component {
           songs: res.songs
         });
       }
-    } catch {
-      //
+    } catch (err) {
+      console.log(err);
     }
+  }
+
+  onPlay (idx) {
+    const track = this.state.songs[idx];
+    this.props.setMusic([track], track.id);
+  }
+
+  navLink (idx) {
+    const { id } = this.state.songs[idx];
+    this.props.history.push({
+      pathname: `/song/${id}`
+    });
+  }
+
+  playAll () {
+    const { songs, info } = this.state;
+    this.props.setMusic(songs, info.id);
   }
 
   render () {
@@ -53,7 +74,7 @@ class Album extends Component {
               <p>发行公司：{info.company}</p>
             </div>
             <div className="album-header-btns">
-              <BaseButton type="primary" icon="play">播放</BaseButton>
+              <BaseButton type="primary" icon="play" onClick={this.playAll}>播放</BaseButton>
               <BaseButton icon="comment">({info.info.commentCount})</BaseButton>
             </div>
           </ProgramHeader>
@@ -70,13 +91,23 @@ class Album extends Component {
             <i className="title-desc">{info.size}首歌</i>
           </h4>
           <BaseTable data={songs} isIndex keyName="id">
-            <BaseTableColumn>
-              <i className="iconfont icon-play"></i>
+            <BaseTableColumn width="40" onClick={this.onPlay}>
+              <i className="iconfont icon-play album-table-icon"></i>
             </BaseTableColumn>
-            <BaseTableColumn label="歌曲标题" prop="name"></BaseTableColumn>
-            <BaseTableColumn label="时长" prop="durationPretty"></BaseTableColumn>
-            <BaseTableColumn label="歌手" prop="artist"></BaseTableColumn>
+            <BaseTableColumn label="歌曲标题" className="nav-link" prop="name" onClick={this.navLink}></BaseTableColumn>
+            <BaseTableColumn label="时长" prop="durationPretty" width="60"></BaseTableColumn>
+            <BaseTableColumn label="歌手" prop="artist" width="150"></BaseTableColumn>
           </BaseTable>
+        </section>
+        <section className="album-comments">
+          <h4 className="title">
+            <span className="title-txt">评论</span>
+            <i className="title-desc">共{info.info.commentCount}条评论</i>
+          </h4>
+          <div>
+            假装这里能评论哦
+          </div>
+          <CommentList getUrl={getAlbumComment} title="精彩评论" id={info.id} />
         </section>
       </div>
     );

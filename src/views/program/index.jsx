@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { getProgramDetail } from 'api/dj';
-import { getCommentDj } from 'api/comment';
+import { getProgramDetail, getCommentDj } from 'api/program';
 import BaseButton from 'coms/BaseButton';
 import ProgramHeader from 'coms/ProgramHeader';
 import { prettyDate } from 'utils/pretty-time';

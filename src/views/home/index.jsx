@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import {
   getPersonalized,
   getPersonalizedNew,
-  getPlaylistDetail,
-  getAlbum
+  getPlaylistDetail
 } from 'api/home';
+import { getAlbum } from 'api/album';
 import NewAlbum from 'coms/NewAlbum';
 import CarouselBox from 'coms/CarouselBox';
 import showMessage from 'coms/message';

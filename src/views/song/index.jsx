@@ -3,12 +3,12 @@
  * @author luyanhong 2019-08-05
  */
 import React, { Component } from 'react';
-import { getSongDetail, getLyric } from 'api/song';
-import { getSongComment } from 'api/comment';
+import { getSongDetail, getLyric, getSongComment } from 'api/song';
 import ProgramHeader from 'coms/ProgramHeader';
 import BaseButton from 'coms/BaseButton';
 import ShowDesc from 'coms/ShowDesc';
 import CommentList from 'coms/CommentList';
+import { NavLink } from 'react-router-dom';
 import './song.scss';
 class Song extends Component {
   constructor (props) {
@@ -67,7 +67,10 @@ class Song extends Component {
                 歌手：{singers}
               </p>
               <p className="info-item">
-                所属专辑：<span className="info-album">{info.al.name}</span>
+                所属专辑：
+                <NavLink to={`/album/${info.al.id}`}>
+                  <span className="info-album">{info.al.name}</span>
+                </NavLink>
               </p>
             </div>
             <div className="song-header-btns">

@@ -13,10 +13,11 @@
     padding-left: 10px;
     &-content {
       width: 100%;
-      @include txthid;
-      @include hid;
       span {
-        display: inline-block;
+        display: block;
+        @include txthid;
+        @include hid;
+        white-space: pre;
       }
     }
     &-index {

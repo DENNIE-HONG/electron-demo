@@ -110,7 +110,7 @@ module.exports = (env) => {
             {
               loader: 'url-loader',
               options: {
-                limit: 2048,
+                limit: 8192,
                 publicPath: isProd ? '../': WEBPACK_COMMON_CONFIG.assetsPublicPath,
                 name: isProd ? 'fonts/[name].[hash:7].[ext]' : 'fonts/[name].[ext]'
               }

@@ -17,8 +17,11 @@ a {
   outline: none;
   transition: all 0.3s;
 }
-
-a:hover {
+.nav-link {
+  cursor: pointer;
+}
+a:hover,
+.nav-link:hover {
   color: nth($fblue, 1);
 }
 

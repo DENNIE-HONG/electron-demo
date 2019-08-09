@@ -12,6 +12,7 @@
 import React, { Component } from 'react';
 import Pagination from 'coms/Pagination';
 import PropTypes from 'prop-types';
+import EmptyList from 'coms/EmptyList';
 import CommentUI from './listUI';
 import './CommentList.scss';
 class CommentList extends Component {
@@ -34,7 +35,7 @@ class CommentList extends Component {
     super(props);
     this.state = {
       commentList: [],
-      totalCount: 0
+      totalCount: null
     };
     this.total = 0;
     this.changePager = this.changePager.bind(this);
@@ -86,22 +87,24 @@ class CommentList extends Component {
     const { title } = this.props;
     return (
       <>
-        {title && (
+        {totalCount && title && (
           <h5 className="comment-title">{title}({totalCount})</h5>
         )}
-        <ul className="comment" ref={this.$container}>
-          {commentList.map((item) => (
-            <CommentUI
-              key={item.commentId}
-              avatarUrl={item.user.avatarUrl}
-              name={item.user.nickname}
-              content={item.content}
-              time={item.time}
-              replied={item.beReplied}
-              likedCount={item.likedCount}
-            />
-          ))}
-        </ul>
+        {totalCount ? (
+          <ul className="comment" ref={this.$container}>
+            {commentList.map((item) => (
+              <CommentUI
+                key={item.commentId}
+                avatarUrl={item.user.avatarUrl}
+                name={item.user.nickname}
+                content={item.content}
+                time={item.time}
+                replied={item.beReplied}
+                likedCount={item.likedCount}
+              />
+            ))}
+          </ul>
+        ) : <EmptyList />}
         {this.total > 1 && <Pagination total={this.total} change={this.changePager} />}
       </>
     );
