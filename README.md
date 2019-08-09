@@ -8,6 +8,7 @@
 --电台分类(dj)  
 --单台节目(program)  
 --单曲页(song)  
+--专辑页(album)  
 
 ## 推荐
 ![home](/img/home.png)
@@ -25,6 +26,8 @@
 ![program](/img/program.png)
 ## 歌曲详情页
 ![song](/img/song.png)
+## 专辑页
+![alum](/img/album.png)
   ## 启动步骤：  
   1、
     开发： npm run devServer  
