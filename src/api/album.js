@@ -33,7 +33,7 @@ export const getAlbum = async (id = required()) => {
   const { songs } = res;
   songs.map((song) => {
     song.artist = song.ar[0].name;
-    const duration = parseInt(song.m.size * 8 / song.m.br, 10) * 1000;
+    const duration = song.m ? parseInt(song.m.size * 8 / song.m.br, 10) * 1000 : 0;
     song.durationPretty = prettyDuration(duration);
   });
   return res;

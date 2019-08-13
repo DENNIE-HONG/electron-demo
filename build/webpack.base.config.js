@@ -31,15 +31,15 @@ module.exports = (env) => {
       splitChunks: {
         cacheGroups: {
           common: {
-            minChunks: 6,
+            minChunks: 2,
             name: 'common',
-            minSize: 1000,
-            chunks: 'initial'
+            minSize: 0,
+            chunks: 'all'
           },
           vendors: {
             test: /node_modules/,
             name: 'vendors',
-            priority: 10,
+            priority: 10, // 设置优先级，防止和自定义的公共代码提取时被覆盖，不进行打包
             enforce: true,
             chunks: 'all'
           }
