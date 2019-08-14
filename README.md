@@ -47,7 +47,9 @@ https://binaryify.github.io/NeteaseCloudMusicApi/
 改用translate3d, 变成复合图层，开启硬件加速，避免普通图层的回流/重绘
 
 ### 2、使用vanilla-lazyload实现图片懒加载
-用版本10以上，否则图片不加载
+
+用版本10以上，否则图片不加载  
+注意：直接引入用的是es6版本,vanilla-lazyload.min.js才是es5版本
 
 ### 3、react-router改用hash模式
 
@@ -59,6 +61,11 @@ https://binaryify.github.io/NeteaseCloudMusicApi/
 事件bind尽量写在construct里，只绑定一次
 需要传参时，用箭头函数
 
-### 7、react-loadable 路由懒加载 .
+### 7、react-loadable 路由懒加载 .  
+
+### 8、uglifyjs-webpack-plugin 最新版无法压缩js，且会报错
+问题： https://github.com/webpack-contrib/uglifyjs-webpack-plugin/issues/206  
+解决：使用1.x版本
+
 
 VSCode配置将token配置到本地: GitHub Token: ebbf6ede267c456e29545cf7c2cf14df6bc845ff

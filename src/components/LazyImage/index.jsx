@@ -6,8 +6,8 @@
  * @author luyanhong 2018-12-05
  */
 import React, { Component } from 'react';
-import LazyLoad from 'vanilla-lazyload';
 import PropTypes from 'prop-types';
+import LazyLoad from '../../../node_modules/vanilla-lazyload/dist/lazyload.min.js';
 if (!document.lazyLoadInstance) {
   document.lazyLoadInstance = new LazyLoad({
     element_selector: 'img.lazy'

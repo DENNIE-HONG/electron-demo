@@ -5,7 +5,7 @@
 const AXIOS_DEFAULT_CONFIG = {
   timeout: 20000,
   maxContentLength: 20000,
-  baseURL: 'http://'+ process.env.IP_ADRESS + ':3000',
+  baseURL: `http://${process.env.IP_ADRESS}:3000`,
   headers: {
     Accept: 'application/json'
   }

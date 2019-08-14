@@ -1,10 +1,11 @@
 /**
- * webapck 基础配置
+ * @file webapck 基础配置
  * @author luyanhong 2018-11-19
  */
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 const path = require('path');
 const webpack = require('webpack');
 const { WEBPACK_COMMON_CONFIG } = require('../config');
@@ -54,7 +55,7 @@ module.exports = (env) => {
         {
           test: /\.jsx?$/,
           use: isProd ? 'babel-loader' : ['babel-loader?cacheDirectory', 'eslint-loader'],
-          include: [WEBPACK_COMMON_CONFIG.sourceCode, resolve('config')]
+          include: WEBPACK_COMMON_CONFIG.sourceCode
         },
         {
           test: /\.scss$/,
@@ -130,7 +131,18 @@ module.exports = (env) => {
         filename: 'index.html',
         inject: true,
         cache: false,
+        minify: {
+          removeComments: true,
+          minifyJS: true,
+          collapseWhitespace: true,
+          removeScriptTypeAttributes: true,
+          removeStyleLinkTypeAttributes: true,
+          useShortDoctype: true
+        }
         // favicon: path.resolve(__dirname, '../favicon.ico')
+      }),
+      new ScriptExtHtmlWebpackPlugin({
+        inline: 'manifest'
       }),
       new webpack.EnvironmentPlugin({
         IP_ADRESS: WEBPACK_COMMON_CONFIG.ip
