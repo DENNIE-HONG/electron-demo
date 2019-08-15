@@ -99,6 +99,7 @@ module.exports = (env) => {
               loader: 'url-loader',
               options: {
                 limit: 8192,
+                publicPath: isProd ? '../' : '',
                 name: isProd ? 'img/[name].[hash:7].[ext]' : 'img/[name].[ext]'
               }
             }

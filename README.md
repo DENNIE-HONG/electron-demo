@@ -67,5 +67,7 @@ https://binaryify.github.io/NeteaseCloudMusicApi/
 问题： https://github.com/webpack-contrib/uglifyjs-webpack-plugin/issues/206  
 解决：使用1.x版本
 
+### 9、注意PureComponent只做prop的浅比较
+
 
 VSCode配置将token配置到本地: GitHub Token: ebbf6ede267c456e29545cf7c2cf14df6bc845ff

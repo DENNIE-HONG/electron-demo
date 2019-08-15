@@ -8,6 +8,7 @@ import '@babel/polyfill';
 import 'assets/main.scss';
 const root = document.createElement('div');
 root.className = 'page';
+
 document.body.appendChild(root);
 render(
   <>

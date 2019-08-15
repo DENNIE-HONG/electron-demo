@@ -19,7 +19,10 @@ class CommentList extends Component {
   static propTypes = {
     getUrl: PropTypes.func,
     pageSize: PropTypes.number,
-    id: PropTypes.number.isRequired,
+    id: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string
+    ]).isRequired,
     isAnchor: PropTypes.bool,
     title: PropTypes.string
   }
