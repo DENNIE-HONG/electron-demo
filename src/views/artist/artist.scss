@@ -1,0 +1,15 @@
+.artist {
+  &-content {
+    padding: 0 20px;
+  }
+  &-songs {
+    margin-top: 20px;
+    &-icon {
+      color: nth($fblack, 3);
+      cursor: pointer;
+      &:hover {
+        color: nth($fblack, 1);
+      }
+    }
+  }
+}

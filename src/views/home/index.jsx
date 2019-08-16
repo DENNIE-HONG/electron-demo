@@ -8,8 +8,8 @@ import { getAlbum } from 'api/album';
 import NewAlbum from 'coms/NewAlbum';
 import CarouselBox from 'coms/CarouselBox';
 import showMessage from 'coms/message';
-import TopList from 'coms/TopList';
 import SongSheet from 'coms/SongSheet';
+import TopList from './TopList';
 import './home.scss';
 class Home extends Component {
   constructor (props) {

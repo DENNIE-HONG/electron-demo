@@ -1,0 +1,10 @@
+.tabs {
+  display: flex;
+  background-color: blueviolet;
+  line-height: 40px;
+  color: nth($fblack, 2);
+  &-pane {
+    padding: 0 20px;
+    text-align: center;
+  }
+}

@@ -1,13 +1,26 @@
 import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
+import ShowDesc from 'coms/ShowDesc';
+import './ArtistHeader.scss';
 class ArtistHeader extends PureComponent {
+  static propTypes = {
+    info: PropTypes.object
+  }
+
+  static defaultProps = {
+    info: null
+  }
+
   render () {
-    return (
+    const { info } = this.props;
+    return info && (
       <div className="artist-h">
         <div className="artist-h-pic">
-          <img src="" title={54545} />
+          <img src={info.img1v1Url} title={info.name} className="artist-h-img img-circle" />
         </div>
-        <div className="artist-h-name">
-          <h3>名字</h3>
+        <div className="artist-h-info">
+          <h3 className="artist-h-name">{info.name}</h3>
+          <ShowDesc text={info.briefDesc} maxHeight={60} />
         </div>
       </div>
     );
