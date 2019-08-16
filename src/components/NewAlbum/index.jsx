@@ -39,7 +39,9 @@ class NewAlbum extends Component {
               </div>
               <h4 className="newalbum-list-name">{item.name}</h4>
             </NavLink>
-            <span className="newalbum-list-txt">{item.artist.name}</span>
+            <NavLink to={`/artist/${item.artist.id}`} className="nav-link">
+              <span className="newalbum-list-txt">{item.artist.name}</span>
+            </NavLink>
             <div className="newalbum-play-btn" onClick={() => this.play(item.id)}>
               <i className="iconfont icon-play"></i>
             </div>

@@ -96,7 +96,7 @@ class Album extends Component {
             </BaseTableColumn>
             <BaseTableColumn label="歌曲标题" className="nav-link" prop="name" onClick={this.navLink}></BaseTableColumn>
             <BaseTableColumn label="时长" prop="durationPretty" width="60"></BaseTableColumn>
-            <BaseTableColumn label="歌手" prop="artist" width="150"></BaseTableColumn>
+            <BaseTableColumn label="歌手" prop="artist" width="200"></BaseTableColumn>
           </BaseTable>
         </section>
         <section className="album-comments">

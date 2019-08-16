@@ -10,6 +10,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import './CarouselBox.scss';
 let isAnimated = false;
+
 class CarouselBox extends Component {
   static next () {
     this.showNext();
@@ -35,33 +36,23 @@ class CarouselBox extends Component {
       index: props.startSlide + 1
     };
     this.length = this.props.children.length;
-    CarouselBox.next = CarouselBox.next.bind(this);
-    CarouselBox.prev = CarouselBox.prev.bind(this);
+    this.transitionEvent = this.transitionEvent.bind(this);
+    this.carouselRef = React.createRef();
+    CarouselBox.next = this.showNext.bind(this);
+    CarouselBox.prev = this.showPrev.bind(this);
   }
 
   componentDidMount () {
-    this.carouselRef.addEventListener('transitionend', () => {
-      isAnimated = false;
-      const { index } = this.state;
-      // 监听过渡到最后一个卡片
-      if (index === this.length + 1) {
-        this.setState({
-          index: 1
-        });
-        this.transform(1, 0);
-      }
-      if (index === 0) {
-        this.setState({
-          index: this.length
-        });
-        this.transform(this.length, 0);
-      }
-    }, false);
+    this.carouselRef.current.addEventListener('transitionend', this.transitionEvent, false);
     this.transform(this.state.index);
   }
 
+  componentWillUnmount () {
+    this.carouselRef.current.removeEventListener('transitionend', this.transitionEvent);
+  }
+
   // 展示下一页
-  showNext () {
+  showNext = () => {
     if (isAnimated) {
       return;
     }
@@ -74,6 +65,25 @@ class CarouselBox extends Component {
       };
     });
   }
+
+  transitionEvent () {
+    isAnimated = false;
+    const { index } = this.state;
+    // 监听过渡到最后一个卡片
+    if (index === this.length + 1) {
+      this.setState({
+        index: 1
+      });
+      this.transform(1, 0);
+    }
+    if (index === 0) {
+      this.setState({
+        index: this.length
+      });
+      this.transform(this.length, 0);
+    }
+  }
+
 
   // 展示上一页
   showPrev () {
@@ -96,8 +106,8 @@ class CarouselBox extends Component {
    * @param {Number} 过渡效果持续时间
   */
   transform (index, duration = this.props.speed) {
-    this.carouselRef.style.transitionDuration = `${duration}s`;
-    this.carouselRef.style.transform = `translate3d(${- index * 100}%, 0, 0)`;
+    this.carouselRef.current.style.transitionDuration = `${duration}s`;
+    this.carouselRef.current.style.transform = `translate3d(${- index * 100}%, 0, 0)`;
   }
 
   render () {
@@ -107,7 +117,7 @@ class CarouselBox extends Component {
       <div className="carousel">
         <ul
           className="carousel-list"
-          ref={(el) => { this.carouselRef = el; }}
+          ref={this.carouselRef}
         >
           <li
             key={0}

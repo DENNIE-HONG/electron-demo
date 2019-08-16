@@ -25,10 +25,18 @@ class Home extends Component {
     this.swipePrev = this.swipePrev.bind(this);
   }
 
+  shouldComponentUpdate (nextProps, nextState) {
+    if (this.state.musicList === nextState.musicList) {
+      return false;
+    }
+    return true;
+  }
+
   // 回调，设置播放音乐列表
   setPlayMusic = (playList, playId) => {
     this.props.setMusic && this.props.setMusic(playList, playId);
   }
+
 
   async fetch () {
     // 推荐歌单

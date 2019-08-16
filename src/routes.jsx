@@ -78,6 +78,13 @@ class RouteMap extends Component {
         return <loaded.default setMusic={self.setMusic} {...rest} />;
       }
     });
+    this.AsyncArtist = Loadable({
+      loader: () => import(/* webpackChunkName: 'artist' */ '@/views/artist'),
+      loading: Loading,
+      render (loaded, rest) {
+        return <loaded.default setMusic={self.setMusic} {...rest} />;
+      }
+    });
   }
 
   setMusic = (playList, playId) => {
@@ -95,44 +102,16 @@ class RouteMap extends Component {
           <Siderbar />
           <div className="main">
             <main className="content">
-              <Route
-                path="/top"
-                component={this.AsyncTop}
-              />
-              <Route
-                path="/"
-                exact
-                component={this.AsyncHome}
-              />
-              <Route
-                path="/playlist"
-                exact
-                component={this.AsyncPlaylist}
-              />
-              <Route
-                path="/playlist/:id"
-                component={this.AsyncPlaylistDetail}
-              />
-              <Route
-                path="/dj/:categoryId?"
-                component={this.AsyncDj}
-              />
-              <Route
-                path="/djRadio/:id"
-                component={this.AsyncDjRadio}
-              />
-              <Route
-                path="/program/:id"
-                component={this.AsyncProgram}
-              />
-              <Route
-                path="/song/:id"
-                component={this.AsyncSong}
-              />
-              <Route
-                path="/album/:id"
-                component={this.AsyncAlbum}
-              />
+              <Route path="/top" component={this.AsyncTop} />
+              <Route path="/" exact component={this.AsyncHome} />
+              <Route path="/playlist" exact component={this.AsyncPlaylist} />
+              <Route path="/playlist/:id" component={this.AsyncPlaylistDetail} />
+              <Route path="/dj/:categoryId?" component={this.AsyncDj} />
+              <Route path="/djRadio/:id" component={this.AsyncDjRadio} />
+              <Route path="/program/:id" component={this.AsyncProgram} />
+              <Route path="/song/:id" component={this.AsyncSong} />
+              <Route path="/album/:id" component={this.AsyncAlbum} />
+              <Route path="/artist/:id" component={this.AsyncArtist} />
               <PlayBox playList={playList} id={playId} />
             </main>
             <Footer />

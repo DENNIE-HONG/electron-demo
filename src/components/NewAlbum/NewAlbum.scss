@@ -8,12 +8,12 @@
       padding-right: 25px;
       margin-bottom: 25px;
       box-sizing: border-box;
-      cursor: pointer;
     }
     &-pic {
       width: 100%;
       @include hid;
       box-shadow: 2px 8px 6px -3px rgba(0,0,0,0.2);
+      cursor: pointer;
       > img {
         display: block;
         width: 100%;
@@ -31,6 +31,9 @@
       @include wordbreak;
       @include txthid;
       @include hid;
+      &:hover {
+        color: currentColor;
+      }
     }
     &-link {
       &:hover {

@@ -69,5 +69,23 @@ https://binaryify.github.io/NeteaseCloudMusicApi/
 
 ### 9、注意PureComponent只做prop的浅比较
 
+### 10、React之setState调用unmount组件报警告
+问题：轮播组件的上一页下一页按钮是调用CarouselBox的静态方法  
+页面销毁后又回到首页，翻页按钮报错。  
+解决：跳页后又回来调用的不是CarouselBox新实例，而是旧的
+错误写法：
+```
+CarouselBox.next = CarouselBox.next.bind(this);
+CarouselBox.prev = CarouselBox.prev.bind(this);
+```
+
+修正：
+```
+CarouselBox.next = this.showNext.bind(this);
+CarouselBox.prev = this.showPrev.bind(this);
+```
+
+
+
 
 VSCode配置将token配置到本地: GitHub Token: ebbf6ede267c456e29545cf7c2cf14df6bc845ff
