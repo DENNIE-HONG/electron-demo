@@ -8,6 +8,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 const path = require('path');
 const webpack = require('webpack');
+const PreloadWebpackPlugin = require('preload-webpack-plugin');
 const { WEBPACK_COMMON_CONFIG } = require('../config');
 const resolve = (dir) => {
   return path.join(__dirname, '..', dir);
@@ -112,7 +113,7 @@ module.exports = (env) => {
             {
               loader: 'url-loader',
               options: {
-                limit: 8192,
+                limit: 2096,
                 publicPath: isProd ? '../': WEBPACK_COMMON_CONFIG.assetsPublicPath,
                 name: isProd ? 'fonts/[name].[hash:7].[ext]' : 'fonts/[name].[ext]'
               }
@@ -144,6 +145,17 @@ module.exports = (env) => {
       }),
       new ScriptExtHtmlWebpackPlugin({
         inline: 'manifest'
+      }),
+      new PreloadWebpackPlugin({
+        rel: 'preload',
+        as (entry) {
+          if (/\.css$/.test(entry)) return 'style';
+          if (/\.woff$/.test(entry)) return 'font';
+          if (/\.png$/.test(entry)) return 'image';
+          return 'script';
+        },
+        include: 'allAssets',
+        fileWhitelist: [/\.woff/]
       }),
       new webpack.EnvironmentPlugin({
         IP_ADRESS: WEBPACK_COMMON_CONFIG.ip
