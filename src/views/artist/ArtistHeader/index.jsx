@@ -20,7 +20,7 @@ class ArtistHeader extends PureComponent {
         </div>
         <div className="artist-h-info">
           <h3 className="artist-h-name">{info.name}</h3>
-          <ShowDesc text={info.briefDesc} maxHeight={60} />
+          <ShowDesc text={info.briefDesc || '暂无信息'} maxHeight={60} />
         </div>
       </div>
     );

@@ -5,6 +5,7 @@ import Footer from 'coms/TheFooter';
 import Siderbar from 'coms/TheSider';
 import PlayBox from 'coms/PlayBox';
 import Loading from 'coms/Loading';
+import ErrorBoundary from 'coms/ErrorBoundary';
 
 class RouteMap extends Component {
   constructor (props) {
@@ -102,17 +103,19 @@ class RouteMap extends Component {
           <Siderbar />
           <div className="main">
             <main className="content">
-              <Route path="/top" component={this.AsyncTop} />
-              <Route path="/" exact component={this.AsyncHome} />
-              <Route path="/playlist" exact component={this.AsyncPlaylist} />
-              <Route path="/playlist/:id" component={this.AsyncPlaylistDetail} />
-              <Route path="/dj/:categoryId?" component={this.AsyncDj} />
-              <Route path="/djRadio/:id" component={this.AsyncDjRadio} />
-              <Route path="/program/:id" component={this.AsyncProgram} />
-              <Route path="/song/:id" component={this.AsyncSong} />
-              <Route path="/album/:id" component={this.AsyncAlbum} />
-              <Route path="/artist/:id" component={this.AsyncArtist} />
-              <PlayBox playList={playList} id={playId} />
+              <ErrorBoundary>
+                <Route path="/top" component={this.AsyncTop} />
+                <Route path="/" exact component={this.AsyncHome} />
+                <Route path="/playlist" exact component={this.AsyncPlaylist} />
+                <Route path="/playlist/:id" component={this.AsyncPlaylistDetail} />
+                <Route path="/dj/:categoryId?" component={this.AsyncDj} />
+                <Route path="/djRadio/:id" component={this.AsyncDjRadio} />
+                <Route path="/program/:id" component={this.AsyncProgram} />
+                <Route path="/song/:id" component={this.AsyncSong} />
+                <Route path="/album/:id" component={this.AsyncAlbum} />
+                <Route path="/artist/:id" component={this.AsyncArtist} />
+                <PlayBox playList={playList} id={playId} />
+              </ErrorBoundary>
             </main>
             <Footer />
           </div>

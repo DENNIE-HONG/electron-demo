@@ -59,7 +59,7 @@ class CommentList extends Component {
     try {
       if (this.props.getUrl) {
         const res = await this.props.getUrl(params);
-        if (res.code === 200 && res.comments.length) {
+        if (res.comments.length) {
           if (!this.total) {
             this.total = Math.ceil(res.total / pageSize);
           }

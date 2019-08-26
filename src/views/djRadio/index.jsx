@@ -31,12 +31,10 @@ class DjRadio extends Component {
         getDjDetail(id),
         this.fetch()
       ]);
-      if (detail.code === 200 && programRes.code === 200) {
-        this.setState({
-          info: detail.djRadio,
-          programList: programRes.programs
-        });
-      }
+      this.setState({
+        info: detail.djRadio,
+        programList: programRes.programs
+      });
     } catch (err) {
       this.fail(err.toString());
     }
@@ -68,13 +66,11 @@ class DjRadio extends Component {
       this.isLoading = true;
       const offset = (pageNum - 1) * PAGE_SIZE;
       const res = await this.fetch(offset);
-      if (res.code === 200) {
-        this.setState({
-          programList: res.programs
-        });
-        this.offset = offset;
-        document.querySelector('.main').scrollTo(0, 0);
-      }
+      this.setState({
+        programList: res.programs
+      });
+      this.offset = offset;
+      document.querySelector('.main').scrollTo(0, 0);
     } catch (err) {
       this.fail(err.toString());
     } finally {

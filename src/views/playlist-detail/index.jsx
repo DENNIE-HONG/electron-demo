@@ -28,11 +28,9 @@ class PlaylistDetail extends Component {
     const { id } = this.props.match.params;
     try {
       const res = await getPlaylistDetail(id);
-      if (res.code === 200) {
-        this.setState({
-          info: res.playlist
-        });
-      }
+      this.setState({
+        info: res.playlist
+      });
     } catch (err) {
       console.log(err);
     }

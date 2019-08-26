@@ -35,17 +35,16 @@ class Dj extends Component {
    * 获取推荐新电台资源
    * @param {Number}  电台分类id
   */
-  fetch (id) {
-    getDjRecommend(id).then((res) => {
-      if (res.code === 200) {
-        this.setState({
-          newList: res.djRadios.slice(0, 5),
-          categoryId: id
-        });
-      }
-    }).catch((err) => {
+  async fetch (id) {
+    try {
+      const res = await getDjRecommend(id);
+      this.setState({
+        newList: res.djRadios.slice(0, 5),
+        categoryId: id
+      });
+    } catch (err) {
       console.log(err);
-    });
+    }
   }
 
   render () {

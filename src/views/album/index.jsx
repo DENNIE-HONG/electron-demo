@@ -28,12 +28,10 @@ class Album extends Component {
     try {
       const { id } = this.props.match.params;
       const res = await getAlbum(id);
-      if (res.code === 200) {
-        this.setState({
-          info: res.album,
-          songs: res.songs
-        });
-      }
+      this.setState({
+        info: res.album,
+        songs: res.songs
+      });
     } catch (err) {
       console.log(err);
     }

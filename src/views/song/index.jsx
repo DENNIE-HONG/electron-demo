@@ -27,16 +27,14 @@ class Song extends Component {
         getSongDetail(id),
         getLyric(id)
       ]);
-      if (songRes.code === 200 && lyricRes.code === 200) {
-        const [info] = songRes.songs;
-        let { lyric = '' } = lyricRes.lrc;
+      const [info] = songRes.songs;
+      let { lyric = '暂无歌词' } = lyricRes.lrc;
 
-        lyric = lyric.replace(/\[\S+\]\s?/g, '');
-        this.setState({
-          info,
-          lyric
-        });
-      }
+      lyric = lyric.replace(/\[\S+\]\s?/g, '');
+      this.setState({
+        info,
+        lyric
+      });
     } catch (err) {
       console.log(err);
     }

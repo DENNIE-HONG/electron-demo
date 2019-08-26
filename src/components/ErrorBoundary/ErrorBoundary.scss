@@ -1,0 +1,26 @@
+.error {
+  text-align: center;
+  &-title {
+    margin-top: 70px;
+    font-size: 36px;
+    line-height: 1.2;
+  }
+  &-desc {
+    margin-top: 20px;
+    font-size: 22px;
+    color: nth($fblack, 3);
+  }
+  &-btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    background-color: nth($fblue, 1);
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  &-pic {
+    margin-top: 56px;
+  }
+}

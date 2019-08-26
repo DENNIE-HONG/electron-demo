@@ -43,6 +43,7 @@ class Playlist extends Component {
     document.removeEventListener('click', this.closeCatList, false);
   }
 
+  // 打开分类
   openCatList (evt) {
     evt.nativeEvent.stopImmediatePropagation();
     evt.stopPropagation();
@@ -75,12 +76,10 @@ class Playlist extends Component {
         order,
         cat
       });
-      if (res.code === 200) {
-        this.setState((prev) => ({
-          playList: prev.playList.concat(res.playlists)
-        }));
-        this.sentData.offset += PAGE_SIZE;
-      }
+      this.setState((prev) => ({
+        playList: prev.playList.concat(res.playlists)
+      }));
+      this.sentData.offset += PAGE_SIZE;
     } catch (err) {
       console.log(err);
     } finally {
@@ -89,32 +88,28 @@ class Playlist extends Component {
   }
 
   // 获取歌曲资源
-  fetchSong (id) {
-    getPlaylistDetail(id).then((res) => {
-      if (res.code === 200) {
-        this.props.setMusic && this.props.setMusic(res.playlist.tracks, id);
-      } else {
-        showMessage({
-          type: 'error',
-          message: '暂时不能播放歌单哦'
-        });
-      }
-    }).catch((err) => {
-      console.log(err);
-    });
+  async fetchSong (id) {
+    try {
+      const res = await getPlaylistDetail(id);
+      this.props.setMusic && this.props.setMusic(res.playlist.tracks, id);
+    } catch (err) {
+      showMessage({
+        type: 'error',
+        message: '暂时不能播放歌单哦'
+      });
+    }
   }
 
   // 获取分类资源
-  fetchGategories () {
-    getPlaylistCatList().then((res) => {
-      if (res.code === 200) {
-        this.setState(() => ({
-          categories: res.categories
-        }));
-      }
-    }).catch((err) => {
+  async fetchGategories () {
+    try {
+      const res = await getPlaylistCatList();
+      this.setState(() => ({
+        categories: res.categories
+      }));
+    } catch (err) {
       console.log(err.msg);
-    });
+    }
   }
 
   // 滚动加载更多

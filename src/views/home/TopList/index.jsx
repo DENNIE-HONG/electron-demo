@@ -29,11 +29,9 @@ class TopList extends Component {
   async componentDidMount () {
     try {
       const res = await getTopRecommend();
-      if (res.code === 200) {
-        this.setState({
-          topList: res.list
-        });
-      }
+      this.setState({
+        topList: res.list
+      });
     } catch (err) {
       console.log(err);
     }

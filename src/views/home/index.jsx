@@ -66,13 +66,9 @@ class Home extends Component {
   async fetchPlaylistDetail (playId) {
     try {
       const res = await getPlaylistDetail(playId);
-      if (res.code === 200) {
-        this.setPlayMusic(res.playlist.tracks, playId);
-      } else {
-        this.fail('资源获取失败了');
-      }
+      this.setPlayMusic(res.playlist.tracks, playId);
     } catch (err) {
-      this.fail(err.message);
+      this.fail(err);
     }
   }
 
@@ -80,11 +76,7 @@ class Home extends Component {
   async fetchAlbum (playId) {
     try {
       const res = await getAlbum(playId);
-      if (res.code === 200) {
-        this.setPlayMusic(res.songs, playId);
-      } else {
-        this.fail('资源获取失败啦');
-      }
+      this.setPlayMusic(res.songs, playId);
     } catch (err) {
       this.fail(err.message);
     }
