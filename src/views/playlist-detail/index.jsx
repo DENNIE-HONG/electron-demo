@@ -43,6 +43,20 @@ class PlaylistDetail extends Component {
     this.props.setMusic && this.props.setMusic(list, info.tracks[idx].id);
   }
 
+  navLinkAlbum = (idx) => {
+    const { id } = this.state.info.tracks[idx].al;
+    this.props.history.push({
+      pathname: `/album/${id}`
+    });
+  }
+
+  navLinkArtist = (idx) => {
+    const { id } = this.state.info.tracks[idx].ar[0];
+    this.props.history.push({
+      pathname: `/artist/${id}`
+    });
+  }
+
   // 播放全部
   playAll () {
     const { tracks, id } = this.state.info;
@@ -101,8 +115,8 @@ class PlaylistDetail extends Component {
               <i className="playlistDetail-table-iconfont iconfont icon-play"></i>
             </BaseTableColumn>
             <BaseTableColumn prop="name" label="歌曲标题" onClick={this.navLink} className="playlistDetail-link" />
-            <BaseTableColumn prop="singers" label="歌手" />
-            <BaseTableColumn prop="album" label="专辑" />
+            <BaseTableColumn prop="singers" label="歌手" onClick={this.navLinkArtist} className="playlistDetail-link" />
+            <BaseTableColumn prop="album" label="专辑" onClick={this.navLinkAlbum} className="playlistDetail-link" />
           </BaseTable>
         </section>
         <section className="playlistDetail-comments">

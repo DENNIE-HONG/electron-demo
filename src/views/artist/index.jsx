@@ -3,7 +3,7 @@
  * @author luyanhong 2019-08-16
  */
 import React, { Component } from 'react';
-import { getArtistDesc, getArtistSongs } from 'api/artist';
+import { getArtistDesc, getArtistSongs, getArtistAlbum } from 'api/artist';
 import BaseTable, { BaseTableColumn } from 'coms/BaseTable';
 import BaseTabs, { BaseTabsPane } from 'coms/BaseTabs';
 import ArtistHeader from './ArtistHeader';
@@ -13,8 +13,10 @@ class Artist extends Component {
     super(props);
     this.state = {
       info: null,
-      hotSongs: []
+      hotSongs: [],
+      albums: []
     };
+    this.handlerTabChange = this.handlerTabChange.bind(this);
   }
 
   async componentDidMount () {
@@ -48,34 +50,65 @@ class Artist extends Component {
     });
   }
 
+  handlerTabChange (tag) {
+    console.log('收到', tag);
+    switch (tag) {
+      case 'albums':
+        this.fetchAlbums();
+        break;
+      case 'mv':
+        break;
+      default:
+        break;
+    }
+  }
+
+  async fetchAlbums () {
+    try {
+      const { id } = this.props.match.params;
+      const params = {
+        offset: 0,
+        id
+      };
+      const res = await getArtistAlbum(params);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   render () {
     const { info, hotSongs } = this.state;
     return (
       <div className="artist">
         <ArtistHeader info={info} />
         <div className="artist-content">
-          <BaseTabs>
-            <BaseTabsPane label="热门歌曲">ae</BaseTabsPane>
-            <BaseTabsPane label="专辑">ee</BaseTabsPane>
+          <BaseTabs activeName="songs" tabClick={this.handlerTabChange}>
+            <BaseTabsPane label="热门歌曲" name="songs">
+              <section className="artist-songs">
+                <BaseTable data={hotSongs} isIndex keyName="id">
+                  <BaseTableColumn width="40" onClick={this.onPlay}>
+                    <i className="iconfont icon-play artist-songs-icon"></i>
+                  </BaseTableColumn>
+                  <BaseTableColumn label="歌曲" prop="name" className="nav-link" onClick={this.linkToSong} />
+                  <BaseTableColumn label="时间" prop="durationPretty" width="70" />
+                  <BaseTableColumn label="专辑" prop="album" className="nav-link" onClick={this.linkToAlbum} />
+                </BaseTable>
+              </section>
+            </BaseTabsPane>
+            <BaseTabsPane label="专辑" name="albums">
+              <section className="artist-albums">
+                <h4 className="title">
+                  <span className="title-txt">专辑</span>
+                </h4>
+              </section>
+            </BaseTabsPane>
+            <BaseTabsPane label="相关MV" name="mv">
+              ewf
+            </BaseTabsPane>
+            <BaseTabsPane label="艺人介绍" name="desc">
+              ewf
+            </BaseTabsPane>
           </BaseTabs>
-          <section className="artist-songs">
-            <h4 className="title">
-              <span className="title-txt">热门歌曲</span>
-            </h4>
-            <BaseTable data={hotSongs} isIndex keyName="id">
-              <BaseTableColumn width="40" onClick={this.onPlay}>
-                <i className="iconfont icon-play artist-songs-icon"></i>
-              </BaseTableColumn>
-              <BaseTableColumn label="歌曲" prop="name" className="nav-link" onClick={this.linkToSong} />
-              <BaseTableColumn label="时间" prop="durationPretty" width="70" />
-              <BaseTableColumn label="专辑" prop="album" className="nav-link" onClick={this.linkToAlbum} />
-            </BaseTable>
-          </section>
-          <section className="artist-albums">
-            <h4 className="title">
-              <span className="title-txt">专辑</span>
-            </h4>
-          </section>
         </div>
       </div>
     );

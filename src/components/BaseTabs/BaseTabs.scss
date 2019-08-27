@@ -1,10 +1,28 @@
 .tabs {
   display: flex;
-  background-color: blueviolet;
+  background-color: white;
   line-height: 40px;
   color: nth($fblack, 2);
+  border-bottom: 1px solid nth($fgray, 1);
+  font-size: 14px;
   &-pane {
-    padding: 0 20px;
+    margin: 0 20px;
     text-align: center;
+    cursor: pointer;
+    transition: all 0.5s;
+    border-bottom: 2px solid transparent;
+    &.active,
+    &:hover {
+      color: nth($fblue, 1);
+    }
+    &.active {
+      border-color: nth($fblue, 1);
+    }
+  }
+  &-content {
+
+  }
+  &-cont-active {
+    display: none;
   }
 }

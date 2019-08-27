@@ -80,7 +80,7 @@ class Album extends Component {
         <section className="album-desc">
           <h4 className="album-desc-title">专辑介绍：</h4>
           <div className="album-desc-txt">
-            <ShowDesc text={info.description} />
+            <ShowDesc text={info.description || '暂无'} />
           </div>
         </section>
         <section className="album-songs">
