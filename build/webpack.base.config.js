@@ -32,7 +32,7 @@ module.exports = (env) => {
       splitChunks: {
         cacheGroups: {
           common: {
-            minChunks: 2,
+            minChunks: 3,
             name: 'common',
             minSize: 0,
             chunks: 'all'
@@ -54,8 +54,9 @@ module.exports = (env) => {
       rules: [
         {
           test: /\.jsx?$/,
-          use: isProd ? 'babel-loader' : ['babel-loader?cacheDirectory', 'eslint-loader'],
-          include: WEBPACK_COMMON_CONFIG.sourceCode
+          use: isProd ? 'babel-loader?cacheDirectory' : ['babel-loader?cacheDirectory', 'eslint-loader'],
+          include: WEBPACK_COMMON_CONFIG.sourceCode,
+          exclude: [/(.|_)min\.js$/]
         },
         {
           test: /\.scss$/,

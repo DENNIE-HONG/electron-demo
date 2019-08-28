@@ -7,6 +7,7 @@ import { getArtistDesc, getArtistSongs, getArtistAlbum } from 'api/artist';
 import BaseTable, { BaseTableColumn } from 'coms/BaseTable';
 import BaseTabs, { BaseTabsPane } from 'coms/BaseTabs';
 import ArtistHeader from './ArtistHeader';
+import ArtistAlbums from './ArtistAlbums';
 import './artist.scss';
 class Artist extends Component {
   constructor (props) {
@@ -14,7 +15,8 @@ class Artist extends Component {
     this.state = {
       info: null,
       hotSongs: [],
-      albums: []
+      albums: [],
+      isShowAlbums: false
     };
     this.handlerTabChange = this.handlerTabChange.bind(this);
   }
@@ -54,7 +56,9 @@ class Artist extends Component {
     console.log('收到', tag);
     switch (tag) {
       case 'albums':
-        this.fetchAlbums();
+        !this.state.isShowAlbums && this.setState({
+          isShowAlbums: true
+        });
         break;
       case 'mv':
         break;
@@ -63,21 +67,9 @@ class Artist extends Component {
     }
   }
 
-  async fetchAlbums () {
-    try {
-      const { id } = this.props.match.params;
-      const params = {
-        offset: 0,
-        id
-      };
-      const res = await getArtistAlbum(params);
-    } catch (err) {
-      console.log(err);
-    }
-  }
-
   render () {
-    const { info, hotSongs } = this.state;
+    const { info, hotSongs, isShowAlbums } = this.state;
+    const { id } = this.props.match.params;
     return (
       <div className="artist">
         <ArtistHeader info={info} />
@@ -97,9 +89,7 @@ class Artist extends Component {
             </BaseTabsPane>
             <BaseTabsPane label="专辑" name="albums">
               <section className="artist-albums">
-                <h4 className="title">
-                  <span className="title-txt">专辑</span>
-                </h4>
+                <ArtistAlbums id={id} isFetch={isShowAlbums} />
               </section>
             </BaseTabsPane>
             <BaseTabsPane label="相关MV" name="mv">
