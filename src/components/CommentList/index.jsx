@@ -3,16 +3,15 @@
  * @param {String}  id, 必须，歌曲id
  * @param {Funtion} getUrl, 获取数据方法
  * @param {Number}  pageSize, 每页数量，默认20个
- * @param {Boolean} isAnchor, 评论列表容器，翻页是否滚动到顶部
  * @param {String}  title, 评论标题
  * @author luyanhong 2019-01
  * @example
  * <CommentList getUrl={function () { xxx }} id={xxx} ></CommentList>
  */
 import React, { Component } from 'react';
-import Pagination from 'coms/Pagination';
 import PropTypes from 'prop-types';
 import EmptyList from 'coms/EmptyList';
+import LoadMore from 'coms/LoadMore';
 import CommentUI from './listUI';
 import './CommentList.scss';
 class CommentList extends Component {
@@ -23,92 +22,64 @@ class CommentList extends Component {
       PropTypes.number,
       PropTypes.string
     ]).isRequired,
-    isAnchor: PropTypes.bool,
     title: PropTypes.string
   }
 
   static defaultProps = {
     getUrl: undefined,
     pageSize: 20,
-    isAnchor: true,
     title: ''
   }
 
   constructor (props) {
     super(props);
     this.state = {
-      commentList: [],
-      totalCount: null
+      isFetch: false
     };
-    this.total = 0;
-    this.changePager = this.changePager.bind(this);
-    this.$container = React.createRef();
   }
 
-  async componentDidMount () {
-    this.fetch();
-  }
-
-  async fetch (offset = 0) {
-    const { id, pageSize } = this.props;
-    const params = {
-      offset,
-      limit: pageSize,
-      id
-    };
-    try {
-      if (this.props.getUrl) {
-        const res = await this.props.getUrl(params);
-        if (res.comments.length) {
-          if (!this.total) {
-            this.total = Math.ceil(res.total / pageSize);
-          }
-          this.setState({
-            commentList: res.comments,
-            totalCount: res.total
-          });
-        }
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  }
-
-  // 跳页
-  changePager (currentPage) {
-    const offset = this.props.pageSize * (currentPage - 1);
-    this.fetch(offset);
-    this.props.isAnchor && this.scrollTop();
-  }
-
-  scrollTop () {
-    this.$container.current.scrollIntoView();
+  componentDidMount () {
+    this.setState({
+      isFetch: true
+    });
   }
 
   render () {
-    const { commentList, totalCount } = this.state;
-    const { title } = this.props;
+    const { isFetch } = this.state;
+    const {
+      title, id, getUrl, pageSize
+    } = this.props;
     return (
       <>
-        {totalCount && title && (
-          <h5 className="comment-title">{title}({totalCount})</h5>
-        )}
-        {totalCount ? (
-          <ul className="comment" ref={this.$container}>
-            {commentList.map((item) => (
-              <CommentUI
-                key={item.commentId}
-                avatarUrl={item.user.avatarUrl}
-                name={item.user.nickname}
-                content={item.content}
-                time={item.time}
-                replied={item.beReplied}
-                likedCount={item.likedCount}
-              />
-            ))}
-          </ul>
-        ) : <EmptyList />}
-        {this.total > 1 && <Pagination total={this.total} change={this.changePager} />}
+        <LoadMore
+          id={id}
+          getUrl={getUrl}
+          listPropName="comments"
+          limit={pageSize}
+          isFetch={isFetch}
+          render={({ list, totalCount }) => (
+            <>
+              {totalCount && title && (
+                <h5 className="comment-title">{title}({totalCount})</h5>
+              )}
+              {totalCount ? (
+                <ul className="comment">
+                  {list.map((item) => (
+                    <CommentUI
+                      key={item.commentId}
+                      avatarUrl={item.user.avatarUrl}
+                      name={item.user.nickname}
+                      content={item.content}
+                      time={item.time}
+                      replied={item.beReplied}
+                      likedCount={item.likedCount}
+                    />
+                  ))}
+                </ul>
+              ) : <EmptyList />}
+            </>
+          )}
+        />
       </>
     );
   }

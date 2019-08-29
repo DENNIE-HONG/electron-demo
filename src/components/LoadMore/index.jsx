@@ -39,9 +39,12 @@ class LoadMore extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      list: []
+      list: [],
+      totalCount: 0
     };
     this.$container = React.createRef();
+    this.changePager = this.changePager.bind(this);
+    this.total = 0;
   }
 
   componentWillReceiveProps (nextProps) {

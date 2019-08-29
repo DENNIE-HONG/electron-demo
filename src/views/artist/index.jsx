@@ -9,6 +9,7 @@ import BaseTabs, { BaseTabsPane } from 'coms/BaseTabs';
 import ArtistHeader from './ArtistHeader';
 import ArtistAlbums from './ArtistAlbums';
 import './artist.scss';
+const DESC_DEFAULT = '暂无介绍';
 class Artist extends Component {
   constructor (props) {
     super(props);
@@ -16,7 +17,8 @@ class Artist extends Component {
       info: null,
       hotSongs: [],
       albums: [],
-      isShowAlbums: false
+      isShowAlbums: false,
+      desc: DESC_DEFAULT
     };
     this.handlerTabChange = this.handlerTabChange.bind(this);
   }
@@ -62,15 +64,28 @@ class Artist extends Component {
         break;
       case 'mv':
         break;
+      case 'desc':
+        this.state.desc === DESC_DEFAULT && this.fetchDesc();
+        break;
       default:
         break;
     }
   }
 
-  render () {
-    const { info, hotSongs, isShowAlbums } = this.state;
+  async fetchDesc () {
     const { id } = this.props.match.params;
-    return (
+    const resDesc = await getArtistDesc(id);
+    this.setState({
+      desc: resDesc
+    });
+  }
+
+  render () {
+    const {
+      info, hotSongs, isShowAlbums, desc
+    } = this.state;
+    const { id } = this.props.match.params;
+    return info && (
       <div className="artist">
         <ArtistHeader info={info} />
         <div className="artist-content">
@@ -96,7 +111,14 @@ class Artist extends Component {
               ewf
             </BaseTabsPane>
             <BaseTabsPane label="艺人介绍" name="desc">
-              ewf
+              <section className="artist-desc">
+                <h4 className="artist-desc-title">
+                  {info.name}简介
+                </h4>
+                <p className="artist-desc-content">
+                  {desc.briefDesc}
+                </p>
+              </section>
             </BaseTabsPane>
           </BaseTabs>
         </div>

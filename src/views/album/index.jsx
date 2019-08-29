@@ -42,6 +42,13 @@ class Album extends Component {
     this.props.setMusic([track], track.id);
   }
 
+  navLinkArtist = (idx) => {
+    const { id } = this.state.songs[idx].ar[0];
+    this.props.history.push({
+      pathname: `/artist/${id}`
+    });
+  }
+
   navLink (idx) {
     const { id } = this.state.songs[idx];
     this.props.history.push({
@@ -94,7 +101,7 @@ class Album extends Component {
             </BaseTableColumn>
             <BaseTableColumn label="歌曲标题" className="nav-link" prop="name" onClick={this.navLink}></BaseTableColumn>
             <BaseTableColumn label="时长" prop="durationPretty" width="60"></BaseTableColumn>
-            <BaseTableColumn label="歌手" prop="artist" width="200"></BaseTableColumn>
+            <BaseTableColumn label="歌手" prop="artist" width="200" className="nav-link" onClick={this.navLinkArtist}></BaseTableColumn>
           </BaseTable>
         </section>
         <section className="album-comments">

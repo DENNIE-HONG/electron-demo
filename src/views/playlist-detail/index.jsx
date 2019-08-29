@@ -111,7 +111,7 @@ class PlaylistDetail extends Component {
             </span>
           </div>
           <BaseTable data={info.tracks} keyName="id" isIndex>
-            <BaseTableColumn width="30" onClick={this.onPlay}>
+            <BaseTableColumn width="50" onClick={this.onPlay}>
               <i className="playlistDetail-table-iconfont iconfont icon-play"></i>
             </BaseTableColumn>
             <BaseTableColumn prop="name" label="歌曲标题" onClick={this.navLink} className="playlistDetail-link" />
