@@ -54,7 +54,9 @@ class Song extends Component {
     }
     // 歌手
     const singers = info.ar.map((ar) => (
-      <span className="info-singers" key={ar.id}>{ar.name}</span>
+      <NavLink to={`/artist/${ar.id}`} key={ar.id} className="info-singers">
+        <span>{ar.name}</span>
+      </NavLink>
     ));
     return info && (
       <div className="song">

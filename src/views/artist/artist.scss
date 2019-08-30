@@ -17,6 +17,7 @@
   }
   &-desc {
     margin-top: 20px;
+    margin-bottom: 40px;
     &-title {
       padding-left: 10px;
       font-weight: bold;
@@ -27,6 +28,18 @@
     &-content {
       margin-top: 15px;
       text-indent: 2em;
+    }
+    &-intro {
+      margin-top: 20px;
+    }
+    &-item {
+      white-space: pre-wrap;
+      .item-title {
+        margin-top: 20px;
+        margin-bottom: 10px;
+        font-size: 14px;
+        font-weight: bold;
+      }
     }
   }
 }

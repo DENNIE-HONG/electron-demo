@@ -6,29 +6,25 @@ import React, { Component } from 'react';
 import { getArtistDesc, getArtistSongs, getArtistAlbum } from 'api/artist';
 import BaseTable, { BaseTableColumn } from 'coms/BaseTable';
 import BaseTabs, { BaseTabsPane } from 'coms/BaseTabs';
+import ArtistDesc from './ArtistDesc';
 import ArtistHeader from './ArtistHeader';
 import ArtistAlbums from './ArtistAlbums';
 import './artist.scss';
-const DESC_DEFAULT = '暂无介绍';
 class Artist extends Component {
   constructor (props) {
     super(props);
     this.state = {
       info: null,
       hotSongs: [],
-      albums: [],
       isShowAlbums: false,
-      desc: DESC_DEFAULT
+      isShowDesc: false
     };
     this.handlerTabChange = this.handlerTabChange.bind(this);
   }
 
   async componentDidMount () {
     const { id } = this.props.match.params;
-    const [resDesc, resSongs] = await Promise.all([
-      getArtistDesc(id),
-      getArtistSongs(id)
-    ]);
+    const resSongs = await getArtistSongs(id);
     this.setState({
       info: resSongs.artist,
       hotSongs: resSongs.hotSongs
@@ -65,24 +61,18 @@ class Artist extends Component {
       case 'mv':
         break;
       case 'desc':
-        this.state.desc === DESC_DEFAULT && this.fetchDesc();
+        !this.state.isShowDesc && this.setState({
+          isShowDesc: true
+        });
         break;
       default:
         break;
     }
   }
 
-  async fetchDesc () {
-    const { id } = this.props.match.params;
-    const resDesc = await getArtistDesc(id);
-    this.setState({
-      desc: resDesc
-    });
-  }
-
   render () {
     const {
-      info, hotSongs, isShowAlbums, desc
+      info, hotSongs, isShowAlbums, isShowDesc
     } = this.state;
     const { id } = this.props.match.params;
     return info && (
@@ -111,14 +101,7 @@ class Artist extends Component {
               ewf
             </BaseTabsPane>
             <BaseTabsPane label="艺人介绍" name="desc">
-              <section className="artist-desc">
-                <h4 className="artist-desc-title">
-                  {info.name}简介
-                </h4>
-                <p className="artist-desc-content">
-                  {desc.briefDesc}
-                </p>
-              </section>
+              <ArtistDesc id={id} name={info.name} isFetch={isShowDesc} />
             </BaseTabsPane>
           </BaseTabs>
         </div>
