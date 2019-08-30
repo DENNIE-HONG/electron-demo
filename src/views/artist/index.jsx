@@ -3,7 +3,7 @@
  * @author luyanhong 2019-08-16
  */
 import React, { Component } from 'react';
-import { getArtistDesc, getArtistSongs, getArtistAlbum } from 'api/artist';
+import { getArtistSongs } from 'api/artist';
 import BaseTable, { BaseTableColumn } from 'coms/BaseTable';
 import BaseTabs, { BaseTabsPane } from 'coms/BaseTabs';
 import ArtistDesc from './ArtistDesc';

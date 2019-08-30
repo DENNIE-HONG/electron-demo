@@ -1,5 +1,8 @@
 /**
  * @file 歌手简介
+ * @param {String}  name, 必须，歌手名字
+ * @param {String}  id, 必须，歌手id
+ * @param {Boolean} isFetch, 是否请求歌手描述api, 默认否
  * @author luyanhong 2019-08-30
  */
 import React, { PureComponent } from 'react';
