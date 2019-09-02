@@ -1,3 +1,78 @@
 .search-h {
-
+  padding: 10px 20px;
+  border-bottom: 1px solid nth($fgray, 1);
+  &-history {
+    display: inline-block;
+    .iconfont {
+      padding-right: 10px;
+      color: nth($fblack, 2);
+      font-size: 14px;
+      cursor: pointer;
+    }
+  }
+  &-box {
+    position: relative;
+    display: inline-block;
+    padding: 1px 2px;
+    background-color: nth($fgray, 1);
+    border-radius: 30px;
+    .iconfont {
+      vertical-align: top;
+      color: nth($fblack, 2);
+    }
+  }
+  &-input {
+    width: 200px;
+    border: 0;
+    background-color: transparent;
+    font-size: 12px;
+    &:not(:empty) {
+      & > .iconfont {
+        visibility: visible;
+      }
+    }
+  }
+  &-delete {
+    visibility: hidden;
+  }
+  &-results {
+    position: absolute;
+    top: 40px;
+    left: 0;
+    right: 0;
+    background-color: white;
+    border-radius: 8px;
+    border: 1px solid nth($fgray, 2);
+    z-index: 999;
+    @include dropShadow;
+    .results {
+      &-title {
+        padding: 5px 10px;
+        background-color: nth($fgray, 3);
+        font-size: 14px;
+      }
+      &-item {
+        padding: 5px 10px;
+        border-top: 1px solid nth($fgray, 2);
+        color: nth($fblack, 3);
+        a {
+          display: block;
+          color: currentColor;
+        }
+        &-song {
+          padding: 5px 10px;
+        }
+        &-artist {
+          vertical-align: middle;
+        }
+      }
+      &-artist-img {
+        display: inline-block;
+        width: 40px;
+        height: 40px;
+        margin-right: 10px;
+        vertical-align: middle;
+      }
+    }
+  }
 }

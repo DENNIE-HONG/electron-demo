@@ -6,6 +6,7 @@ import Siderbar from 'coms/TheSider';
 import PlayBox from 'coms/PlayBox';
 import Loading from 'coms/Loading';
 import ErrorBoundary from 'coms/ErrorBoundary';
+import SearchHeader from 'coms/SearchHeader';
 
 class RouteMap extends Component {
   constructor (props) {
@@ -104,6 +105,7 @@ class RouteMap extends Component {
           <div className="main">
             <main className="content">
               <ErrorBoundary>
+                <SearchHeader />
                 <Route path="/top" component={this.AsyncTop} />
                 <Route path="/" exact component={this.AsyncHome} />
                 <Route path="/playlist" exact component={this.AsyncPlaylist} />

@@ -52,7 +52,7 @@ class ArtistDesc extends PureComponent {
         <p className="artist-desc-content">
           {desc.briefDesc || DESC_DEFAULT}
         </p>
-        {desc.introduction.length && (
+        {desc.introduction.length > 0 ? (
           <ul className="artist-desc-intro">
             {desc.introduction.map((item) => (
               <li className="artist-desc-item" key={item.ti}>
@@ -61,7 +61,7 @@ class ArtistDesc extends PureComponent {
               </li>
             ))}
           </ul>
-        )}
+        ) : null}
       </section>
     );
   }
