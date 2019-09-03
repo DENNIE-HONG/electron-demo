@@ -4,21 +4,36 @@
  */
 import React, { Component } from 'react';
 import { getSearchSuggest } from 'api/search';
+import { debounce } from 'throttle-debounce';
 import SearchHeaderSuggest from './SearchHeaderSuggest';
+import SearchHeaderHistory from './SearchHeaderHistory';
 import './SearchHeader.scss';
 class SearchHeader extends Component {
   constructor (props) {
     super(props);
-    this.handleInput = this.handleInput.bind(this);
+    this.handleInput = debounce(300, this.handleInput.bind(this));
     this.state = {
       results: null
     };
   }
 
+  // 头部的搜索框不用卸载
+  componentDidMount () {
+    this.input.addEventListener('blur', () => {
+      setTimeout(() => {
+        this.state.results && this.setState({
+          results: null
+        });
+      }, 200);
+    }, false);
+  }
+
   async handleInput () {
-    console.log(this.input.value);
     const { value } = this.input;
-    if (value === '') {
+    if (value.trim() === '') {
+      this.setState({
+        results: null
+      });
       return;
     }
     try {
@@ -33,12 +48,10 @@ class SearchHeader extends Component {
 
   render () {
     const { results } = this.state;
+    console.log(33);
     return (
       <div className="search-h">
-        <div className="search-h-history">
-          <i className="iconfont icon-left"></i>
-          <i className="iconfont icon-right"></i>
-        </div>
+        <SearchHeaderHistory />
         <div className="search-h-box">
           <i className="iconfont icon-search"></i>
           <input

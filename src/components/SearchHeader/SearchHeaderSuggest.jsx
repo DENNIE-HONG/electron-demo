@@ -10,7 +10,7 @@ const SearchHeaderSuggest = (props) => {
           <ul>
             {results.songs.map((song) => (
               <li className="results-item results-item-song" key={song.id}>
-                <NavLink to={`/song/${song.id}`}>{song.name}</NavLink>
+                <NavLink to={`/song/${song.id}`} key={song.id}>{song.name}</NavLink>
               </li>
             ))}
           </ul>
@@ -22,7 +22,7 @@ const SearchHeaderSuggest = (props) => {
           <ul>
             {results.artists.map((artist) => (
               <li className="results-item results-item-artist" key={artist.id}>
-                <NavLink to={`/artist/${artist.id}`}>
+                <NavLink to={`/artist/${artist.id}`} key={artist.id}>
                   <img className="results-artist-img img-circle" src={artist.img1v1Url} />
                   <span>{artist.name}</span>
                 </NavLink>
@@ -32,13 +32,13 @@ const SearchHeaderSuggest = (props) => {
         </section>
       )}
       {results.albums && (
-        <section>
+        <section className="results-box">
           <h4 className="results-title">专辑</h4>
           <ul>
             {results.albums.map((album) => (
               <li className="results-item" key={album.id}>
                 <NavLink to={`/album/${album.id}`}>
-                  <span>{album.name}--{album.artist.name}</span>
+                  <span>{album.name} - {album.artist.name}</span>
                 </NavLink>
               </li>
             ))}

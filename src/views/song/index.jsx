@@ -28,7 +28,7 @@ class Song extends Component {
         getLyric(id)
       ]);
       const [info] = songRes.songs;
-      let { lyric = '暂无歌词' } = lyricRes.lrc;
+      let { lyric = '暂无歌词' } = lyricRes.lrc || {};
 
       lyric = lyric.replace(/\[\S+\]\s?/g, '');
       this.setState({
