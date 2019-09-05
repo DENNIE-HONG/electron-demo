@@ -38,11 +38,11 @@ class CommentList extends Component {
     };
   }
 
-  componentDidMount () {
-    this.setState({
-      isFetch: true
-    });
-  }
+  // componentDidMount () {
+  //   this.setState({
+  //     isFetch: true
+  //   });
+  // }
 
   render () {
     const { isFetch } = this.state;
@@ -52,11 +52,11 @@ class CommentList extends Component {
     return (
       <>
         <LoadMore
-          id={id}
+          params={{ id }}
           getUrl={getUrl}
           listPropName="comments"
           limit={pageSize}
-          isFetch={isFetch}
+          isMountedFetch
           render={({ list, totalCount }) => (
             <>
               {totalCount && title && (

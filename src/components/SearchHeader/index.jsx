@@ -5,15 +5,18 @@
 import React, { Component } from 'react';
 import { getSearchSuggest } from 'api/search';
 import { debounce } from 'throttle-debounce';
+import { createHashHistory } from 'history';
 import SearchHeaderSuggest from './SearchHeaderSuggest';
 import SearchHeaderHistory from './SearchHeaderHistory';
 import './SearchHeader.scss';
+const history = createHashHistory();
 class SearchHeader extends Component {
   constructor (props) {
     super(props);
     this.handleInput = debounce(300, this.handleInput.bind(this));
     this.state = {
-      results: null
+      results: null,
+      displayDelete: false
     };
   }
 
@@ -28,18 +31,40 @@ class SearchHeader extends Component {
     }, false);
   }
 
+  clearKeywords = () => {
+    this.input.value = '';
+    this.setState({
+      results: null,
+      displayDelete: false
+    });
+  }
+
+  // 转到搜索页
+  navLink = () => {
+    const value = this.input.value.trim();
+    if (value === '') {
+      return;
+    }
+    history.push({
+      pathname: '/search',
+      search: `?keywords=${value}`
+    });
+  }
+
   async handleInput () {
     const { value } = this.input;
     if (value.trim() === '') {
       this.setState({
-        results: null
+        results: null,
+        displayDelete: false
       });
       return;
     }
     try {
       const res = await getSearchSuggest(value);
       this.setState({
-        results: res.result
+        results: res.result,
+        displayDelete: true
       });
     } catch (err) {
       console.log(err);
@@ -47,12 +72,11 @@ class SearchHeader extends Component {
   }
 
   render () {
-    const { results } = this.state;
-    console.log(33);
+    const { results, displayDelete } = this.state;
     return (
       <div className="search-h">
         <SearchHeaderHistory />
-        <div className="search-h-box">
+        <div className="search-h-box" onClick={this.navLink}>
           <i className="iconfont icon-search"></i>
           <input
             type="text"
@@ -61,7 +85,11 @@ class SearchHeader extends Component {
             ref={(input) => { this.input = input; }}
             onInput={this.handleInput}
           />
-          <i className="iconfont icon-close-circle-fill search-h-delete"></i>
+          <i
+            className={`iconfont icon-close-circle-fill search-h-delete${displayDelete ? ' active' : ''}`}
+            onClick={this.clearKeywords}
+          >
+          </i>
           <SearchHeaderSuggest results={results} />
         </div>
       </div>

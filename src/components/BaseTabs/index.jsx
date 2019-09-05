@@ -3,7 +3,7 @@
  * @param {String} activeName, 一开始选中的tab名字
  * @author luyanhong 2019-08-16
  * @example
- * <BaseTabs>
+ * <BaseTabs activeName="必须">
  *  <BaseTabsPane label="xxx" name="必须"></BaseTabsPane>
  * </BaseTabs>
  */

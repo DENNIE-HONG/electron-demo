@@ -1,0 +1,14 @@
+.search {
+  padding: 30px 30px;
+  &-title {
+    margin-bottom: 20px;
+    font-size: 20px;
+    em {
+      color: nth($fblue, 1);
+    }
+  }
+  &-songs {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+}

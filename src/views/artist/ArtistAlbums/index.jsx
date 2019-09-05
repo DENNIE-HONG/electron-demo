@@ -39,7 +39,7 @@ class ArtistAlbums extends Component {
       <LoadMore
         limit={50}
         getUrl={getArtistAlbum}
-        id={id}
+        params={{ id }}
         listPropName="hotAlbums"
         isFetch={isFetch}
         render={({ list }) => (

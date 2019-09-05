@@ -1,15 +1,16 @@
 /**
  * @file 加载更多带分页组件
- * @param {String}   id, 必须，请求参数中的id
+ * @param {String}   params, 必须，请求参数对象
  * @param {Function} getUrl, 必须，获取请求的函数
  * @param {String}   listPropName, 必须，请求返回获取的数据字段
  * @param {Function} render, 必须，渲染的样式
  * @param {Number}   limit，每页大小，默认20
  * @param {Boolean}  isAnchor, 跳页后是否回到模块顶部
  * @param {Boolean}  isFetch, 是否开始请求，默认否
+ * @param {Boolean}  isMountedFetch, 是否挂载后就开始请求，默认否
  * @author luyanhong 2019-08-28
  * @example
- * <LoadMore id={xx} getUrl={xxx} listPropName="comments" render={({list}) => (
+ * <LoadMore params={xx} getUrl={xxx} listPropName="comments" render={({list}) => (
  *    <div>xxx</div>
  * )}/>
  */
@@ -19,21 +20,20 @@ import PropTypes from 'prop-types';
 class LoadMore extends Component {
   static propTypes = {
     render: PropTypes.func.isRequired,
-    id: PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.string
-    ]).isRequired,
     limit: PropTypes.number,
     getUrl: PropTypes.func.isRequired,
     listPropName: PropTypes.string.isRequired,
     isAnchor: PropTypes.bool,
-    isFetch: PropTypes.bool
+    isFetch: PropTypes.bool,
+    params: PropTypes.object.isRequired,
+    isMountedFetch: PropTypes.bool
   }
 
   static defaultProps = {
     limit: 20,
     isAnchor: true,
-    isFetch: false
+    isFetch: false,
+    isMountedFetch: false
   }
 
   constructor (props) {
@@ -47,21 +47,25 @@ class LoadMore extends Component {
     this.total = 0;
   }
 
+  componentDidMount () {
+    this.props.isMountedFetch && this.fetch();
+  }
+
   componentWillReceiveProps (nextProps) {
     if (this.props.isFetch !== nextProps.isFetch) {
+      console.log(nextProps);
       this.fetch();
     }
   }
 
   async fetch (offset = 0) {
     const {
-      id, limit, getUrl, listPropName
+      limit, getUrl, listPropName
     } = this.props;
-    const params = {
+    const params = Object.assign({
       offset,
-      limit,
-      id
-    };
+      limit
+    }, this.props.params, {});
     try {
       const res = await getUrl(params);
       if (res[listPropName].length) {

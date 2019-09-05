@@ -51,7 +51,6 @@ class Artist extends Component {
   }
 
   handlerTabChange (tag) {
-    console.log('收到', tag);
     switch (tag) {
       case 'albums':
         !this.state.isShowAlbums && this.setState({

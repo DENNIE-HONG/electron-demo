@@ -10,6 +10,7 @@
       cursor: pointer;
       &.disable {
         cursor: not-allowed;
+        color: nth($fgray, 1);
       }
     }
   }
@@ -37,7 +38,11 @@
     }
   }
   &-delete {
+    cursor: pointer;
     visibility: hidden;
+    &.active {
+      visibility: visible;
+    }
   }
   &-results {
     position: absolute;

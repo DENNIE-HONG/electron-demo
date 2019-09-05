@@ -4,39 +4,49 @@
  */
 import React, { Component } from 'react';
 import { createHashHistory } from 'history';
+const history = createHashHistory();
 class SearchHeaderHistory extends Component {
-  state = {
-    historyLen: 0
+  constructor (props) {
+    super(props);
+    this.current = 0;
+    this.isBack = false;
+    this.backCount = 0;
   }
 
+  // 跳页，length增加，后退则不变
   componentDidMount () {
-    const history = createHashHistory();
-    console.log(history.length);
-    this.setState({
-      historyLen: history.length
-    });
     history.listen(() => {
-      console.log('url变了');
+      // 后退
+      if (this.isBack) {
+        this.current -= 1;
+      } else {
+        this.current += 1;
+      }
       this.forceUpdate();
+      this.isBack = false;
     });
   }
 
   // 返回上一页
   backHistory = () => {
-    const history = createHashHistory();
-    console.log(history.length);
-    history.length > this.state.historyLen && history.goBack();
+    this.isBack = true;
+    this.current && history.goBack();
+    this.backCount += 1;
+  }
+
+  // 后退过，才能前进
+  forwardHistory = () => {
+    this.backCount && history.goForward();
+    this.backCount -= 1;
   }
 
   render () {
-    const { historyLen } = this.state;
-    const history = createHashHistory();
-    console.log(history);
-    const disableBack = history.length <= historyLen;
+    const disableBack = !this.current;
+    const { backCount } = this;
     return (
       <div className="search-h-history">
         <i className={`iconfont icon-left${disableBack ? ' disable' : ''}`} onClick={this.backHistory}></i>
-        <i className="iconfont icon-right"></i>
+        <i className={`iconfont icon-right${backCount ? '' : ' disable'}`} onClick={this.forwardHistory}></i>
       </div>
     );
   }

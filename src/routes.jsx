@@ -1,3 +1,7 @@
+/**
+ * @file 路由懒加载
+ * @author luyanhong
+ */
 import React, { Component } from 'react';
 import { HashRouter as Router, Route } from 'react-router-dom';
 import Loadable from 'react-loadable';
@@ -95,6 +99,15 @@ class RouteMap extends Component {
         return <Artist setMusic={self.setMusic} {...rest} key={rest.match.url} />;
       }
     });
+
+    this.AsyncSearch = Loadable({
+      loader: () => import(/* webpackChunkName: 'search' */ '@/views/search'),
+      loading: Loading,
+      render (loaded, rest) {
+        const Search = loaded.default;
+        return <Search setMusic={self.setMusic} {...rest} key={rest.location.search} />;
+      }
+    });
   }
 
   setMusic = (playList, playId) => {
@@ -124,6 +137,7 @@ class RouteMap extends Component {
                 <Route path="/song/:id" exact component={this.AsyncSong} />
                 <Route path="/album/:id" component={this.AsyncAlbum} />
                 <Route path="/artist/:id" component={this.AsyncArtist} />
+                <Route path="/search" component={this.AsyncSearch} />
                 <PlayBox playList={playList} id={playId} />
               </ErrorBoundary>
             </main>
