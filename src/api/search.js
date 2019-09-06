@@ -42,10 +42,11 @@ export const getSearch = async (options) => {
     res.list = res.result[`${type}s`];
     res.total = res.result[`${type}Count`];
     res.list.map((song) => {
-      song.album = song.album.name;
-      song.artist = song.artists[0].name;
-      song.durationPretty = prettyDuration(song.duration);
+      song.album && (song.album = song.album.name);
+      song.artists && (song.artist = song.artists[0].name);
+      song.duration && (song.durationPretty = prettyDuration(song.duration));
     });
+    console.log(res);
     return res;
   } catch (err) {
     return err;

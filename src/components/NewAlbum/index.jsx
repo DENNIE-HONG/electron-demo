@@ -1,8 +1,10 @@
 /**
  * 新碟列表
- * @param {Array}    歌曲列表, 必须
- * @param {Function} 点击播放按钮回调函数，参数是id
+ * @param {Array}    playList, 歌曲列表, 必须
+ * @param {Function} getPlayId, 点击播放按钮回调函数，参数是id
  * @author luyanhong 2018-11-26
+ * @example
+ * <NewAlbum />
 */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';

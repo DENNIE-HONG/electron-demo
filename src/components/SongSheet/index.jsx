@@ -2,7 +2,10 @@
  * 歌单列表
  * @param {Array}    playList, 数据列表
  * @param {Function} onPlay, 点击播放回调事件
- * @param {Boolean}  isShowArtist, 是否显示作者
+ * @param {Boolean}  isShowArtist, 是否显示作者,默认是
+ * @author luyanhong
+ * @example
+ * <SongSheet playList={} />
  */
 import React, { Component } from 'react';
 import LazyImage from 'coms/LazyImage';

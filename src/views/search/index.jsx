@@ -8,6 +8,8 @@ import { parse } from 'querystringify';
 import { getSearch } from 'api/search';
 import LoadMore from 'coms/LoadMore';
 import BaseTable, { BaseTableColumn } from 'coms/BaseTable';
+import SearchAlbum from './SearchAlbum';
+import SearchPlaylist from './SearchPlaylist';
 import './search.scss';
 class Search extends Component {
   state = {
@@ -46,7 +48,7 @@ class Search extends Component {
 
 
   render () {
-    const { keywords, displayAlbum } = this.state;
+    const { keywords, displayAlbum, displayPlaylist } = this.state;
     const params = { keywords };
     return keywords && (
       <div className="search">
@@ -61,7 +63,7 @@ class Search extends Component {
               isMountedFetch
               render={({ list }) => (
                 <section className="search-songs">
-                  <BaseTable data={list}>
+                  <BaseTable data={list} keyName="id">
                     <BaseTableColumn label="歌曲" prop="name"></BaseTableColumn>
                     <BaseTableColumn label="歌手" prop="artist"></BaseTableColumn>
                     <BaseTableColumn label="专辑" prop="album"></BaseTableColumn>
@@ -71,8 +73,12 @@ class Search extends Component {
               )}
             />
           </BaseTabsPane>
-          <BaseTabsPane label="专辑" name="albums">bb</BaseTabsPane>
-          <BaseTabsPane label="歌单" name="playlist">歌单</BaseTabsPane>
+          <BaseTabsPane label="专辑" name="albums">
+            <SearchAlbum isShow={displayAlbum} keywords={keywords} />
+          </BaseTabsPane>
+          <BaseTabsPane label="歌单" name="playlist">
+            <SearchPlaylist keywords={keywords} isShow={displayPlaylist} />
+          </BaseTabsPane>
           <BaseTabsPane label="MV" name="mv">没做</BaseTabsPane>
         </BaseTabs>
       </div>

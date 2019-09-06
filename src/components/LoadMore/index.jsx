@@ -53,7 +53,6 @@ class LoadMore extends Component {
 
   componentWillReceiveProps (nextProps) {
     if (this.props.isFetch !== nextProps.isFetch) {
-      console.log(nextProps);
       this.fetch();
     }
   }
@@ -68,7 +67,7 @@ class LoadMore extends Component {
     }, this.props.params, {});
     try {
       const res = await getUrl(params);
-      if (res[listPropName].length) {
+      if (res[listPropName] && res[listPropName].length) {
         if (!this.total) {
           this.total = Math.ceil(res.total / limit);
         }
