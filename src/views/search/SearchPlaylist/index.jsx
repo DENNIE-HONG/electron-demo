@@ -2,7 +2,7 @@
  * @file 搜索歌单
  * @author luyanhong 2019-09-06
  */
-import React, { PureComponent } from 'react';
+import React from 'react';
 import LoadMore from 'coms/LoadMore';
 import SongSheet from 'coms/SongSheet';
 import { getSearch } from 'api/search';

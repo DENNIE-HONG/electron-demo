@@ -26,8 +26,13 @@ class Search extends Component {
     });
   }
 
+  navLink = (id, type = 'song') => {
+    this.props.history.push({
+      pathname: `/${type}/${id}`
+    });
+  }
+
   handlerTabChange = (tag) => {
-    console.log('收到', tag);
     switch (tag) {
       case 'albums':
         !this.state.displayAlbum && this.setState({
@@ -46,7 +51,6 @@ class Search extends Component {
     }
   }
 
-
   render () {
     const { keywords, displayAlbum, displayPlaylist } = this.state;
     const params = { keywords };
@@ -64,9 +68,9 @@ class Search extends Component {
               render={({ list }) => (
                 <section className="search-songs">
                   <BaseTable data={list} keyName="id">
-                    <BaseTableColumn label="歌曲" prop="name"></BaseTableColumn>
-                    <BaseTableColumn label="歌手" prop="artist"></BaseTableColumn>
-                    <BaseTableColumn label="专辑" prop="album"></BaseTableColumn>
+                    <BaseTableColumn label="歌曲" prop="name" className="nav-link" onClick={(idx) => this.navLink(list[idx].id)}></BaseTableColumn>
+                    <BaseTableColumn label="歌手" prop="artist" className="nav-link" onClick={(idx) => this.navLink(list[idx].artists[0].id, 'artist')}></BaseTableColumn>
+                    <BaseTableColumn label="专辑" prop="albumName" className="nav-link" onClick={(idx) => this.navLink(list[idx].album.id, 'album')}></BaseTableColumn>
                     <BaseTableColumn label="时长" prop="durationPretty"></BaseTableColumn>
                   </BaseTable>
                 </section>

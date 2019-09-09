@@ -45,6 +45,10 @@ class SearchHeader extends Component {
     if (value === '') {
       return;
     }
+    this.setState({
+      results: null,
+      displayDelete: false
+    });
     history.push({
       pathname: '/search',
       search: `?keywords=${value}`
