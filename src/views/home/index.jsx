@@ -9,9 +9,15 @@ import NewAlbum from 'coms/NewAlbum';
 import CarouselBox from 'coms/CarouselBox';
 import showMessage from 'coms/message';
 import SongSheet from 'coms/SongSheet';
+import PropTypes from 'prop-types';
 import TopList from './TopList';
 import './home.scss';
+
 class Home extends Component {
+  static contextTypes = {
+    store: PropTypes.object
+  }
+
   constructor (props) {
     super(props);
     this.state = {
@@ -23,6 +29,7 @@ class Home extends Component {
     this.fetchAlbum = this.fetchAlbum.bind(this);
     this.swipeNext = this.swipeNext.bind(this);
     this.swipePrev = this.swipePrev.bind(this);
+    console.log(this.context);
   }
 
   shouldComponentUpdate (nextProps, nextState) {
@@ -36,7 +43,6 @@ class Home extends Component {
   setPlayMusic = (playList, playId) => {
     this.props.setMusic && this.props.setMusic(playList, playId);
   }
-
 
   async fetch () {
     // 推荐歌单
@@ -143,3 +149,4 @@ class Home extends Component {
   }
 }
 export default Home;
+

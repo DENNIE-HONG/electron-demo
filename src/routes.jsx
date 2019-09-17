@@ -11,21 +11,22 @@ import PlayBox from 'coms/PlayBox';
 import Loading from 'coms/Loading';
 import ErrorBoundary from 'coms/ErrorBoundary';
 import SearchHeader from 'coms/SearchHeader';
-
+import PropTypes from 'prop-types';
 class RouteMap extends Component {
+  static propTypes = {
+    playId: PropTypes.number.isRequired,
+    playList: PropTypes.array.isRequired
+  }
+
   constructor (props) {
     super(props);
-    this.state = {
-      playList: [],
-      playId: 0
-    };
-    const self = this;
+    const { setMusic } = props;
     this.AsyncHome = Loadable({
       loader: () => import(/* webpackChunkName: "home" */ '@/views/home'),
       loading: Loading,
       render (loaded, rest) {
         const Home = loaded.default;
-        return <Home setMusic={self.setMusic} {...rest} />;
+        return <Home setMusic={setMusic} {...rest} />;
       }
     });
     this.AsyncPlaylist = Loadable({
@@ -33,7 +34,7 @@ class RouteMap extends Component {
       loading: Loading,
       render (loaded, rest) {
         const Playlist = loaded.default;
-        return <Playlist setMusic={self.setMusic} {...rest} />;
+        return <Playlist setMusic={setMusic} {...rest} />;
       }
     });
     this.AsyncTop = Loadable({
@@ -41,7 +42,7 @@ class RouteMap extends Component {
       loading: Loading,
       render (loaded, rest) {
         const Top = loaded.default;
-        return <Top setMusic={self.setMusic} {...rest} />;
+        return <Top setMusic={setMusic} {...rest} />;
       }
     });
     this.AsyncDjRadio = Loadable({
@@ -49,7 +50,7 @@ class RouteMap extends Component {
       loading: Loading,
       render (loaded, rest) {
         const DjRadio = loaded.default;
-        return <DjRadio setMusic={self.setMusic} key={rest.match.url} {...rest} />;
+        return <DjRadio setMusic={setMusic} key={rest.match.url} {...rest} />;
       }
     });
     this.AsyncProgram = Loadable({
@@ -57,7 +58,7 @@ class RouteMap extends Component {
       loading: Loading,
       render (loaded, rest) {
         const Program = loaded.default;
-        return <Program setMusic={self.setMusic} key={rest.match.url} {...rest} />;
+        return <Program setMusic={setMusic} key={rest.match.url} {...rest} />;
       }
     });
     this.AsyncDj = Loadable({
@@ -72,7 +73,7 @@ class RouteMap extends Component {
       loader: () => import(/* webpackChunkName: 'playlist-detail' */ '@/views/playlist-detail'),
       loading: Loading,
       render (loaded, rest) {
-        return <loaded.default setMusic={self.setMusic} key={rest.match.url} {...rest} />;
+        return <loaded.default setMusic={setMusic} key={rest.match.url} {...rest} />;
       }
     });
     this.AsyncSong = Loadable({
@@ -80,7 +81,7 @@ class RouteMap extends Component {
       loading: Loading,
       render (loaded, rest) {
         const Song = loaded.default;
-        return <Song setMusic={self.setMusic} {...rest} key={rest.match.url} />;
+        return <Song setMusic={setMusic} {...rest} key={rest.match.url} />;
       }
     });
     this.AsyncAlbum = Loadable({
@@ -88,7 +89,7 @@ class RouteMap extends Component {
       loading: Loading,
       render (loaded, rest) {
         const Album = loaded.default;
-        return <Album setMusic={self.setMusic} {...rest} key={rest.match.url} />;
+        return <Album setMusic={setMusic} {...rest} key={rest.match.url} />;
       }
     });
     this.AsyncArtist = Loadable({
@@ -96,7 +97,7 @@ class RouteMap extends Component {
       loading: Loading,
       render (loaded, rest) {
         const Artist = loaded.default;
-        return <Artist setMusic={self.setMusic} {...rest} key={rest.match.url} />;
+        return <Artist setMusic={setMusic} {...rest} key={rest.match.url} />;
       }
     });
 
@@ -105,20 +106,13 @@ class RouteMap extends Component {
       loading: Loading,
       render (loaded, rest) {
         const Search = loaded.default;
-        return <Search setMusic={self.setMusic} {...rest} key={rest.location.search} />;
+        return <Search setMusic={setMusic} {...rest} key={rest.location.search} />;
       }
     });
   }
 
-  setMusic = (playList, playId) => {
-    this.setState({
-      playList,
-      playId
-    });
-  }
-
   render () {
-    const { playList, playId } = this.state;
+    const { playList, playId } = this.props;
     return (
       <Router>
         <>
@@ -148,4 +142,6 @@ class RouteMap extends Component {
     );
   }
 }
+
 export default RouteMap;
+
