@@ -9,7 +9,7 @@
 --单台节目(program)  
 --单曲页(song)  
 --专辑页(album)  
---歌手页(artist)
+--歌手页(artist)  
 
 ## 推荐
 ![home](/img/home.png)
@@ -31,6 +31,8 @@
 ![album](/img/album.png)
 ## 歌手页
 ![artist](/img/artist.png)
+## 搜索页
+![search](/img/search.png)
   ## 启动步骤：  
   1、
     开发： npm run devServer  
