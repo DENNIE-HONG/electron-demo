@@ -10,6 +10,17 @@
   &-songs {
     margin-top: 20px;
     margin-bottom: 20px;
+    &-icon {
+      color: nth($fblack, 3);
+      cursor: pointer;
+      &:hover,
+      &:active {
+        color: nth($fblack, 1);
+      }
+    }
+    &-btns {
+      margin-bottom: 20px;
+    }
   }
   &-albums {
     margin: 20px 20px 10px;
