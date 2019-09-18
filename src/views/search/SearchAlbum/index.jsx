@@ -9,6 +9,10 @@ import LoadMore from 'coms/LoadMore';
 import { getSearch } from 'api/search';
 import NewAlbum from 'coms/NewAlbum';
 import PropTypes from 'prop-types';
+import { ReactReduxContext } from 'react-redux';
+import { getAlbum } from 'api/album';
+import showMessage from 'coms/message';
+import playAction from '@/redux/actions';
 class SearchAlbum extends PureComponent {
   static propTypes = {
     keywords: PropTypes.string.isRequired,
@@ -17,6 +21,25 @@ class SearchAlbum extends PureComponent {
 
   static defaultProps = {
     isShow: false
+  }
+
+  static contextType = ReactReduxContext;
+
+  playAlbum = async (playId) => {
+    try {
+      const res = await getAlbum(playId);
+      const { store } = this.context;
+      const payload = {
+        playId,
+        playList: res.songs
+      };
+      store.dispatch(playAction(payload));
+    } catch {
+      showMessage({
+        type: 'error',
+        message: '不能播放了呢'
+      });
+    }
   }
 
   render () {
@@ -34,7 +57,7 @@ class SearchAlbum extends PureComponent {
           limit={25}
           isFetch={isShow}
           render={({ list }) => (
-            <NewAlbum playList={list} />
+            <NewAlbum playList={list} getPlayId={this.playAlbum} />
           )}
         />
       </section>

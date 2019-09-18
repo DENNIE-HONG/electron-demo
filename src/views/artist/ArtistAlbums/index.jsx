@@ -10,6 +10,9 @@ import LoadMore from 'coms/LoadMore';
 import { getArtistAlbum } from 'api/artist';
 import { getAlbum } from 'api/album';
 import PropTypes from 'prop-types';
+import { ReactReduxContext } from 'react-redux';
+import showMessage from 'coms/message';
+import playAction from '@/redux/actions';
 class ArtistAlbums extends Component {
   static propTypes = {
     id: PropTypes.oneOfType([
@@ -23,14 +26,29 @@ class ArtistAlbums extends Component {
     isFetch: false
   }
 
+  static contextType = ReactReduxContext;
+
   constructor (props) {
     super(props);
-    console.log(1);
+    this.playAlbum = this.playAlbum.bind(this);
   }
 
-  // 暂时不可听
-  playAlbum (playId) {
-    console.log(playId);
+  // 播放专辑
+  async playAlbum (playId) {
+    try {
+      const res = await getAlbum(playId);
+      const { store } = this.context;
+      const payload = {
+        playId,
+        playList: res.songs
+      };
+      store.dispatch(playAction(payload));
+    } catch {
+      showMessage({
+        type: 'error',
+        message: '暂时无法播放专辑哦'
+      });
+    }
   }
 
   render () {

@@ -31,21 +31,7 @@ class CommentList extends Component {
     title: ''
   }
 
-  constructor (props) {
-    super(props);
-    this.state = {
-      isFetch: false
-    };
-  }
-
-  // componentDidMount () {
-  //   this.setState({
-  //     isFetch: true
-  //   });
-  // }
-
   render () {
-    const { isFetch } = this.state;
     const {
       title, id, getUrl, pageSize
     } = this.props;

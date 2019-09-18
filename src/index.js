@@ -5,7 +5,6 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider, connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import RouteMap from './routes';
 import '@babel/polyfill';
 import 'assets/main.scss';
@@ -40,9 +39,6 @@ const App = connect(
   mapDispatchToProps
 )(RouteMap);
 
-App.childContextTypes = {
-  store: PropTypes.object.isRequired // childContextTypes必须声明  这一句很重要
-};
 render(
   <Provider store={store}>
     <App />
