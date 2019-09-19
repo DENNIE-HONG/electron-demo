@@ -6,6 +6,9 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import './TheSider.scss';
 import avatar from 'assets/img/user.jpg';
+import login from './UserLogin';
+
+login();
 const Siderbar = () => (
   <aside className="com-sider">
     <header className="com-sider-head">

@@ -1,0 +1,65 @@
+.login {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 280px;
+  background-color: white;
+  border: 1px solid nth($fgray, 4);
+  border-radius: 6px;
+  transform: translate3d(-50%, -50%, 0);
+  @include boxShadow;
+  z-index: 9999;
+  &-close {
+    display: block;
+    padding-left: 5px;
+    padding-top: 5px;
+    color: nth($fblue, 1);
+    cursor: pointer;
+  }
+  &-mobile {
+    margin-top: 40px;
+    padding: 0 30px 30px;
+  }
+  &-item {
+    display: block;
+    padding-top: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid nth($fgray, 2);
+    .iconfont {
+      padding-right: 5px;
+      color: nth($fblack, 3);
+    }
+    input {
+      border: 0;
+      @include placeholder() {
+        color: nth($fblack, 3);
+      }
+    }
+  }
+  &-btn {
+    display: block;
+    width: 100%;
+    margin-top: 20px;
+    padding: 7px 0;
+    background-color: nth($fblue, 1);
+    color: white;
+    font-size: 14px;
+    border-radius: 5px;
+    border: 0;
+  }
+  &-error {
+    padding-left: 30px;
+    padding-bottom: 20px;
+    color: nth($fblack, 3);
+    vertical-align: top;
+    visibility: hidden;
+    .iconfont {
+      padding-right: 5px;
+      color: nth($fred, 1);
+      vertical-align: top;
+    }
+    &.active {
+      visibility: visible;
+    }
+  }
+}

@@ -1,6 +1,7 @@
 /**
  * @file Tabs标签页
  * @param {String} activeName, 一开始选中的tab名字
+ * @param {String} textAlign, tab对齐，默认左对齐
  * @author luyanhong 2019-08-16
  * @example
  * <BaseTabs activeName="必须">
@@ -14,11 +15,13 @@ import './BaseTabs.scss';
 class BaseTabs extends Component {
   static propTypes = {
     activeName: PropTypes.string.isRequired,
-    tabClick: PropTypes.func
+    tabClick: PropTypes.func,
+    textAlign: PropTypes.string
   }
 
   static defaultProps = {
-    tabClick: undefined
+    tabClick: undefined,
+    textAlign: 'left'
   }
 
   constructor (props) {
@@ -40,7 +43,7 @@ class BaseTabs extends Component {
 
 
   render () {
-    const { children } = this.props;
+    const { children, textAlign } = this.props;
     const { activePane } = this.state;
     const lists = children.map((child) => {
       const { label, name } = child.props;
@@ -58,7 +61,7 @@ class BaseTabs extends Component {
     });
     return (
       <>
-        <nav className="tabs">
+        <nav className={`tabs tabs-${textAlign}`}>
           {lists}
         </nav>
         <div className="tabs-content">

@@ -9,7 +9,6 @@ export const responseSuccessFunc = (response) => {
   if (data.code === 200) {
     return response.data;
   }
-  console.log('出错');
   return Promise.reject('资源获取失败了');
 };
 export const responseFailFunc = (err) => Promise.reject(err);

@@ -13,65 +13,130 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.icon-ranking:before { content: "\e630"; }
+.icon-ranking:before {
+  content: "\e630";
+}
 
-.icon-radio:before { content: "\e61b"; }
+.icon-radio:before {
+  content: "\e61b";
+}
 
-.icon-next:before { content: "\e603"; }
+.icon-next:before {
+  content: "\e603";
+}
 
-.icon-prev:before { content: "\e650"; }
+.icon-prev:before {
+  content: "\e650";
+}
 
-.icon-pause:before { content: "\e655"; }
+.icon-pause:before {
+  content: "\e655";
+}
 
-.icon-circle:before { content: "\e6ca"; }
+.icon-circle:before {
+  content: "\e6ca";
+}
 
-.icon-music:before { content: "\e609"; }
+.icon-music:before {
+  content: "\e609";
+}
 
-.icon-success:before { content: "\e77d"; }
+.icon-success:before {
+  content: "\e77d";
+}
 
-.icon-error:before { content: "\e77e"; }
+.icon-error:before {
+  content: "\e77e";
+}
 
-.icon-info:before { content: "\e77f"; }
+.icon-info:before {
+  content: "\e77f";
+}
 
-.icon-warning:before { content: "\e785"; }
+.icon-warning:before {
+  content: "\e785";
+}
 
-.icon-like:before { content: "\e7c8"; }
+.icon-user:before {
+  content: "\e7ae";
+}
 
-.icon-star:before { content: "\e7df"; }
+.icon-like:before {
+  content: "\e7c8";
+}
 
-.icon-right:before { content: "\e7eb"; }
+.icon-lock:before {
+  content: "\e7c9";
+}
 
-.icon-left:before { content: "\e7ec"; }
+.icon-star:before {
+  content: "\e7df";
+}
 
-.icon-up:before { content: "\e7ed"; }
+.icon-right:before {
+  content: "\e7eb";
+}
 
-.icon-down:before { content: "\e7ee"; }
+.icon-left:before {
+  content: "\e7ec";
+}
 
-.icon-like-fill:before { content: "\e869"; }
+.icon-up:before {
+  content: "\e7ed";
+}
 
-.icon-star-fill:before { content: "\e86a"; }
-
-.icon-mv:before { content: "\e880"; }
-
-.icon-headset:before { content: "\e60d"; }
-
-.icon-github:before { content: "\e68d"; }
-
-.icon-play:before { content: "\e679"; }
-
-.icon-comment:before { content: "\e8e8"; }
-
-.icon-playlist:before { content: "\e8eb"; }
-
-.icon-swap-right:before { content: "\e8f1"; }
-
-.icon-volume:before { content: "\eca6"; }
-
-.icon-mute:before { content: "\eca9"; }
-.icon-search:before {
-  content: "\e8ef";
+.icon-down:before {
+  content: "\e7ee";
 }
 
 .icon-close-circle-fill:before {
   content: "\e844";
+}
+
+.icon-like-fill:before {
+  content: "\e869";
+}
+
+.icon-star-fill:before {
+  content: "\e86a";
+}
+
+.icon-mv:before {
+  content: "\e880";
+}
+
+.icon-headset:before {
+  content: "\e60d";
+}
+
+.icon-github:before {
+  content: "\e68d";
+}
+
+.icon-play:before {
+  content: "\e679";
+}
+
+.icon-comment:before {
+  content: "\e8e8";
+}
+
+.icon-playlist:before {
+  content: "\e8eb";
+}
+
+.icon-search:before {
+  content: "\e8ef";
+}
+
+.icon-swap-right:before {
+  content: "\e8f1";
+}
+
+.icon-volume:before {
+  content: "\eca6";
+}
+
+.icon-mute:before {
+  content: "\eca9";
 }

@@ -36,3 +36,17 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+@mixin placeholder {
+  &::-webkit-input-placeholder {
+    @content;
+  }
+  &::-moz-placeholder {
+    @content;
+  }
+  &:-moz-placeholder {    /* Mozilla Firefox 4 to 18 */
+    @content;
+  }
+  &:-ms-input-placeholder{  /* Internet Explorer 10-11 */
+    @content;
+  }
+}
