@@ -18,7 +18,7 @@ root.className = 'page';
 document.body.appendChild(root);
 
 const mapStateToProps = (state) => {
-  const { playId, playList } = state;
+  const { playId, playList } = state.playReducer;
   return {
     playId,
     playList

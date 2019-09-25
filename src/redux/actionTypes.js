@@ -1,3 +1,3 @@
 
-const PLAY_TODO = 'play';
-export default PLAY_TODO;
+export const PLAY_TODO = 'play';
+export const LOGIN_TODO = 'login';

@@ -7,11 +7,15 @@ import ReactDOM, { render } from 'react-dom';
 import PropTypes from 'prop-types';
 import BaseTabs, { BaseTabsPane } from 'coms/BaseTabs';
 import { loginPhone } from 'api/login';
+import { ReactReduxContext } from 'react-redux';
+import { loginAction } from '@/redux/actions';
 import './UserLogin.scss';
 class UserLogin extends Component {
   static propTypes = {
     domNode: PropTypes.object.isRequired
   }
+
+  static contextType = ReactReduxContext;
 
   constructor (props) {
     super(props);
@@ -22,7 +26,12 @@ class UserLogin extends Component {
     };
   }
 
-  handleMobileLogin = (e) => {
+  close = () => {
+    this.props.domNode.parentNode.removeChild(this.props.domNode);
+    ReactDOM.unmountComponentAtNode(this.props.domNode);
+  }
+
+  handleMobileLogin = async () => {
     const error = this.check();
     if (error) {
       this.setState({
@@ -30,16 +39,28 @@ class UserLogin extends Component {
       });
       return;
     }
-    this.composeMobileData();
-  }
-
-  composeMobileData () {
     this.setState({
       error: ''
     });
     const { value: mobile } = this.mobile;
     const { value: password } = this.mobilePW;
-    console.log(mobile, password);
+    try {
+      const res = await loginPhone(mobile, password);
+      console.log(res);
+      this.updateUser(res.profile);
+      this.close();
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  updateUser (profile) {
+    const { store } = this.context;
+    const payload = {
+      nickName: profile.nickname,
+      avatar: profile.avatarUrl
+    };
+    store.dispatch(loginAction(payload));
   }
 
   // 校验
@@ -66,7 +87,7 @@ class UserLogin extends Component {
     const { error } = this.state;
     const loginContainer = (
       <div className="login">
-        <i className="iconfont icon-close-circle-fill login-close"></i>
+        <i className="iconfont icon-close-circle-fill login-close" onClick={this.close}></i>
         <BaseTabs activeName="mobile" textAlign="center">
           <BaseTabsPane label="手机登录" name="mobile">
             <form className="login-mobile" onSubmit={this.handleMobileLogin}>

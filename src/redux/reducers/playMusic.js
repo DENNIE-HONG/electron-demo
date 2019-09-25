@@ -1,9 +1,13 @@
-import PLAY_TODO from './actionTypes';
+/**
+ * @file 处理play动作
+ * @author luyanhong 2019-09-25
+ */
+import { PLAY_TODO } from '../actionTypes';
 const defaultState = {
   playId: 0,
   playList: []
 };
-export default (state = defaultState, action) => {
+const playReducer = (state = defaultState, action) => {
   switch (action.type) {
     case PLAY_TODO:
       const { playId, playList } = action.payload;
@@ -15,3 +19,4 @@ export default (state = defaultState, action) => {
       return state;
   }
 };
+export default playReducer;
