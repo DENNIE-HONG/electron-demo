@@ -6,7 +6,6 @@
   border-bottom: 1px solid nth($fgray, 1);
   font-size: 14px;
   &-pane {
-    margin-right: 40px;
     text-align: center;
     cursor: pointer;
     transition: all 0.5s;
@@ -17,6 +16,9 @@
     }
     &.active {
       border-color: nth($fblue, 1);
+    }
+    & + .tabs-pane {
+      margin-left: 40px;
     }
   }
   &-cont-active {

@@ -11,6 +11,19 @@ const COOKIE_NAME = 'user';
 const saveCookie = (userId) => {
   Cookies.set(COOKIE_NAME, userId, { expires: 7 });
 };
+const handleError = (err) => {
+  const { message } = err;
+  if (message.includes('501')) {
+    return Promise.reject('账号不存在');
+  }
+  if (message.includes('502')) {
+    return Promise.reject('密码错误');
+  }
+  if (message.includes('509')) {
+    return Promise.reject('密码错误超过限制');
+  }
+  return Promise.reject('账号或密码不正确');
+};
 // 手机登录
 export const loginPhone = async (phone = required(), password = required()) => {
   try {
@@ -18,13 +31,21 @@ export const loginPhone = async (phone = required(), password = required()) => {
     saveCookie(res.profile.userId);
     return res;
   } catch (err) {
-    console.log(err);
-    Promise.reject(err);
+    return handleError(err);
   }
 };
 
 // 邮箱登录
-export const loginMail = (email = required(), password = required()) => request.get(`/login?email=${email}@163.com&password=${password}`);
+export const loginMail = async (email = required(), password = required()) => {
+  try {
+    const res = await request.get(`/login?email=${email}&password=${password}`);
+    saveCookie(res.profile.userId);
+    return res;
+  } catch (err) {
+    console.log(err);
+    return handleError(err);
+  }
+};
 
 // 获取用户详情
 export const getUserDetail = (uid) => request.get(`/user/detail?uid=${uid}`);

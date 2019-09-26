@@ -16,7 +16,8 @@
     color: nth($fblue, 1);
     cursor: pointer;
   }
-  &-mobile {
+  &-mobile,
+  &-mail {
     margin-top: 40px;
     padding: 0 30px 30px;
   }
@@ -28,6 +29,7 @@
     .iconfont {
       padding-right: 5px;
       color: nth($fblack, 3);
+      vertical-align: middle;
     }
     input {
       border: 0;

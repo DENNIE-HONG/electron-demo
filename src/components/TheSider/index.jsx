@@ -23,21 +23,30 @@ class Siderbar extends PureComponent {
   async componentDidMount () {
     try {
       const res = await getLoginStatus();
-      console.log(res);
       if (res.code === 200) {
-        const { store } = this.context;
-        const payload = {
-          nickName: res.profile.nickname,
-          avatar: res.profile.avatarUrl
-        };
-        store.dispatch(loginAction(payload));
-        this.setState({
-          isLogin: true
-        });
+        this.updateUserInfo(res.profile);
       }
     } catch {
       //
     }
+  }
+
+  loginAfter = () => {
+    login((profile) => {
+      this.updateUserInfo(profile);
+    });
+  }
+
+  updateUserInfo (profile) {
+    const { store } = this.context;
+    const payload = {
+      nickName: profile.nickname,
+      avatar: profile.avatarUrl
+    };
+    store.dispatch(loginAction(payload));
+    this.setState({
+      isLogin: true
+    });
   }
 
   render () {
@@ -52,7 +61,7 @@ class Siderbar extends PureComponent {
           </div>
           {isLogin ? (
             <h4 className="com-sider-name">{nickName}</h4>
-          ) : (<div className="nav-link" onClick={login}>登录网易音乐</div>)}
+          ) : (<div className="nav-link" onClick={this.loginAfter}>登录网易音乐</div>)}
         </header>
         <dl className="com-sider-list">
           <dt className="sider-list-title"><h2>音乐馆</h2></dt>
