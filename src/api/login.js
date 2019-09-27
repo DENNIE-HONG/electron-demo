@@ -66,3 +66,8 @@ export const getLoginStatus = async () => {
     console.log(err);
   }
 };
+
+// 退出登录
+export const logout = () => {
+  Cookies.remove(COOKIE_NAME);
+};

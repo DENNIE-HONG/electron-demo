@@ -9,14 +9,19 @@
     border-bottom: 1px solid nth($fgray, 1);
   }
   &-pic {
+    position: relative;
     width: 60px;
     height: 60px;
     margin: 50px auto 0;
     border-radius: 50%;
-    @include hid;
     > img {
       width: 100%;
       min-height: 100%;
+    }
+    &:hover {
+      .com-sider-user {
+        visibility: visible;
+      }
     }
   }
   &-name {
@@ -57,6 +62,54 @@
         &:hover {
           background-color: nth($fgray, 1);
         }
+      }
+    }
+  }
+  &-user {
+    position: absolute;
+    bottom: -112px;
+    left: 50%;
+    width: 200px;
+    background-color: white;
+    border: 1px solid nth($fgray, 4);
+    border-radius: 6px;
+    transform: translate(-50%, 0);
+    @include dropShadow;
+    visibility: hidden;
+    &::before {
+      position: absolute;
+      left: 50%;
+      top: -10px;
+      height: 0;
+      width: 0;
+      border-bottom: 10px solid white;
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      content: '';
+      transform: translate3d(-50%, 0, 0);
+    }
+    &-info {
+      display: flex;
+      text-align: center;
+    }
+    &-item {
+      flex: 1;
+      margin: 10px 0;
+      line-height: 20px;
+      color: nth($fblack, 2);
+      & + .com-sider-user-item {
+        border-left: 1px solid nth($fgray, 1);
+      }
+    }
+    &-btns {
+      display: flex;
+      border-top: 1px solid nth($fgray, 1);
+    }
+    &-btn {
+      flex: 1;
+      margin: 10px 0;
+      & + .com-sider-user-btn {
+        border-left: 1px solid nth($fgray, 1);
       }
     }
   }
