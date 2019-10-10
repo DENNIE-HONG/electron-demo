@@ -11,6 +11,7 @@ import { prettyDate } from 'utils/pretty-time';
 import ShowDesc from 'coms/ShowDesc';
 import BaseTable, { BaseTableColumn } from 'coms/BaseTable';
 import CommentList from 'coms/CommentList';
+import { Link } from 'react-router-dom';
 import './playlist-detail.scss';
 class PlaylistDetail extends Component {
   constructor (props) {
@@ -81,10 +82,12 @@ class PlaylistDetail extends Component {
             tag="歌单"
           >
             <div className="info">
-              <div className="info-pic">
-                <LazyImage src={`${info.creator.avatarUrl}?param=30y30`} alt={info.creator.nickname} />
-              </div>
-              <span className="info-name">{info.creator.nickname}</span>
+              <Link to={`/user/${info.creator.userId}`}>
+                <div className="info-pic">
+                  <LazyImage src={`${info.creator.avatarUrl}?param=30y30`} alt={info.creator.nickname} />
+                </div>
+                <span className="info-name">{info.creator.nickname}</span>
+              </Link>
               <span>{prettyDate(info.createTime)} 创建</span>
             </div>
             <ul className="btn-box">

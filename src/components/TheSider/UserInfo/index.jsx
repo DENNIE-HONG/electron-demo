@@ -5,6 +5,7 @@
 import React, { Component } from 'react';
 import { ReactReduxContext } from 'react-redux';
 import { getLoginStatus, logout } from 'api/login';
+import { Link } from 'react-router-dom';
 import { loginAction } from '@/redux/actions';
 import login from '../UserLogin';
 class UserInfo extends Component {
@@ -71,34 +72,43 @@ class UserInfo extends Component {
     const { isLogin, userInfo } = this.state;
     return (
       <header className="com-sider-head">
-        <div className="com-sider-pic">
-          <img src={avatar} alt="用户" className="img-circle" />
-          {userInfo && (
-            <div className="com-sider-user">
-              <ul className="com-sider-user-info">
-                <li className="com-sider-user-item">
-                  <i>{userInfo.eventCount}</i>
-                  <p>动态</p>
-                </li>
-                <li className="com-sider-user-item">
-                  <i>{userInfo.follows}</i>
-                  <p>关注</p>
-                </li>
-                <li className="com-sider-user-item">
-                  <i>{userInfo.followeds}</i>
-                  <p>粉丝</p>
-                </li>
-              </ul>
-              <div className="com-sider-user-btns">
-                <span className="com-sider-user-btn">个人主页</span>
-                <span className="com-sider-user-btn nav-link" onClick={this.logout}>退出登录</span>
+        {isLogin ? (
+          <>
+            <div className="com-sider-pic">
+              <Link to={`/user/${userInfo.userId}`}>
+                <img src={avatar} alt="用户" className="img-circle" />
+              </Link>
+              <div className="com-sider-user">
+                <ul className="com-sider-user-info">
+                  <li className="com-sider-user-item">
+                    <i>{userInfo.eventCount}</i>
+                    <p>动态</p>
+                  </li>
+                  <li className="com-sider-user-item">
+                    <i>{userInfo.follows}</i>
+                    <p>关注</p>
+                  </li>
+                  <li className="com-sider-user-item">
+                    <i>{userInfo.followeds}</i>
+                    <p>粉丝</p>
+                  </li>
+                </ul>
+                <div className="com-sider-user-btns">
+                  <Link to={`/user/${userInfo.userId}`} className="com-sider-user-btn">个人主页</Link>
+                  <span className="com-sider-user-btn nav-link" onClick={this.logout}>退出登录</span>
+                </div>
               </div>
             </div>
-          )}
-        </div>
-        {isLogin ? (
-          <h4 className="com-sider-name">{nickName}</h4>
-        ) : (<div className="nav-link" onClick={this.loginAfter}>登录网易音乐</div>)}
+            <h4 className="com-sider-name">{nickName}</h4>
+          </>
+        ) : (
+          <>
+            <div className="com-sider-pic">
+              <img src={avatar} alt="用户" className="img-circle" />
+            </div>
+            <div className="nav-link" onClick={this.loginAfter}>登录网易音乐</div>
+          </>
+        )}
       </header>
     );
   }

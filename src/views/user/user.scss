@@ -1,0 +1,66 @@
+.user {
+  &-header {
+    padding: 30px 20px 40px;
+    background-color: nth($fgray, 1);
+    &-pic {
+      display: inline-block;
+      width: 120px;
+      height: 120px;
+      vertical-align: top;
+      > img {
+        width: 100%;
+        min-height: 100%;
+      }
+    }
+    &-info {
+      display: inline-block;
+      margin-left: 30px;
+      vertical-align: top;
+    }
+    &-name {
+      font-size: 26px;
+      line-height: 1;
+    }
+    &-list {
+      margin-top: 20px;
+      margin-left: -20px;
+    }
+    &-item {
+      display: inline;
+      padding: 0 20px;
+      & + .user-header-item {
+        border-left: 1px solid nth($fgray, 4);
+      }
+      .item-count {
+        padding-right: 8px;
+        font-size: 22px;
+      }
+    }
+  }
+  &-playlist {
+    margin-top: 20px;
+    padding: 0 20px;
+    &-title {
+      font-size: 18px;
+    }
+    &-list {
+      margin-top: 20px;
+    }
+    &-item {
+      float: left;
+      width: 160px;
+      height: 240px;
+      & + .user-playlist-item {
+        margin-right: 25px;
+      }
+      &:first-child {
+        margin-right: 25px;
+      }
+    }
+    &-count {
+      padding-left: 5px;
+      font-size: 12px;
+      color: nth($fblack, 3);
+    }
+  }
+}

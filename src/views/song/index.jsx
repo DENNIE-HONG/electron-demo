@@ -8,7 +8,7 @@ import ProgramHeader from 'coms/ProgramHeader';
 import BaseButton from 'coms/BaseButton';
 import ShowDesc from 'coms/ShowDesc';
 import CommentList from 'coms/CommentList';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './song.scss';
 class Song extends Component {
   constructor (props) {
@@ -54,9 +54,9 @@ class Song extends Component {
     }
     // 歌手
     const singers = info.ar.map((ar) => (
-      <NavLink to={`/artist/${ar.id}`} key={ar.id} className="info-singers">
+      <Link to={`/artist/${ar.id}`} key={ar.id} className="info-singers">
         <span>{ar.name}</span>
-      </NavLink>
+      </Link>
     ));
     return info && (
       <div className="song">
@@ -68,9 +68,9 @@ class Song extends Component {
               </p>
               <p className="info-item">
                 所属专辑：
-                <NavLink to={`/album/${info.al.id}`}>
+                <Link to={`/album/${info.al.id}`}>
                   <span className="info-album">{info.al.name}</span>
-                </NavLink>
+                </Link>
               </p>
             </div>
             <div className="song-header-btns">
