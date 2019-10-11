@@ -12,8 +12,11 @@ import ShowDesc from 'coms/ShowDesc';
 import BaseTable, { BaseTableColumn } from 'coms/BaseTable';
 import CommentList from 'coms/CommentList';
 import { Link } from 'react-router-dom';
+import { ReactReduxContext } from 'react-redux';
 import './playlist-detail.scss';
 class PlaylistDetail extends Component {
+  static contextType = ReactReduxContext;
+
   constructor (props) {
     super(props);
     this.state = {
@@ -73,11 +76,13 @@ class PlaylistDetail extends Component {
 
   render () {
     const { info } = this.state;
+    const { store } = this.context;
+    const { nickName } = store.getState().loginReducer;
     return info && (
       <div className="playlistDetail">
         <header className="playlistDetail-header">
           <ProgramHeader
-            name={info.name}
+            name={info.name.replace(nickName, '我')}
             picUrl={`${info.coverImgUrl}?param=160y160`}
             tag="歌单"
           >
@@ -101,7 +106,7 @@ class PlaylistDetail extends Component {
               ))}
             </dl>
             <div className="playlistDetail-desc">
-              <ShowDesc text={info.description} />
+              <ShowDesc text={info.description || '暂无评论'} />
             </div>
           </ProgramHeader>
         </header>

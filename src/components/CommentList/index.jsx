@@ -45,7 +45,7 @@ class CommentList extends Component {
           isMountedFetch
           render={({ list, totalCount }) => (
             <>
-              {totalCount && title && (
+              {title && totalCount && (
                 <h5 className="comment-title">{title}({totalCount})</h5>
               )}
               {totalCount ? (

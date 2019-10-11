@@ -118,6 +118,15 @@ class RouteMap extends Component {
         return <User setMusic={setMusic} {...rest} key={rest.match.url} />;
       }
     });
+
+    this.AsyncMyLike = Loadable({
+      loader: () => import(/* webpackChunkName: 'myLike' */ '@/views/myLike'),
+      loading: Loading,
+      render (loaded, rest) {
+        const MyLike = loaded.default;
+        return <MyLike setMusic={setMusic} {...rest} key={rest.match.url} />;
+      }
+    });
   }
 
   render () {
@@ -142,6 +151,7 @@ class RouteMap extends Component {
                 <Route path="/artist/:id" component={this.AsyncArtist} />
                 <Route path="/search" component={this.AsyncSearch} />
                 <Route path="/user/:id" component={this.AsyncUser} />
+                <Route path="/my" component={this.AsyncMyLike} />
                 <PlayBox playList={playList} id={playId} />
               </ErrorBoundary>
             </main>

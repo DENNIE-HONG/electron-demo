@@ -5,9 +5,8 @@
 import React, { Component } from 'react';
 import { getUserDetail, getUserPlaylist } from 'api/user';
 import Loading from 'coms/Loading';
-import LazyImage from 'coms/LazyImage';
-import { Link } from 'react-router-dom';
 import SongSheet from 'coms/SongSheet';
+import { getPlaylistDetail } from 'api/home';
 import './user.scss';
 class User extends Component {
   constructor (props) {
@@ -31,6 +30,16 @@ class User extends Component {
       });
     } catch {
       //
+    }
+  }
+
+  // 获取歌单列表
+  fetchPlaylistDetail = async (playId) => {
+    try {
+      const res = await getPlaylistDetail(playId);
+      this.props.setMusic(res.playlist.tracks, playId);
+    } catch (err) {
+      this.fail(err);
     }
   }
 
@@ -63,7 +72,7 @@ class User extends Component {
               创建的歌单
               <i className="user-playlist-count">({playlist.length})</i>
             </h4>
-            <SongSheet playList={playlist} isShowArtist={false} />
+            <SongSheet playList={playlist} isShowArtist={false} onPlay={this.fetchPlaylistDetail} />
           </section>
         )}
       </div>
