@@ -1,14 +1,34 @@
 import React, { Component } from 'react';
 import BaseTabs, { BaseTabsPane } from 'coms/BaseTabs';
+import login from 'coms/UserLogin';
+import { getLoginStatus } from 'api/login';
 import './myLike.scss';
 class MyLike extends Component {
   constructor (props) {
     super(props);
-    this.state = {};
+    this.state = {
+      isLogin: null
+    };
+  }
+
+  async componentDidMount () {
+    try {
+      const res = await getLoginStatus();
+      this.setState({
+        isLogin: true
+      });
+    } catch {
+      login(() => {
+        setTimeout(() => {
+          window.location.reload();
+        }, 200);
+      });
+    }
   }
 
   render () {
-    return (
+    const { isLogin } = this.state;
+    return isLogin && (
       <div className="my">
         <h3 className="my-title">我喜欢</h3>
         <div className="my-content">

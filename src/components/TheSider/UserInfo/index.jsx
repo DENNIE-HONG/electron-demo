@@ -6,8 +6,8 @@ import React, { Component } from 'react';
 import { ReactReduxContext } from 'react-redux';
 import { getLoginStatus, logout } from 'api/login';
 import { Link } from 'react-router-dom';
+import login from 'coms/UserLogin';
 import { loginAction } from '@/redux/actions';
-import login from '../UserLogin';
 class UserInfo extends Component {
   static contextType = ReactReduxContext;
 
