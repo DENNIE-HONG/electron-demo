@@ -8,6 +8,7 @@ const AXIOS_DEFAULT_CONFIG = {
   baseURL: `http://${process.env.IP_ADRESS}:3000`,
   headers: {
     Accept: 'application/json'
-  }
+  },
+  withCredentials: true
 };
 export default AXIOS_DEFAULT_CONFIG;

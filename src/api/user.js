@@ -13,3 +13,6 @@ export const getUserDetail = (uid = required()) => request.get(`/user/detail?uid
 export const getUserSubCount = (uid) => request.get(`/user/subcount?uid=${uid}`);
 
 export const getUserPlaylist = (uid = required()) => request.get(`/user/playlist?uid=${uid}`);
+
+// 获取喜欢音乐列表
+export const getLikeList = (uid = required()) => request.get(`/likelist?uid=${uid}`);

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import BaseTabs, { BaseTabsPane } from 'coms/BaseTabs';
 import login from 'coms/UserLogin';
 import { getLoginStatus } from 'api/login';
+import { getLikeList } from 'api/user';
 import './myLike.scss';
 class MyLike extends Component {
   constructor (props) {
@@ -14,6 +15,8 @@ class MyLike extends Component {
   async componentDidMount () {
     try {
       const res = await getLoginStatus();
+      const { userId } = res.profile;
+      const resList = await getLikeList(userId);
       this.setState({
         isLogin: true
       });
