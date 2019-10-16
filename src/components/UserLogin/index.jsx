@@ -194,3 +194,4 @@ function login (callback) {
 }
 
 export default login;
+export { UserLogin };

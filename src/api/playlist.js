@@ -1,5 +1,7 @@
 // 歌单接口
+import { prettyDuration } from 'utils/pretty-time';
 import request from '../plugins/axios';
+
 /**
  * 歌单
  * @param {String}, order: 可选值为 'new' 和 'hot', 分别对应最新和最热 , 默认为'hot'
@@ -65,6 +67,8 @@ export const getPlaylistDetail = async (id) => {
     tracks.map((item) => {
       item.singers = item.ar.map((singer) => singer.name);
       item.album = item.al.name;
+      const duration = item.m ? parseInt(item.m.size * 8 / item.m.br, 10) * 1000 : 0;
+      item.durationPretty = prettyDuration(duration);
     });
     return res;
   } catch (err) {
