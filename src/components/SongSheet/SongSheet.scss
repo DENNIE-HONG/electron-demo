@@ -3,12 +3,13 @@
     display: flex;
     width: 100%;
     margin-top: 20px;
-    justify-content: space-between;
+    // justify-content: space-between;
     flex-wrap: wrap;
     &-item {
       width: 125px;
       min-width: 125px;
       margin-bottom: 20px;
+      margin-right: 27px;
       .item-info {
         position: relative;
         border: 1px solid nth($fblack, 3);
@@ -52,6 +53,9 @@
       }
       .item-txt {
         color: nth($fblack, 3);
+      }
+      &:nth-child(5n) {
+        margin-right: 0;
       }
     }
   }

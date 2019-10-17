@@ -4,7 +4,7 @@
  * @param {Function} getPlayId, 点击播放按钮回调函数，参数是id
  * @author luyanhong 2018-11-26
  * @example
- * <NewAlbum />
+ * <NewAlbum playlist={Array} getPlayId={} />
 */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';

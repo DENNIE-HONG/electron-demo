@@ -10,7 +10,7 @@ const required = () => {
 // 获取用户详情
 export const getUserDetail = (uid = required()) => request.get(`/user/detail?uid=${uid}`);
 
-export const getUserSubCount = (uid) => request.get(`/user/subcount?uid=${uid}`);
+export const getUserSubCount = () => request.get('/user/subcount');
 
 export const getUserPlaylist = (uid = required()) => request.get(`/user/playlist?uid=${uid}`);
 

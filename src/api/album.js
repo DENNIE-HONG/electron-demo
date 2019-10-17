@@ -57,3 +57,20 @@ export const getAlbumComment = (options) => {
     params
   });
 };
+
+/**
+ * 获取已收藏专辑列表
+ * @param {Number} limit: 取出评论数量 , 默认为 25
+ * @param {Number} offset: 偏移数量 , 用于分页
+ */
+export const getLikedAlbums = (options) => {
+  const { limit = 25, offset } = options;
+  const params = {
+    limit,
+    offset
+  };
+  return request({
+    url: '/album/sublist',
+    params
+  });
+};

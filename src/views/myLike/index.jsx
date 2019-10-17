@@ -6,6 +6,8 @@ import { getUserPlaylist } from 'api/user';
 import { getPlaylistDetail } from 'api/playlist';
 import BaseTable, { BaseTableColumn } from 'coms/BaseTable';
 import BaseButton from 'coms/BaseButton';
+import MyLikeAlbums from './MyLikeAlbums';
+import MyLikePlaylist from './MyLikePlaylist';
 import './myLike.scss';
 class MyLike extends Component {
   constructor (props) {
@@ -13,7 +15,9 @@ class MyLike extends Component {
     this.state = {
       isLogin: null,
       list: [],
-      id: null
+      id: null,
+      isShowAlbums: false,
+      playList: []
     };
   }
 
@@ -27,7 +31,8 @@ class MyLike extends Component {
       this.setState({
         isLogin: true,
         list: resPlaylist.playlist.tracks,
-        id
+        id,
+        playList: resList.playlist.slice(1)
       });
     } catch {
       login(() => {
@@ -56,13 +61,27 @@ class MyLike extends Component {
     this.props.setMusic(list, id);
   }
 
+  handlerTabChange = (tag) => {
+    switch (tag) {
+      case 'albums':
+        !this.state.isShowAlbums && this.setState({
+          isShowAlbums: true
+        });
+        break;
+      default:
+        break;
+    }
+  }
+
   render () {
-    const { isLogin, list } = this.state;
+    const {
+      isLogin, list, isShowAlbums, playList
+    } = this.state;
     return isLogin && (
       <div className="my">
         <h3 className="my-title">我喜欢</h3>
         <div className="my-content">
-          <BaseTabs activeName="songs">
+          <BaseTabs activeName="songs" tabClick={this.handlerTabChange}>
             <BaseTabsPane label={`歌曲(${list.length})`} name="songs">
               <section className="my-songs">
                 <div className="my-songs-btns">
@@ -83,8 +102,12 @@ class MyLike extends Component {
                 </BaseTable>
               </section>
             </BaseTabsPane>
-            <BaseTabsPane label="专辑" name="albums">z</BaseTabsPane>
-            <BaseTabsPane label="歌单" name="playlist">p</BaseTabsPane>
+            <BaseTabsPane label="专辑" name="albums">
+              <MyLikeAlbums isFetch={isShowAlbums} />
+            </BaseTabsPane>
+            <BaseTabsPane label={`歌单(${playList.length})`} name="playlist">
+              <MyLikePlaylist playList={playList} />
+            </BaseTabsPane>
           </BaseTabs>
         </div>
       </div>
