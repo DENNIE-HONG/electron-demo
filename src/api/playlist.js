@@ -65,7 +65,6 @@ export const getPlaylistDetail = async (id) => {
     const res = await request(`/playlist/detail?id=${id}`);
     const { tracks } = res.playlist;
     tracks.map((item) => {
-      item.singers = item.ar.map((singer) => singer.name);
       item.album = item.al.name;
       const duration = item.m ? parseInt(item.m.size * 8 / item.m.br, 10) * 1000 : 0;
       item.durationPretty = prettyDuration(duration);

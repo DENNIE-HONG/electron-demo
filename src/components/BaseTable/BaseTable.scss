@@ -23,6 +23,14 @@
     &-index {
       color: nth($fblack, 3);
     }
+    &-li {
+      display: inline;
+      & + .table-td-li {
+        &::before {
+          content: '，';
+        }
+      }
+    }
   }
   &-thead {
     line-height: 40px;

@@ -9,10 +9,10 @@ import LazyImage from 'coms/LazyImage';
 import BaseButton from 'coms/BaseButton';
 import { prettyDate } from 'utils/pretty-time';
 import ShowDesc from 'coms/ShowDesc';
-import BaseTable, { BaseTableColumn } from 'coms/BaseTable';
 import CommentList from 'coms/CommentList';
 import { Link } from 'react-router-dom';
 import { ReactReduxContext } from 'react-redux';
+import SongTableList from 'coms/SongTableList';
 import './playlist-detail.scss';
 class PlaylistDetail extends Component {
   static contextType = ReactReduxContext;
@@ -22,9 +22,7 @@ class PlaylistDetail extends Component {
     this.state = {
       info: null
     };
-    this.onPlay = this.onPlay.bind(this);
     this.playAll = this.playAll.bind(this);
-    this.navLink = this.navLink.bind(this);
   }
 
   // 获取歌曲列表
@@ -40,38 +38,10 @@ class PlaylistDetail extends Component {
     }
   }
 
-  // 获取音乐资源并播放
-  onPlay (idx) {
-    const { info } = this.state;
-    const list = [info.tracks[idx]];
-    this.props.setMusic && this.props.setMusic(list, info.tracks[idx].id);
-  }
-
-  navLinkAlbum = (idx) => {
-    const { id } = this.state.info.tracks[idx].al;
-    this.props.history.push({
-      pathname: `/album/${id}`
-    });
-  }
-
-  navLinkArtist = (idx) => {
-    const { id } = this.state.info.tracks[idx].ar[0];
-    this.props.history.push({
-      pathname: `/artist/${id}`
-    });
-  }
-
   // 播放全部
   playAll () {
     const { tracks, id } = this.state.info;
     this.props.setMusic && this.props.setMusic(tracks, id);
-  }
-
-  navLink (idx) {
-    const { id } = this.state.info.tracks[idx];
-    this.props.history.push({
-      pathname: `/song/${id}`
-    });
   }
 
   render () {
@@ -118,14 +88,7 @@ class PlaylistDetail extends Component {
               <span className="red">{info.playCount}</span>次
             </span>
           </div>
-          <BaseTable data={info.tracks} keyName="id" isIndex>
-            <BaseTableColumn width="50" onClick={this.onPlay}>
-              <i className="playlistDetail-table-iconfont iconfont icon-play"></i>
-            </BaseTableColumn>
-            <BaseTableColumn prop="name" label="歌曲标题" onClick={this.navLink} className="playlistDetail-link" />
-            <BaseTableColumn prop="singers" label="歌手" onClick={this.navLinkArtist} className="playlistDetail-link" />
-            <BaseTableColumn prop="album" label="专辑" onClick={this.navLinkAlbum} className="playlistDetail-link" />
-          </BaseTable>
+          <SongTableList data={info.tracks} isIndex />
         </section>
         <section className="playlistDetail-comments">
           <div className="title">

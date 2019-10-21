@@ -1,0 +1,7 @@
+.song-table-icon {
+  color: nth($fblack, 3);
+  cursor: pointer;
+  &:hover {
+    color: nth($fblack, 1);
+  }
+}

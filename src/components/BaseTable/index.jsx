@@ -20,10 +20,23 @@ const BaseTable = (props) => {
   } = props;
   const column = (item, idx) => (
     children.map((child, index) => {
-      const { prop, onClick, className } = child.props;
+      if (!child) {
+        return null;
+      }
+      const {
+        prop, onClick, className, render
+      } = child.props;
+      const list = item[prop];
+      // 想自己渲染，适用数据格式复杂型
+      if (render) {
+        return (
+          <BaseTableColumn key={index} onClick={onClick} idx={idx} className={className} render={render} item={list}></BaseTableColumn>
+        );
+      }
+      // 只显示数据型
       if (prop) {
         return (
-          <BaseTableColumn key={index} onClick={onClick} idx={idx} className={className}>{item[prop]}</BaseTableColumn>
+          <BaseTableColumn key={index} onClick={onClick} idx={idx} className={className}>{list}</BaseTableColumn>
         );
       }
       // 有点击事件
@@ -37,8 +50,11 @@ const BaseTable = (props) => {
   );
   // 表单头部
   const headTable = children.map((child) => {
+    if (!child) {
+      return null;
+    }
     const { label = '', prop, width } = child.props;
-    return (
+    return child && (
       <th key={prop + label} className="table-th" style={{ width: `${width}px` }}>{label}</th>
     );
   });

@@ -4,8 +4,8 @@ import login from 'coms/UserLogin';
 import { getLoginStatus } from 'api/login';
 import { getUserPlaylist } from 'api/user';
 import { getPlaylistDetail } from 'api/playlist';
-import BaseTable, { BaseTableColumn } from 'coms/BaseTable';
 import BaseButton from 'coms/BaseButton';
+import SongTableList from 'coms/SongTableList';
 import MyLikeAlbums from './MyLikeAlbums';
 import MyLikePlaylist from './MyLikePlaylist';
 import './myLike.scss';
@@ -43,18 +43,6 @@ class MyLike extends Component {
     }
   }
 
-  linkTo = (pathname) => {
-    this.props.history.push({
-      pathname
-    });
-  }
-
-  onPlay = (idx) => {
-    const { list } = this.state;
-    const song = list[idx];
-    this.props.setMusic && this.props.setMusic([song], song.id);
-  }
-
   // 播放全部
   onPlayAll = () => {
     const { list, id } = this.state;
@@ -87,19 +75,7 @@ class MyLike extends Component {
                 <div className="my-songs-btns">
                   <BaseButton icon="play" type="primary" onClick={this.onPlayAll}>播放全部</BaseButton>
                 </div>
-                <BaseTable data={list} keyName="id">
-                  <BaseTableColumn width="40" onClick={this.onPlay}><i className="iconfont icon-play my-songs-icon"></i></BaseTableColumn>
-                  <BaseTableColumn
-                    label="歌曲"
-                    prop="name"
-                    className="nav-link"
-                    onClick={(idx) => { this.linkTo(`/song/${list[idx].id}`); }}
-                  >
-                  </BaseTableColumn>
-                  <BaseTableColumn label="歌手" prop="singers" className="nav-link" onClick={(idx) => { this.linkTo(`/artist/${list[idx].ar[0].id}`); }}></BaseTableColumn>
-                  <BaseTableColumn label="专辑" prop="album" className="nav-link" onClick={(idx) => { this.linkTo(`/album/${list[idx].al.id}`); }}></BaseTableColumn>
-                  <BaseTableColumn label="时长" prop="durationPretty" width="70"></BaseTableColumn>
-                </BaseTable>
+                <SongTableList data={list} isIndex={false} />
               </section>
             </BaseTabsPane>
             <BaseTabsPane label="专辑" name="albums">
