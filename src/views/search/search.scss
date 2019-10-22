@@ -1,5 +1,5 @@
 .search {
-  padding: 30px 30px;
+  padding: 30px 20px;
   &-title {
     margin-bottom: 20px;
     font-size: 20px;
@@ -10,14 +10,6 @@
   &-songs {
     margin-top: 20px;
     margin-bottom: 20px;
-    &-icon {
-      color: nth($fblack, 3);
-      cursor: pointer;
-      &:hover,
-      &:active {
-        color: nth($fblack, 1);
-      }
-    }
     &-btns {
       margin-bottom: 20px;
     }

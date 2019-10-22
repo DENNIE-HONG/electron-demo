@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import LazyImage from 'coms/LazyImage';
 import { getDjDetail, getDjProgram } from 'api/dj';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Pagination from 'coms/Pagination';
 import showMessage from 'coms/message';
 import { prettyDuration, prettyDate } from 'utils/pretty-time';
@@ -114,7 +114,7 @@ class DjRadio extends Component {
             </div>
             <div className="info-desc">
               <ShowDesc maxHeight={78} text={info.desc}>
-                <NavLink to={`/dj/${info.categoryId}`} className="info-cate"> {info.category}</NavLink>
+                <Link to={`/dj/${info.categoryId}`} className="info-cate"> {info.category}</Link>
               </ShowDesc>
             </div>
           </ProgramHeader>
@@ -129,9 +129,9 @@ class DjRadio extends Component {
               <li className="djradio-item" key={item.id}>
                 <i className="djradio-item-order">{item.serialNum}</i>
                 <i className="iconfont icon-play" onClick={() => this.play([programList[index].mainSong], item.mainSong.id)}></i>
-                <NavLink to={`/program/${item.id}`}>
+                <Link to={`/program/${item.id}`}>
                   <h4 className="djradio-item-name" title={item.name}>{item.name}</h4>
-                </NavLink>
+                </Link>
                 <span className="djradio-item-count">播放{item.listenerCount > 10000 ? `${Math.trunc(item.listenerCount / 10000)}万` : item.listenerCount}</span>
                 <span>赞{item.likedCount}</span>
                 <div className="pull-right">

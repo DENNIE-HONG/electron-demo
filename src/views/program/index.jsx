@@ -3,7 +3,7 @@ import { getProgramDetail, getCommentDj } from 'api/program';
 import BaseButton from 'coms/BaseButton';
 import ProgramHeader from 'coms/ProgramHeader';
 import { prettyDate } from 'utils/pretty-time';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import ShowDesc from 'coms/ShowDesc';
 import CommentList from 'coms/CommentList';
 import './program.scss';
@@ -43,7 +43,7 @@ class Program extends Component {
             <ProgramHeader picUrl={`${info.coverUrl}?param=120y120`} name={info.name} tag="电台节目" width={120}>
               <div className="program-head-brand">
                 <i className="iconfont icon-music"></i>
-                <NavLink to={`/djRadio/${info.radio.id}`}>{info.dj.brand}</NavLink>
+                <Link to={`/djRadio/${info.radio.id}`}>{info.dj.brand}</Link>
                 <BaseButton icon="star">订阅({info.subscribedCount})</BaseButton>
               </div>
             </ProgramHeader>
@@ -54,7 +54,7 @@ class Program extends Component {
             <BaseButton icon="comment">({info.commentCount})</BaseButton>
           </div>
           <div className="program-radio">
-            <NavLink className="program-header-cate" to={`/dj/${info.radio.categoryId}`}>{info.radio.category}</NavLink>
+            <Link className="program-header-cate" to={`/dj/${info.radio.categoryId}`}>{info.radio.category}</Link>
             <h4 className="program-radio-name">{info.radio.name}
               <i className="program-radio-serial">第{info.serialNum}期</i>
             </h4>

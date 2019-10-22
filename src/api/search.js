@@ -43,7 +43,6 @@ export const getSearch = async (options) => {
     res.total = res.result[`${type}Count`];
     res.list.map((song) => {
       song.album && (song.albumName = song.album.name);
-      song.artists && (song.artist = song.artists[0].name);
       song.duration && (song.durationPretty = prettyDuration(song.duration));
     });
     return res;

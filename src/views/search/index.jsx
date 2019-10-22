@@ -7,8 +7,8 @@ import BaseTabs, { BaseTabsPane } from 'coms/BaseTabs';
 import { parse } from 'querystringify';
 import { getSearch } from 'api/search';
 import LoadMore from 'coms/LoadMore';
-import BaseTable, { BaseTableColumn } from 'coms/BaseTable';
 import BaseButton from 'coms/BaseButton';
+import SongTableList from 'coms/SongTableList';
 import SearchAlbum from './SearchAlbum';
 import SearchPlaylist from './SearchPlaylist';
 import './search.scss';
@@ -25,18 +25,6 @@ class Search extends Component {
     this.setState({
       keywords
     });
-  }
-
-  navLink = (id, type = 'song') => {
-    this.props.history.push({
-      pathname: `/${type}/${id}`
-    });
-  }
-
-  // 播放单曲
-  playSong = (song) => {
-    const { id } = song;
-    this.props.setMusic([song], id);
   }
 
   // 播放全部歌曲
@@ -84,15 +72,7 @@ class Search extends Component {
                   <div className="search-songs-btns">
                     <BaseButton icon="play" type="primary" onClick={this.playAllSongs.bind(this, list)}>播放全部</BaseButton>
                   </div>
-                  <BaseTable data={list} keyName="id">
-                    <BaseTableColumn width="40" onClick={(idx) => this.playSong(list[idx])}>
-                      <i className="iconfont icon-play search-songs-icon"></i>
-                    </BaseTableColumn>
-                    <BaseTableColumn label="歌曲" prop="name" className="nav-link" onClick={(idx) => this.navLink(list[idx].id)}></BaseTableColumn>
-                    <BaseTableColumn label="歌手" prop="artist" className="nav-link" onClick={(idx) => this.navLink(list[idx].artists[0].id, 'artist')}></BaseTableColumn>
-                    <BaseTableColumn label="专辑" prop="albumName" className="nav-link" onClick={(idx) => this.navLink(list[idx].album.id, 'album')}></BaseTableColumn>
-                    <BaseTableColumn label="时长" prop="durationPretty"></BaseTableColumn>
-                  </BaseTable>
+                  <SongTableList data={list} artistName="artists" albumName="albumName" />
                 </section>
               )}
             />

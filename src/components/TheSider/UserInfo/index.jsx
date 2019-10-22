@@ -3,27 +3,44 @@
  * @author luyanhong 2019-09-27
  */
 import React, { Component } from 'react';
-import { ReactReduxContext } from 'react-redux';
+import { connect } from 'react-redux';
 import { getLoginStatus, logout } from 'api/login';
 import { Link } from 'react-router-dom';
 import login from 'coms/UserLogin';
+import PropTypes from 'prop-types';
 import { loginAction } from '@/redux/actions';
-class UserInfo extends Component {
-  static contextType = ReactReduxContext;
-
-  constructor (props) {
-    super(props);
-    this.state = {
-      isLogin: false,
-      userInfo: null
+const mapStateToProps = (state) => {
+  const { userInfo, isLogin } = state.loginReducer;
+  return {
+    userInfo,
+    isLogin
+  };
+};
+// Map Redux actions to component props
+const mapDispatchToProps = (dispatch) => ({
+  updateUser: (profile) => {
+    const payload = {
+      userInfo: profile
     };
+    dispatch(loginAction(payload));
+  },
+  logout: () => {
+    dispatch({
+      type: 'logout'
+    });
+  }
+});
+class UserInfoa extends Component {
+  static propTypes = {
+    updateUser: PropTypes.func.isRequired,
+    logout: PropTypes.func.isRequired
   }
 
   async componentDidMount () {
     try {
       const res = await getLoginStatus();
       if (res.code === 200) {
-        this.updateUserInfo(res.profile);
+        this.props.updateUser(res.profile);
       }
     } catch {
       //
@@ -31,52 +48,24 @@ class UserInfo extends Component {
   }
 
   loginAfter = () => {
-    login((profile) => {
-      this.updateUserInfo(profile);
-    });
+    login();
   }
 
   // 退出登录
   logout = () => {
     logout();
-    this.setState({
-      isLogin: false,
-      userInfo: null
-    });
-    this.updateUserInfo();
-  }
-
-  // 更新用户头像、昵称
-  updateUserInfo (profile) {
-    const { store } = this.context;
-    if (!profile) {
-      store.dispatch({
-        type: 'logout'
-      });
-      return;
-    }
-    const payload = {
-      nickName: profile.nickname,
-      avatar: profile.avatarUrl
-    };
-    store.dispatch(loginAction(payload));
-    this.setState({
-      isLogin: true,
-      userInfo: profile
-    });
+    this.props.logout();
   }
 
   render () {
-    const { store } = this.context;
-    const { nickName, avatar } = store.getState().loginReducer;
-    const { isLogin, userInfo } = this.state;
+    const { userInfo, isLogin } = this.props;
     return (
       <header className="com-sider-head">
-        {isLogin ? (
+        {isLogin && userInfo ? (
           <>
             <div className="com-sider-pic">
               <Link to={`/user/${userInfo.userId}`}>
-                <img src={avatar} alt="用户" className="img-circle" />
+                <img src={userInfo.avatarUrl} alt="用户" className="img-circle" />
               </Link>
               <div className="com-sider-user">
                 <ul className="com-sider-user-info">
@@ -99,12 +88,12 @@ class UserInfo extends Component {
                 </div>
               </div>
             </div>
-            <h4 className="com-sider-name">{nickName}</h4>
+            <h4 className="com-sider-name">{userInfo.nickname}</h4>
           </>
         ) : (
           <>
             <div className="com-sider-pic">
-              <img src={avatar} alt="用户" className="img-circle" />
+              <img src={userInfo.avatarUrl} alt="用户" className="img-circle" />
             </div>
             <div className="nav-link" onClick={this.loginAfter}>登录网易音乐</div>
           </>
@@ -113,4 +102,8 @@ class UserInfo extends Component {
     );
   }
 }
+const UserInfo = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(UserInfoa);
 export default UserInfo;

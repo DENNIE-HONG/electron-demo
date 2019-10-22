@@ -7,7 +7,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import LazyImage from 'coms/LazyImage';
 import { getTopRecommend } from 'api/top';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './TopList.scss';
 
 class TopList extends Component {
@@ -74,9 +74,9 @@ class TopList extends Component {
                 {item.tracks.map((music, i) => (
                   <li key={music.id} className="toplist-list-item global-clearfix">
                     <span className={`toplist-list-item-num ${i < 3 ? 'active' : ''}`}>{i + 1}</span>
-                    <NavLink to={`/song/${music.id}`}>
+                    <Link to={`/song/${music.id}`}>
                       <span className="toplist-list-item-txt">{music.name}</span>
-                    </NavLink>
+                    </Link>
                     <span className="toplist-list-item-actions">
                       <i className="iconfont icon-play" onClick={() => this.playSingle(index, i)}></i>
                     </span>

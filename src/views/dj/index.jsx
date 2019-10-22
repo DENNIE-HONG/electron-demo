@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { getProgramRecommend, getDjCatelist, getDjRecommend } from 'api/dj';
 import LazyImage from 'coms/LazyImage';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './dj.scss';
 class Dj extends Component {
   constructor (props) {
@@ -74,13 +74,13 @@ class Dj extends Component {
             <ul className="dj-new-list">
               {newList.map((sub) => (
                 <li className="dj-new-item" key={sub.id}>
-                  <NavLink to={`/djRadio/${sub.id}`}>
+                  <Link to={`/djRadio/${sub.id}`}>
                     <div className="dj-new-pic">
                       <LazyImage src={`${sub.picUrl}?param=160y160`} alt={sub.name} />
                     </div>
                     <h4 className="dj-new-name">{sub.name}</h4>
                     <span className="dj-new-txt">{sub.rcmdtext}</span>
-                  </NavLink>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -94,7 +94,7 @@ class Dj extends Component {
           <ul className="dj-list">
             {programs.map((item) => (
               <li className="dj-list-item" key={item.id}>
-                <NavLink to={`/program/${item.id}`}>
+                <Link to={`/program/${item.id}`}>
                   <div className="dj-list-pic">
                     <LazyImage src={`${item.coverUrl}?param=120y120 `} alt={item.name} />
                   </div>
@@ -106,7 +106,7 @@ class Dj extends Component {
                       <span>订阅{item.radio.subCount}次</span>
                     </p>
                   </div>
-                </NavLink>
+                </Link>
               </li>
             ))}
           </ul>

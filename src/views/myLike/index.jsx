@@ -1,19 +1,25 @@
 import React, { Component } from 'react';
 import BaseTabs, { BaseTabsPane } from 'coms/BaseTabs';
 import login from 'coms/UserLogin';
-import { getLoginStatus } from 'api/login';
 import { getUserPlaylist } from 'api/user';
 import { getPlaylistDetail } from 'api/playlist';
 import BaseButton from 'coms/BaseButton';
 import SongTableList from 'coms/SongTableList';
+import { connect } from 'react-redux';
 import MyLikeAlbums from './MyLikeAlbums';
 import MyLikePlaylist from './MyLikePlaylist';
 import './myLike.scss';
-class MyLike extends Component {
+const mapStateToProps = (state) => {
+  const { isLogin, userInfo } = state.loginReducer;
+  return {
+    isLogin,
+    userInfo
+  };
+};
+class MyLikeView extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      isLogin: null,
       list: [],
       id: null,
       isShowAlbums: false,
@@ -22,25 +28,16 @@ class MyLike extends Component {
   }
 
   async componentDidMount () {
-    try {
-      const res = await getLoginStatus();
-      const { userId } = res.profile;
-      const resList = await getUserPlaylist(userId);
-      const { id } = resList.playlist[0];
-      const resPlaylist = await getPlaylistDetail(id);
-      this.setState({
-        isLogin: true,
-        list: resPlaylist.playlist.tracks,
-        id,
-        playList: resList.playlist.slice(1)
+    const { isLogin, userInfo } = this.props;
+    if (!isLogin) {
+      login((profile) => {
+        // 请求数据
+        this.fetchData(profile);
       });
-    } catch {
-      login(() => {
-        setTimeout(() => {
-          window.location.reload();
-        }, 200);
-      });
+      return;
     }
+
+    this.fetchData(userInfo);
   }
 
   // 播放全部
@@ -61,10 +58,23 @@ class MyLike extends Component {
     }
   }
 
+  async fetchData (profile) {
+    const { userId } = profile;
+    const resList = await getUserPlaylist(userId);
+    const { id } = resList.playlist[0];
+    const resPlaylist = await getPlaylistDetail(id);
+    this.setState({
+      list: resPlaylist.playlist.tracks,
+      id,
+      playList: resList.playlist.slice(1)
+    });
+  }
+
   render () {
     const {
-      isLogin, list, isShowAlbums, playList
+      list, isShowAlbums, playList
     } = this.state;
+    const { isLogin } = this.props;
     return isLogin && (
       <div className="my">
         <h3 className="my-title">我喜欢</h3>
@@ -90,4 +100,7 @@ class MyLike extends Component {
     );
   }
 }
+const MyLike = connect(
+  mapStateToProps
+)(MyLikeView);
 export default MyLike;

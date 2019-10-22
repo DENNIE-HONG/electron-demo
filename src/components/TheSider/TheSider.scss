@@ -77,6 +77,8 @@
     transform: translate(-50%, 0);
     @include dropShadow;
     visibility: hidden;
+    transition: all 0.3s;
+    z-index: 22;
     &::before {
       position: absolute;
       left: 50%;
@@ -109,6 +111,7 @@
     &-btn {
       flex: 1;
       margin: 10px 0;
+      transition: none;
       & + .com-sider-user-btn {
         border-left: 1px solid nth($fgray, 1);
       }

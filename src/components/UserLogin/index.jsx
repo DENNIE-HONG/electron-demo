@@ -9,6 +9,8 @@ import ReactDOM, { render } from 'react-dom';
 import PropTypes from 'prop-types';
 import BaseTabs, { BaseTabsPane } from 'coms/BaseTabs';
 import { loginPhone, loginMail } from 'api/login';
+import store from '@/redux/store';
+import { loginAction } from '@/redux/actions';
 import './UserLogin.scss';
 class UserLogin extends Component {
   static propTypes = {
@@ -48,6 +50,7 @@ class UserLogin extends Component {
     const { value: password } = this.mobilePW;
     try {
       const res = await loginPhone(mobile, password);
+      this.updateUserInfo(res.profile);
       this.props.callback && this.props.callback(res.profile);
       this.close();
     } catch (err) {
@@ -73,6 +76,7 @@ class UserLogin extends Component {
     const { value: password } = this.mailPW;
     try {
       const res = await loginMail(mail, password);
+      this.updateUserInfo(res.profile);
       this.props.callback && this.props.callback(res.profile);
       this.close();
     } catch (err) {
@@ -131,6 +135,14 @@ class UserLogin extends Component {
       errorMsg = '请输入密码';
       return errorMsg;
     }
+  }
+
+  // 更新用户头像、昵称
+  updateUserInfo (profile) {
+    const payload = {
+      userInfo: profile
+    };
+    store.dispatch(loginAction(payload));
   }
 
   render () {

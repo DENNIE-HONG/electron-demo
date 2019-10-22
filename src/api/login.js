@@ -37,7 +37,6 @@ export const loginMail = async (email = required(), password = required()) => {
     const res = await request.get(`/login?email=${email}&password=${password}`);
     return res;
   } catch (err) {
-    console.log(err);
     return handleError(err);
   }
 };
@@ -52,7 +51,6 @@ export const getLoginStatus = async () => {
     const res = await getUserDetail(resLogin.profile.userId);
     return res;
   } catch (err) {
-    console.log(err);
     return Promise.reject({
       code: 301,
       msg: '没登录'
