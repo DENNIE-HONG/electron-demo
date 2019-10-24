@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import BaseTabs, { BaseTabsPane } from 'coms/BaseTabs';
+import BaseTabs, { BaseTabsPane } from 'containers/BaseTabs';
 import login from 'coms/UserLogin';
 import { getUserPlaylist } from 'api/user';
 import { getPlaylistDetail } from 'api/playlist';

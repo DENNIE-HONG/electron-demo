@@ -7,7 +7,7 @@
 import React, { Component } from 'react';
 import ReactDOM, { render } from 'react-dom';
 import PropTypes from 'prop-types';
-import BaseTabs, { BaseTabsPane } from 'coms/BaseTabs';
+import BaseTabs, { BaseTabsPane } from 'containers/BaseTabs';
 import { loginPhone, loginMail } from 'api/login';
 import store from '@/redux/store';
 import { loginAction } from '@/redux/actions';

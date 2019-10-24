@@ -90,6 +90,26 @@ CarouselBox.next = this.showNext.bind(this);
 CarouselBox.prev = this.showPrev.bind(this);
 ```
 
+### 11、增加react-redux
+存储全局变量用户信息、播放器播放列表音乐
+
+### 12、优化组件
+增加了redux,尽量开始容器组件和展示组件分离的开发思想。  
+分为:  
+1、展示组件：coms/xxxx  
+特点：  
++ 为函数组件
++ 只受props影响
++ 不用redux  
+
+2、容器组件：containers/xxx  
+特点：  
++ 高阶组件
++ 数据获取
++ 状态更新,抽离state,操作props
++ 监听redux
++ 用其他元素包裹传入的组件  
+
 
 
 

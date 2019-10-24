@@ -1,5 +1,5 @@
 /**
- * @file 标签栏
+ * @file 标签栏 展示组件
  * @param {string} label，标签标题
  * @param {string} name, 标签名字
  * @param {string} className
@@ -23,7 +23,7 @@ BaseTabsPane.propTypes = {
   className: PropTypes.string
 };
 BaseTabsPane.defaultProps = {
-  onClick: undefined,
+  onClick: function () {},
   className: ''
 };
 export default BaseTabsPane;

@@ -3,7 +3,7 @@
  * @author luyanhong 2019-09-05
  */
 import React, { Component } from 'react';
-import BaseTabs, { BaseTabsPane } from 'coms/BaseTabs';
+import BaseTabs, { BaseTabsPane } from 'containers/BaseTabs';
 import { parse } from 'querystringify';
 import { getSearch } from 'api/search';
 import LoadMore from 'coms/LoadMore';

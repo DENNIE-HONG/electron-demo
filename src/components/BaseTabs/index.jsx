@@ -8,70 +8,51 @@
  *  <BaseTabsPane label="xxx" name="必须"></BaseTabsPane>
  * </BaseTabs>
  */
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import BaseTabsPane from './BaseTabsPane';
 import './BaseTabs.scss';
-class BaseTabs extends Component {
-  static propTypes = {
-    activeName: PropTypes.string.isRequired,
-    tabClick: PropTypes.func,
-    textAlign: PropTypes.string
-  }
-
-  static defaultProps = {
-    tabClick: undefined,
-    textAlign: 'left'
-  }
-
-  constructor (props) {
-    super(props);
-    this.state = {
-      activePane: props.activeName
-    };
-    this.handlerClick = this.handlerClick.bind(this);
-  }
-
-  handlerClick (name) {
-    if (name) {
-      this.setState({
-        activePane: name
-      });
-      this.props.tabClick && this.props.tabClick(name);
-    }
-  }
-
-
-  render () {
-    const { children, textAlign } = this.props;
-    const { activePane } = this.state;
-    const lists = children.map((child) => {
-      const { label, name } = child.props;
-      const isActive = activePane === child.props.name;
-      return (
-        <BaseTabsPane
-          label={label}
-          key={label}
-          name={name}
-          onClick={this.handlerClick}
-          className={isActive ? 'active' : ''}
-        >{label}
-        </BaseTabsPane>
-      );
-    });
+const BaseTabs = (props) => {
+  const {
+    children, textAlign, activeName, onClick
+  } = props;
+  const lists = children.map((child) => {
+    const { label, name } = child.props;
+    const isActive = activeName === child.props.name;
     return (
-      <>
-        <nav className={`tabs tabs-${textAlign}`}>
-          {lists}
-        </nav>
-        <div className="tabs-content">
-          {this.props.children.map((child) => (
-            <div key={child.props.label} className={activePane === child.props.name ? '' : 'tabs-cont-active'}>{child.props.children}</div>
-          ))}
-        </div>
-      </>
+      <BaseTabsPane
+        label={label}
+        key={label}
+        name={name}
+        onClick={onClick}
+        className={isActive ? 'active' : ''}
+      >{label}
+      </BaseTabsPane>
     );
-  }
-}
+  });
+  return (
+    <>
+      <nav className={`tabs tabs-${textAlign}`}>
+        {lists}
+      </nav>
+      <div className="tabs-content">
+        {children.map((child) => (
+          <div key={child.props.label} className={activeName === child.props.name ? '' : 'tabs-cont-active'}>{child.props.children}</div>
+        ))}
+      </div>
+    </>
+  );
+};
+BaseTabs.propTypes = {
+  activeName: PropTypes.string.isRequired,
+  tabClick: PropTypes.func,
+  textAlign: PropTypes.string,
+  onClick: PropTypes.func
+};
+BaseTabs.defaultProps = {
+  tabClick: undefined,
+  textAlign: 'left',
+  onClick: undefined
+};
 export default BaseTabs;
 export { BaseTabsPane };
