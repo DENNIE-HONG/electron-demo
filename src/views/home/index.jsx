@@ -6,7 +6,7 @@ import {
 } from 'api/home';
 import { getAlbum } from 'api/album';
 import NewAlbum from 'coms/NewAlbum';
-import CarouselBox from 'coms/CarouselBox';
+import CarouselBox from 'containers/CarouselBox';
 import showMessage from 'coms/message';
 import SongSheet from 'containers/SongSheet';
 import TopList from './TopList';

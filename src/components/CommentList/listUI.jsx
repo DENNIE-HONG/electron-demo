@@ -1,10 +1,15 @@
+/**
+ * @file 每条评论模块 展示组件
+ * @author luyanhong 2019-01
+ */
 import React from 'react';
 import LazyImage from 'coms/LazyImage';
 import PropTypes from 'prop-types';
 import { prettyTime } from 'utils/pretty-time';
+import { Link } from 'react-router-dom';
 const CommentUI = (props) => {
   const {
-    avatarUrl, name, content, time, replied, likedCount
+    avatarUrl, name, content, time, replied, likedCount, userId
   } = props;
   let repliedList = null;
   if (replied && replied.length) {
@@ -21,12 +26,12 @@ const CommentUI = (props) => {
   }
   return (
     <li className="comment-item">
-      <div className="comment-pic">
+      <Link className="comment-pic" to={`/user/${userId}`}>
         <LazyImage src={`${avatarUrl}?param=40y40`} alt={name} />
-      </div>
+      </Link>
       <div className="comment-info">
         <article className="comment-content">
-          <span className="comment-name">{name}</span>：
+          <Link className="comment-name" to={`/user/${userId}`}>{name}</Link>：
           <span dangerouslySetInnerHTML={{ __html: content }}></span>
           {repliedList}
         </article>
@@ -49,7 +54,8 @@ CommentUI.propTypes = {
   content: PropTypes.string,
   time: PropTypes.number,
   replied: PropTypes.array,
-  likedCount: PropTypes.number
+  likedCount: PropTypes.number,
+  userId: PropTypes.number
 };
 CommentUI.defaultProps = {
   avatarUrl: '',
@@ -57,6 +63,7 @@ CommentUI.defaultProps = {
   content: '',
   time: 0,
   replied: [],
-  likedCount: 0
+  likedCount: 0,
+  userId: 0
 };
 export default CommentUI;

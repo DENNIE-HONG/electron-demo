@@ -1,5 +1,5 @@
 /**
- * loading
+ * loading 展示组件
  * @author luyanhong 2018-12-04
  */
 import React from 'react';
