@@ -1,5 +1,5 @@
 /**
- * 每列表格模块
+ * 每列表格模块 展示组件
  * @param {String}   prop, 该列显示的是data的哪个属性
  * @param {String}   label, 该列表格标题
  * @param {String}   width, 该列表格宽度
@@ -15,14 +15,14 @@ import PropTypes from 'prop-types';
 
 const BaseTableColumn = (props) => {
   const {
-    className, onClick, idx, render, item
+    className, onClick, idx, render, item, ...rest
   } = props;
   const { children } = props;
   const callback = () => {
     onClick && onClick(idx);
   };
   return (
-    <td className={`table-td ${className}`} onClick={callback}>
+    <td className={`table-td ${className}`} onClick={callback} {...rest}>
       <div className="table-td-content"><span>{render ? render(item) : children}</span></div>
     </td>
   );

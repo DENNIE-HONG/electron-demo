@@ -25,7 +25,8 @@ module.exports = (env) => {
         assets: resolve('src/assets'),
         coms: resolve('src/components'),
         api: resolve('src/api'),
-        utils: resolve('src/utils')
+        utils: resolve('src/utils'),
+        containers: resolve('src/containers')
       }
     },
     optimization: {

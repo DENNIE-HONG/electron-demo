@@ -5,7 +5,7 @@
 import React, { Component } from 'react';
 import { getUserDetail, getUserPlaylist } from 'api/user';
 import Loading from 'coms/Loading';
-import SongSheet from 'coms/SongSheet';
+import SongSheet from 'containers/SongSheet';
 import { getPlaylistDetail } from 'api/home';
 import './user.scss';
 class User extends Component {

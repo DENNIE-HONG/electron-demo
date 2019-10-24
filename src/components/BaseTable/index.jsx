@@ -1,5 +1,5 @@
 /**
- * 表格列表模块
+ * 表格列表模块 展示组件
  * @param {Array}    data, 数据
  * @param {String}   keyName, 用data.keyName当做每行表格的key
  * @param {Boolean}  isIndex, 是否需要数字索引，默认否
@@ -24,7 +24,7 @@ const BaseTable = (props) => {
         return null;
       }
       const {
-        prop, onClick, className, render
+        prop, render, children: slot, onClick, className
       } = child.props;
       const list = item[prop];
       // 想自己渲染，适用数据格式复杂型
@@ -39,13 +39,9 @@ const BaseTable = (props) => {
           <BaseTableColumn key={index} onClick={onClick} idx={idx} className={className}>{list}</BaseTableColumn>
         );
       }
-      // 有点击事件
-      if (onClick) {
-        return (
-          <BaseTableColumn key={index} idx={idx} onClick={onClick} className={className}>{child.props.children}</BaseTableColumn>
-        );
-      }
-      return (child);
+      return (
+        <BaseTableColumn key={index} onClick={onClick} idx={idx} className={className}>{slot}</BaseTableColumn>
+      );
     })
   );
   // 表单头部
