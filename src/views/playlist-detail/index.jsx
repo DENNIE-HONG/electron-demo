@@ -12,7 +12,7 @@ import ShowDesc from 'coms/ShowDesc';
 import CommentList from 'coms/CommentList';
 import { Link } from 'react-router-dom';
 import { ReactReduxContext } from 'react-redux';
-import SongTableList from 'coms/SongTableList';
+import SongTableList from 'containers/SongTableList';
 import './playlist-detail.scss';
 class PlaylistDetail extends Component {
   static contextType = ReactReduxContext;

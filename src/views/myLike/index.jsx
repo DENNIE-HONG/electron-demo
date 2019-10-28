@@ -4,7 +4,7 @@ import login from 'coms/UserLogin';
 import { getUserPlaylist } from 'api/user';
 import { getPlaylistDetail } from 'api/playlist';
 import BaseButton from 'coms/BaseButton';
-import SongTableList from 'coms/SongTableList';
+import SongTableList from 'containers/SongTableList';
 import { connect } from 'react-redux';
 import MyLikeAlbums from './MyLikeAlbums';
 import MyLikePlaylist from './MyLikePlaylist';

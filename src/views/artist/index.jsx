@@ -5,7 +5,7 @@
 import React, { Component } from 'react';
 import { getArtistSongs } from 'api/artist';
 import BaseTabs, { BaseTabsPane } from 'containers/BaseTabs';
-import SongTableList from 'coms/SongTableList';
+import SongTableList from 'containers/SongTableList';
 import ArtistDesc from './ArtistDesc';
 import ArtistHeader from './ArtistHeader';
 import ArtistAlbums from './ArtistAlbums';

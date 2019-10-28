@@ -8,7 +8,7 @@ import { parse } from 'querystringify';
 import { getSearch } from 'api/search';
 import LoadMore from 'coms/LoadMore';
 import BaseButton from 'coms/BaseButton';
-import SongTableList from 'coms/SongTableList';
+import SongTableList from 'containers/SongTableList';
 import SearchAlbum from './SearchAlbum';
 import SearchPlaylist from './SearchPlaylist';
 import './search.scss';
