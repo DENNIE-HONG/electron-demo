@@ -10,7 +10,7 @@ import Siderbar from 'coms/TheSider';
 import PlayBox from 'coms/PlayBox';
 import Loading from 'coms/Loading';
 import ErrorBoundary from 'containers/ErrorBoundary';
-import SearchHeader from 'coms/SearchHeader';
+import SearchHeader from 'containers/SearchHeader';
 import PropTypes from 'prop-types';
 class RouteMap extends Component {
   static propTypes = {

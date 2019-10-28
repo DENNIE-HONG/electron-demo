@@ -1,5 +1,5 @@
 /**
- * 通用详情页头部
+ * 通用详情页头部 展示组件
  * @param {String} picUrl, 图片url
  * @param {String} name, 标题
  * @param {String} tag, 标签

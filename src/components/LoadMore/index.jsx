@@ -15,7 +15,7 @@
  * )}/>
  */
 import React, { Component } from 'react';
-import Pagination from 'coms/Pagination';
+import Pagination from 'containers/Pagination';
 import PropTypes from 'prop-types';
 class LoadMore extends Component {
   static propTypes = {
