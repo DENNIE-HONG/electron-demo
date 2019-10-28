@@ -7,7 +7,7 @@ import showMessage from 'coms/message';
 import { prettyDuration, prettyDate } from 'utils/pretty-time';
 import BaseButton from 'coms/BaseButton';
 import ProgramHeader from 'coms/ProgramHeader';
-import ShowDesc from 'coms/ShowDesc';
+import ShowDesc from 'containers/ShowDesc';
 import './djRadio.scss';
 const PAGE_SIZE = 30;
 class DjRadio extends Component {

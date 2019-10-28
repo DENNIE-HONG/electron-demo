@@ -5,7 +5,7 @@
  * @param {String} className, 类名
  * @author luyanhong 2018-12-05
  */
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import LazyLoad from '../../../node_modules/vanilla-lazyload/dist/lazyload.min.js';
 if (!document.lazyLoadInstance) {
@@ -13,7 +13,7 @@ if (!document.lazyLoadInstance) {
     element_selector: 'img.lazy'
   });
 }
-class LazyImage extends Component {
+class LazyImage extends PureComponent {
   static propTypes = {
     alt: PropTypes.string,
     src: PropTypes.string,

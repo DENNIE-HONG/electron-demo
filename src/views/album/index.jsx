@@ -7,7 +7,7 @@ import ProgramHeader from 'coms/ProgramHeader';
 import { getAlbum, getAlbumComment } from 'api/album';
 import BaseButton from 'coms/BaseButton';
 import { prettyDate } from 'utils/pretty-time';
-import ShowDesc from 'coms/ShowDesc';
+import ShowDesc from 'containers/ShowDesc';
 import CommentList from 'coms/CommentList';
 import SongTableList from 'coms/SongTableList';
 import { Link } from 'react-router-dom';

@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import ShowDesc from 'coms/ShowDesc';
+import ShowDesc from 'containers/ShowDesc';
 import './ArtistHeader.scss';
 class ArtistHeader extends PureComponent {
   static propTypes = {

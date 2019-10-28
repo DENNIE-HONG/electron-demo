@@ -6,7 +6,7 @@ import React, { Component } from 'react';
 import { getSongDetail, getLyric, getSongComment } from 'api/song';
 import ProgramHeader from 'coms/ProgramHeader';
 import BaseButton from 'coms/BaseButton';
-import ShowDesc from 'coms/ShowDesc';
+import ShowDesc from 'containers/ShowDesc';
 import CommentList from 'coms/CommentList';
 import { Link } from 'react-router-dom';
 import './song.scss';

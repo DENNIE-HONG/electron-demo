@@ -4,7 +4,7 @@
 */
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import UserInfo from './UserInfo';
+import UserInfo from 'containers/UserInfo';
 import './TheSider.scss';
 
 const Siderbar = () => (

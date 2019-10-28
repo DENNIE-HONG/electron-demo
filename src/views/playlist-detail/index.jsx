@@ -8,7 +8,7 @@ import ProgramHeader from 'coms/ProgramHeader';
 import LazyImage from 'coms/LazyImage';
 import BaseButton from 'coms/BaseButton';
 import { prettyDate } from 'utils/pretty-time';
-import ShowDesc from 'coms/ShowDesc';
+import ShowDesc from 'containers/ShowDesc';
 import CommentList from 'coms/CommentList';
 import { Link } from 'react-router-dom';
 import { ReactReduxContext } from 'react-redux';

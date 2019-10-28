@@ -4,7 +4,7 @@ import BaseButton from 'coms/BaseButton';
 import ProgramHeader from 'coms/ProgramHeader';
 import { prettyDate } from 'utils/pretty-time';
 import { Link } from 'react-router-dom';
-import ShowDesc from 'coms/ShowDesc';
+import ShowDesc from 'containers/ShowDesc';
 import CommentList from 'coms/CommentList';
 import './program.scss';
 class Program extends Component {
