@@ -25,6 +25,17 @@
     "space-before-function-paren": [2, "always"],
     "space-before-blocks": [2, "always"],
     "space-unary-ops": [2, {"words": true, "nonwords": true, "overrides": {"!": false, ".": false}}],
-    "key-spacing": [2, {"beforeColon": false, "afterColon": true, "mode": "strict"}]
+    "key-spacing": [2, {"beforeColon": false, "afterColon": true, "mode": "strict"}],
+    "default-case": 2,
+    "eqeqeq": 2,
+    "new-cap": 1,
+    "no-array-constructor": 2,
+    "no-await-in-loop": 2,
+    "no-caller": 2,
+    "no-dupe-args": 2,
+    "no-extra-semi": 2,
+    "prefer-rest-params": 2,
+    "no-var": 2,
+    "no-useless-escape": 2
   }
 }

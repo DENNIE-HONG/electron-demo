@@ -10,6 +10,7 @@
 --单曲页(song)  
 --专辑页(album)  
 --歌手页(artist)  
+--搜索页(search)  
 
 ## 推荐
 ![home](/img/home.png)

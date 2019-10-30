@@ -75,7 +75,6 @@ class MyLikeView extends Component {
       list, isShowAlbums, playList
     } = this.state;
     const { isLogin } = this.props;
-    console.log(isLogin);
     return isLogin && (
       <div className="my">
         <h3 className="my-title">我喜欢</h3>

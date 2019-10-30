@@ -10,6 +10,7 @@
     "ecmaVersion": 7,
     "sourceType": "module",
     "ecmaFeatures": {
+      "experimentalObjectRestSpread": true,
       "jsx": true
     }
   },
@@ -99,6 +100,17 @@
     "react/jsx-one-expression-per-line": 0,
     "react/destructuring-assignment": 0,
     "react/no-danger": 0,
-    "no-case-declarations": 0
+    "no-case-declarations": 0,
+    "no-array-constructor": 2,
+    "no-await-in-loop": 2,
+    "no-dupe-args": 2,
+    "no-extra-semi": 2,
+    "no-duplicate-imports": 2,
+    "no-implied-eval": 2,
+    "no-return-await": 2,
+    "valid-typeof": 2,
+    "prefer-rest-params": 2,
+    "no-var": 2,
+    "no-useless-escape": 2
   }
 }

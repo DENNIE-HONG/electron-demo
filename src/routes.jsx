@@ -7,7 +7,7 @@ import { HashRouter as Router, Route } from 'react-router-dom';
 import Loadable from 'react-loadable';
 import Footer from 'coms/TheFooter';
 import Siderbar from 'coms/TheSider';
-import PlayBox from 'coms/PlayBox';
+import PlayBox from 'containers/PlayBox';
 import Loading from 'coms/Loading';
 import ErrorBoundary from 'containers/ErrorBoundary';
 import SearchHeader from 'containers/SearchHeader';

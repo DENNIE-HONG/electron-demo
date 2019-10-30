@@ -30,14 +30,11 @@ class VolumeBox extends Component {
     };
     this.initVolume = 0;
     this.volumeRef = React.createRef();
-    this.adjustVolume = this.adjustVolume.bind(this);
-    this.handleMouseUp = this.handleMouseUp.bind(this);
-    this.handleMouseDown = this.handleMouseDown.bind(this);
     this.volumeRefLeft = props.volume * VOLUME_H - 2;
   }
 
   // 调节音量
-  adjustVolume (event) {
+  adjustVolume = (event) => {
     if (!isMouseDown) {
       return;
     }
@@ -60,7 +57,7 @@ class VolumeBox extends Component {
   }
 
   // 鼠标按下后获取初始音量
-  handleMouseDown (e) {
+  handleMouseDown = (e) => {
     e.persist();
     ({ clientY } = e);
     this.initVolume = this.state.volume;
@@ -68,7 +65,7 @@ class VolumeBox extends Component {
   }
 
   // 鼠标松开后设置音量，设置按钮位置
-  handleMouseUp () {
+  handleMouseUp = () => {
     const btn = this.volumeRef.current;
     // 设置按钮新的起始点
     btn.style.left = `${this.state.volume * VOLUME_H - 4}px`;
