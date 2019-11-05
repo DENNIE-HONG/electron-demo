@@ -6,7 +6,7 @@ import React, { Component } from 'react';
 import BaseTabs, { BaseTabsPane } from 'containers/BaseTabs';
 import { parse } from 'querystringify';
 import { getSearch } from 'api/search';
-import LoadMore from 'coms/LoadMore';
+import LoadMore from 'containers/LoadMore';
 import BaseButton from 'coms/BaseButton';
 import SongTableList from 'containers/SongTableList';
 import SearchAlbum from './SearchAlbum';

@@ -5,7 +5,7 @@
  * @author luyanhong 2019-09-06
  */
 import React, { PureComponent } from 'react';
-import LoadMore from 'coms/LoadMore';
+import LoadMore from 'containers/LoadMore';
 import SongSheet from 'coms/SongSheet';
 import { getSearch } from 'api/search';
 import PropTypes from 'prop-types';

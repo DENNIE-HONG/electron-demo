@@ -1,5 +1,5 @@
 /**
- * @file 加载更多带分页组件
+ * @file 加载更多带分页组件 容器组件
  * @param {String}   params, 必须，请求参数对象
  * @param {Function} getUrl, 必须，获取请求的函数
  * @param {String}   listPropName, 必须，请求返回获取的数据字段

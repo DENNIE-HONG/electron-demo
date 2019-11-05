@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { getLikedAlbums } from 'api/album';
 import NewAlbum from 'coms/NewAlbum';
-import LoadMore from 'coms/LoadMore';
+import LoadMore from 'containers/LoadMore';
 import PropTypes from 'prop-types';
 import EmptyList from 'coms/EmptyList';
 class MyLikeAlbums extends Component {

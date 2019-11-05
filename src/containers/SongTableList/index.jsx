@@ -53,7 +53,6 @@ function SongTableList (WrappedComponent) {
 
     linkToSong =(idx) => {
       const { id } = this.props.data[idx];
-      console.log(this.props);
       history.push({
         pathname: `/song/${id}`
       });

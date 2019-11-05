@@ -6,7 +6,7 @@
  */
 import React, { Component } from 'react';
 import NewAlbum from 'coms/NewAlbum';
-import LoadMore from 'coms/LoadMore';
+import LoadMore from 'containers/LoadMore';
 import { getArtistAlbum } from 'api/artist';
 import { getAlbum } from 'api/album';
 import PropTypes from 'prop-types';

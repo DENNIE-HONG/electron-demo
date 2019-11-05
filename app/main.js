@@ -13,7 +13,7 @@ function createWindow () {
   win = new BrowserWindow({
     width: 1000,
     height: 800,
-    transparent: true,
+    transparent: false,
     resizable: false,
     maximizable: false,
     backgroundColor: '#00FFFFFF'

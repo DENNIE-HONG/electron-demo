@@ -11,7 +11,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import EmptyList from 'coms/EmptyList';
-import LoadMore from 'coms/LoadMore';
+import LoadMore from 'containers/LoadMore';
 import CommentUI from './listUI';
 import './CommentList.scss';
 const CommentList = (props) => {
