@@ -10,7 +10,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import showMessage from 'coms/message';
+import showMessage from 'containers/Message';
 import { getMusic } from 'api/home';
 import { playStartAction, playStopAction } from '@/redux/actions';
 import VolumeBox from './Volume';

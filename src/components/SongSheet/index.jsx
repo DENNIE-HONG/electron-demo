@@ -9,7 +9,7 @@
  * <SongSheet playList={} isShowArtist={false} onPlay={function} />
  */
 import React from 'react';
-import LazyImage from 'coms/LazyImage';
+import LazyImage from 'containers/LazyImage';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import './SongSheet.scss';

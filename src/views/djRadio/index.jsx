@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import LazyImage from 'coms/LazyImage';
+import LazyImage from 'containers/LazyImage';
 import { getDjDetail, getDjProgram } from 'api/dj';
 import { Link } from 'react-router-dom';
 import Pagination from 'coms/Pagination';
-import showMessage from 'coms/message';
+import showMessage from 'containers/Message';
 import { prettyDuration, prettyDate } from 'utils/pretty-time';
 import BaseButton from 'coms/BaseButton';
 import ProgramHeader from 'coms/ProgramHeader';

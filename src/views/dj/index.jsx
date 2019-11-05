@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { getProgramRecommend, getDjCatelist, getDjRecommend } from 'api/dj';
-import LazyImage from 'coms/LazyImage';
+import LazyImage from 'containers/LazyImage';
 import { Link } from 'react-router-dom';
 import './dj.scss';
 class Dj extends Component {

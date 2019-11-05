@@ -10,7 +10,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './ProgramHeader.scss';
-import LazyImage from 'coms/LazyImage';
+import LazyImage from 'containers/LazyImage';
 const ProgramHeader = (props) => {
   const {
     picUrl,

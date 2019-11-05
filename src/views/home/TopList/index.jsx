@@ -5,7 +5,7 @@
 */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import LazyImage from 'coms/LazyImage';
+import LazyImage from 'containers/LazyImage';
 import { getTopRecommend } from 'api/top';
 import { Link } from 'react-router-dom';
 import './TopList.scss';

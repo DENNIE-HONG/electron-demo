@@ -1,5 +1,5 @@
 /**
- * 懒加载图片模块
+ * 懒加载图片模块 容器组件
  * @param {String} src, 图片url
  * @param {String} alt, 图片描述
  * @param {String} className, 类名

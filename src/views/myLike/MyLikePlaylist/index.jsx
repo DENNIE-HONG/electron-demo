@@ -6,7 +6,7 @@ import React, { Component } from 'react';
 import SongSheet from 'coms/SongSheet';
 import PropTypes from 'prop-types';
 import { getPlaylistDetail } from 'api/home';
-import showMessage from 'coms/message';
+import showMessage from 'containers/Message';
 import { ReactReduxContext } from 'react-redux';
 import playAction from '@/redux/actions';
 class MyLikePlaylist extends Component {

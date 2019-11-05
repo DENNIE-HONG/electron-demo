@@ -11,7 +11,7 @@ import { getArtistAlbum } from 'api/artist';
 import { getAlbum } from 'api/album';
 import PropTypes from 'prop-types';
 import { ReactReduxContext } from 'react-redux';
-import showMessage from 'coms/message';
+import showMessage from 'containers/Message';
 import playAction from '@/redux/actions';
 class ArtistAlbums extends Component {
   static propTypes = {

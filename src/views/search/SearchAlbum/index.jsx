@@ -11,7 +11,7 @@ import NewAlbum from 'coms/NewAlbum';
 import PropTypes from 'prop-types';
 import { ReactReduxContext } from 'react-redux';
 import { getAlbum } from 'api/album';
-import showMessage from 'coms/message';
+import showMessage from 'containers/Message';
 import playAction from '@/redux/actions';
 class SearchAlbum extends PureComponent {
   static propTypes = {

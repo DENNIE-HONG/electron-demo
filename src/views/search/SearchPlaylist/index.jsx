@@ -11,7 +11,7 @@ import { getSearch } from 'api/search';
 import PropTypes from 'prop-types';
 import { ReactReduxContext } from 'react-redux';
 import { getPlaylistDetail } from 'api/home';
-import showMessage from 'coms/message';
+import showMessage from 'containers/Message';
 import playAction from '@/redux/actions';
 class SearchPlaylist extends PureComponent {
   static propTypes = {

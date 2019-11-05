@@ -8,7 +8,7 @@
 */
 import React from 'react';
 import PropTypes from 'prop-types';
-import LazyImage from 'coms/LazyImage';
+import LazyImage from 'containers/LazyImage';
 import { Link } from 'react-router-dom';
 import './NewAlbum.scss';
 const NewAlbum = (props) => {

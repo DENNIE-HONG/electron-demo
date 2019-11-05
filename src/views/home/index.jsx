@@ -7,7 +7,7 @@ import {
 import { getAlbum } from 'api/album';
 import NewAlbum from 'coms/NewAlbum';
 import CarouselBox from 'containers/CarouselBox';
-import showMessage from 'coms/message';
+import showMessage from 'containers/Message';
 import SongSheet from 'containers/SongSheet';
 import TopList from './TopList';
 import './home.scss';

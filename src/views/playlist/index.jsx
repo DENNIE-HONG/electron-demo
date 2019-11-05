@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import SongSheet from 'coms/SongSheet';
 import { getTopPlayList, getPlaylistCatList } from 'api/playlist';
 import { getPlaylistDetail } from 'api/home';
-import showMessage from 'coms/message';
+import showMessage from 'containers/Message';
 import scrollBottom from 'utils/scroll-bottom';
 import { debounce } from 'throttle-debounce';
 import './playlist.scss';

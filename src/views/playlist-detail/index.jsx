@@ -5,7 +5,7 @@
 import React, { Component } from 'react';
 import { getPlaylistDetail, getPlaylistComment } from 'api/playlist';
 import ProgramHeader from 'coms/ProgramHeader';
-import LazyImage from 'coms/LazyImage';
+import LazyImage from 'containers/LazyImage';
 import BaseButton from 'coms/BaseButton';
 import { prettyDate } from 'utils/pretty-time';
 import ShowDesc from 'containers/ShowDesc';

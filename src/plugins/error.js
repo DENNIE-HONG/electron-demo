@@ -2,7 +2,7 @@
  * @file 错误捕获
  * @author luyanhong 2019-08-26
  */
-import showMessage from 'coms/message';
+import showMessage from 'containers/Message';
 const catchError = () => {
   // 捕获意外的异常
   window.onerror = function (message) {

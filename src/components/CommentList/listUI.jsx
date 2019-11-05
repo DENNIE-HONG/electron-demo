@@ -3,7 +3,7 @@
  * @author luyanhong 2019-01
  */
 import React from 'react';
-import LazyImage from 'coms/LazyImage';
+import LazyImage from 'containers/LazyImage';
 import PropTypes from 'prop-types';
 import { prettyTime } from 'utils/pretty-time';
 import { Link } from 'react-router-dom';
