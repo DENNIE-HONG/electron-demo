@@ -31,7 +31,8 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 function UserInfo (WrappedComponent) {
-  return class extends Component {
+  @connect(mapStateToProps, mapDispatchToProps)
+  class UserInfoClass extends Component {
     static propTypes = {
       updateUser: PropTypes.func.isRequired,
       logout: PropTypes.func.isRequired
@@ -68,7 +69,8 @@ function UserInfo (WrappedComponent) {
       };
       return <WrappedComponent {...newProps} />;
     }
-  };
+  }
+  return UserInfoClass;
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserInfo(UserInfoCom));
+export default UserInfo(UserInfoCom);

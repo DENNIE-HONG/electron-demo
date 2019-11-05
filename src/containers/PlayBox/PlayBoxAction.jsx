@@ -33,7 +33,7 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 const noop = () => {};
-
+@connect(mapStateToProps, mapDispatchToProps)
 class PlayBoxAction extends Component {
   static propTypes = {
     playCallback: PropTypes.func,
@@ -240,4 +240,4 @@ class PlayBoxAction extends Component {
     );
   }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(PlayBoxAction);
+export default PlayBoxAction;

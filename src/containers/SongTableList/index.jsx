@@ -24,7 +24,8 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 function SongTableList (WrappedComponent) {
-  return class extends Component {
+  @connect(null, mapDispatchToProps)
+  class SongTableListClass extends Component {
     static propTypes = {
       data: PropTypes.array.isRequired,
       isIndex: PropTypes.bool,
@@ -74,8 +75,8 @@ function SongTableList (WrappedComponent) {
       };
       return <WrappedComponent {...this.props} {...newProps} />;
     }
-  };
+  }
+  return SongTableListClass;
 }
-const SongTableListCon = SongTableList(SongTableListCom);
-export default connect(null, mapDispatchToProps)(SongTableListCon);
+export default SongTableList(SongTableListCom);
 
