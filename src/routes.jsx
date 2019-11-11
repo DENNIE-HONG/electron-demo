@@ -127,6 +127,15 @@ class RouteMap extends Component {
         return <MyLike setMusic={setMusic} {...rest} key={rest.match.url} />;
       }
     });
+
+    this.AsyncToplist = Loadable({
+      loader: () => import(/* webpackChunkName: 'toplist' */ '@/views/toplist'),
+      loading: Loading,
+      render (loaded, rest) {
+        const Toplist = loaded.default;
+        return <Toplist setMusic={setMusic} {...rest} key={rest.match.url} />;
+      }
+    });
   }
 
   render () {
@@ -152,6 +161,7 @@ class RouteMap extends Component {
                 <Route path="/search" component={this.AsyncSearch} />
                 <Route path="/user/:id" component={this.AsyncUser} />
                 <Route path="/my" component={this.AsyncMyLike} />
+                <Route path="/toplist/:id" exact component={this.AsyncToplist} />
                 <PlayBox playList={playList} id={playId} />
               </ErrorBoundary>
             </main>

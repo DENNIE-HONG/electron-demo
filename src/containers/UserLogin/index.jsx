@@ -12,6 +12,7 @@ import { loginPhone, loginMail } from 'api/login';
 import store from '@/redux/store';
 import { loginAction } from '@/redux/actions';
 import './UserLogin.scss';
+
 class UserLogin extends Component {
   static propTypes = {
     domNode: PropTypes.object.isRequired,
@@ -27,6 +28,7 @@ class UserLogin extends Component {
     this.state = {
       error: ''
     };
+    console.log(this.props);
   }
 
   close = () => {

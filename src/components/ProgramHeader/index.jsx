@@ -27,7 +27,7 @@ const ProgramHeader = (props) => {
       </div>
       <div className="program-header-info" style={{ marginLeft: `${width + 30}px`, minHeight: `${width + 12}px` }}>
         <div className="program-header-name">
-          <span className="program-header-tag">{tag}</span>
+          {tag && <span className="program-header-tag">{tag}</span>}
           <h3 className="program-header-title">{name}</h3>
         </div>
         {children}

@@ -5,7 +5,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getLoginStatus, logout } from 'api/login';
-import login from 'coms/UserLogin';
+import login from 'containers/UserLogin';
 import PropTypes from 'prop-types';
 import UserInfoCom from 'coms/TheSider/UserInfo';
 import { loginAction } from '@/redux/actions';
