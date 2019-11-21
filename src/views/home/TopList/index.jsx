@@ -61,11 +61,11 @@ class TopList extends Component {
         {this.state.topList.map((item, index) => (
           <dl className="toplist-list" key={item.id}>
             <dt className="toplist-list-title">
-              <div className="toplist-list-pic">
+              <Link className="toplist-list-pic" to={`/toplist/${item.id}`}>
                 <LazyImage src={`${item.coverImgUrl}?param=80y80`} alt={item.name} />
-              </div>
+              </Link>
               <div className="toplist-list-info">
-                <h4>{item.name}</h4>
+                <Link to={`/toplist/${item.id}`}><h4>{item.name}</h4></Link>
                 <i className="iconfont icon-play" onClick={() => this.play(index)}></i>
               </div>
             </dt>
@@ -84,10 +84,10 @@ class TopList extends Component {
                 ))}
               </ol>
               <div className="toplist-list-item global-clearfix more">
-                <div className="pull-right">
+                <Link className="pull-right" to={`/toplist/${item.id}`}>
                   查看更多
                   <i className="iconfont icon-right"></i>
-                </div>
+                </Link>
               </div>
             </dd>
           </dl>

@@ -11,6 +11,7 @@
 --专辑页(album)  
 --歌手页(artist)  
 --搜索页(search)  
+--排行详情页(toplist)
 
 ## 推荐
 ![home](/img/home.png)
@@ -34,6 +35,12 @@
 ![artist](/img/artist.png)
 ## 搜索页
 ![search](/img/search.png)
+## 排行榜详情页
+![toplist](/img/toplist.png)
+## 用户页
+![user](/img/user.png)
+## 我喜欢的音乐
+![myLike](/img/like.png)
   ## 启动步骤：  
   1、
     开发： npm run devServer  

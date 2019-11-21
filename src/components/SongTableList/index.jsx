@@ -33,7 +33,7 @@ const SongTableList = (props) => {
           render={(item) => (
             <div className="table-td-ul">
               {item.map((li) => (
-                <Link className="nav-link table-td-li" key={li.id} to={`/artist/${li.id}`}>{li.name}</Link>
+                <Link className="nav-link table-td-li" key={li.id} to={`/artist/${li.id}`} title={li.name}>{li.name}</Link>
               ))}
             </div>
           )}

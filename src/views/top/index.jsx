@@ -46,8 +46,9 @@ class Top extends Component {
     }
   }
 
-  async play (id) {
+  async play (e, id) {
     try {
+      e.preventDefault();
       if (this.playId === id) {
         showMessage({
           type: 'warning',
@@ -57,11 +58,7 @@ class Top extends Component {
       }
       this.playId = id;
       const res = await getPlaylistDetail(id);
-      if (res.code === 200) {
-        this.props.setMusic && this.props.setMusic(res.playlist.tracks.slice(0, 20), id);
-      } else {
-        throw Error('数据获取失败');
-      }
+      this.props.setMusic && this.props.setMusic(res.playlist.tracks.slice(0, 20), id);
     } catch (err) {
       showMessage({
         type: 'error',
@@ -84,7 +81,7 @@ class Top extends Component {
                       <div className="top-list-pic">
                         <LazyImage src={`${item.coverImgUrl}?param=120y120`} alt={item.name} />
                       </div>
-                      <button className="top-list-btn" type="button" onClick={() => this.play(item.id)}>
+                      <button className="top-list-btn" type="button" onClick={(e) => this.play(e, item.id)}>
                       </button>
                       <span className="top-list-item-count">{this.prettyCount(item.playCount)}</span>
                     </div>
