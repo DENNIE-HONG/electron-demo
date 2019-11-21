@@ -38,7 +38,7 @@ const SongSheetCom = (props) => {
             <Link to={`/playlist/${item.id}`}>
               <h4 className="item-title">{nickName ? item.name.replace(nickName, '我') : item.name}</h4>
             </Link>
-            {isShowArtist && <span className="item-txt">{item.creator.nickname}</span>}
+            {isShowArtist && <Link className="item-txt" to={`/user/${item.creator.userId}`}>{item.creator.nickname}</Link>}
           </li>
         ))}
       </ul>

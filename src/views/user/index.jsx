@@ -3,48 +3,35 @@
  * @author luyanhong 2019-10-10
  */
 import React, { Component } from 'react';
-import { getUserDetail, getUserPlaylist } from 'api/user';
+import { getUserDetail } from 'api/user';
 import Loading from 'coms/Loading';
-import SongSheet from 'containers/SongSheet';
-import { getPlaylistDetail } from 'api/home';
+import { Route, Link } from 'react-router-dom';
+import UserEvent from './UserEvents';
+import UserHome from './UserHome';
 import './user.scss';
 class User extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      userInfo: null,
-      playlist: null
+      userInfo: null
     };
   }
 
   async componentDidMount () {
     const { id } = this.props.match.params;
     try {
-      const [res, playlistRes] = await Promise.all([
-        getUserDetail(id),
-        getUserPlaylist(id)
-      ]);
+      const res = await getUserDetail(id);
       this.setState({
-        userInfo: res.profile,
-        playlist: playlistRes.playlist
+        userInfo: res.profile
       });
     } catch {
       //
     }
   }
 
-  // 获取歌单列表
-  fetchPlaylistDetail = async (playId) => {
-    try {
-      const res = await getPlaylistDetail(playId);
-      this.props.setMusic(res.playlist.tracks, playId);
-    } catch (err) {
-      this.fail(err);
-    }
-  }
-
   render () {
-    const { userInfo, playlist } = this.state;
+    const { userInfo } = this.state;
+    const { id } = this.props.match.params;
     return userInfo ? (
       <div className="user">
         <header className="user-header">
@@ -55,7 +42,9 @@ class User extends Component {
             <h3 className="user-header-name">{userInfo.nickname}</h3>
             <ul className="user-header-list">
               <li className="user-header-item">
-                <span className="item-count">{userInfo.eventCount}</span>动态
+                <Link to={`/user/${id}/event`}>
+                  <span className="item-count">{userInfo.eventCount}</span>动态
+                </Link>
               </li>
               <li className="user-header-item">
                 <span className="item-count">{userInfo.follows}</span>关注
@@ -66,15 +55,8 @@ class User extends Component {
             </ul>
           </div>
         </header>
-        {playlist && (
-          <section className="user-playlist">
-            <h4 className="user-playlist-title">
-              创建的歌单
-              <i className="user-playlist-count">({playlist.length})</i>
-            </h4>
-            <SongSheet playList={playlist} isShowArtist={false} onPlay={this.fetchPlaylistDetail} />
-          </section>
-        )}
+        <Route path="/user/:id" exact component={UserHome} />
+        <Route path="/user/:id/event" component={UserEvent} />
       </div>
     ) : <Loading />;
   }
