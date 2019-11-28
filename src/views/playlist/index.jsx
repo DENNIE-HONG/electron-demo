@@ -3,48 +3,34 @@ import SongSheet from 'coms/SongSheet';
 import { getTopPlayList, getPlaylistCatList } from 'api/playlist';
 import { getPlaylistDetail } from 'api/home';
 import showMessage from 'containers/Message';
-import scrollBottom from 'utils/scroll-bottom';
-import { debounce } from 'throttle-debounce';
+import ScrollBottom from 'containers/ScrollBottom';
 import './playlist.scss';
-const PAGE_SIZE = 20;
 
 class Playlist extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      playList: [],
       categories: [],
-      isHideCat: true
+      isHideCat: true,
+      sentData: {
+        order: 'hot',
+        cat: '全部'
+      }
     };
-    this.isLoading = false;
-    this.fetchSong = this.fetchSong.bind(this);
-    this.sentData = {
-      offset: 0,
-      order: 'hot',
-      cat: '全部'
-    };
-    this.debounceFun = debounce(300, this.loadMore.bind(this));
-    this.closeCatList = this.closeCatList.bind(this);
-    this.openCatList = this.openCatList.bind(this);
   }
 
   componentDidMount () {
-    this.fetch();
-    this.$scrollNode = document.querySelector('.main');
-    this.$scrollNode.addEventListener('scroll', this.debounceFun, false);
     // 点击其他区域关闭分类模块
     document.addEventListener('click', this.closeCatList, false);
   }
 
   componentWillUnmount () {
     // 要解除绑定
-    this.$scrollNode = document.querySelector('.main');
-    this.$scrollNode.removeEventListener('scroll', this.debounceFun, false);
     document.removeEventListener('click', this.closeCatList, false);
   }
 
   // 打开分类
-  openCatList (evt) {
+  openCatList = (evt) => {
     evt.nativeEvent.stopImmediatePropagation();
     evt.stopPropagation();
     if (!this.state.categories.length) {
@@ -55,7 +41,7 @@ class Playlist extends Component {
     }));
   }
 
-  closeCatList () {
+  closeCatList = () => {
     if (!this.state.isHideCat) {
       this.setState({
         isHideCat: true
@@ -63,32 +49,8 @@ class Playlist extends Component {
     }
   }
 
-  // 获取播放列表
-  async fetch () {
-    try {
-      if (this.isLoading) {
-        return;
-      }
-      const { offset, order, cat } = this.sentData;
-      this.isLoading = true;
-      const res = await getTopPlayList({
-        offset,
-        order,
-        cat
-      });
-      this.setState((prev) => ({
-        playList: prev.playList.concat(res.playlists)
-      }));
-      this.sentData.offset += PAGE_SIZE;
-    } catch (err) {
-      console.log(err);
-    } finally {
-      this.isLoading = false;
-    }
-  }
-
   // 获取歌曲资源
-  async fetchSong (id) {
+  fetchSong = async (id) => {
     try {
       const res = await getPlaylistDetail(id);
       this.props.setMusic && this.props.setMusic(res.playlist.tracks, id);
@@ -101,59 +63,51 @@ class Playlist extends Component {
   }
 
   // 获取分类资源
-  async fetchGategories () {
-    try {
-      const res = await getPlaylistCatList();
-      this.setState(() => ({
-        categories: res.categories
-      }));
-    } catch (err) {
-      console.log(err.msg);
-    }
-  }
-
-  // 滚动加载更多
-  loadMore () {
-    if (!scrollBottom(this.$scrollNode)) {
-      return;
-    }
-    this.fetch();
-  }
+   fetchGategories = async () => {
+     try {
+       const res = await getPlaylistCatList();
+       this.setState(() => ({
+         categories: res.categories
+       }));
+     } catch (err) {
+       console.log(err.msg);
+     }
+   }
 
   // 改变顺序
-  changeOrder (order) {
-    this.sentData.order = order;
-    this.sentData.offset = 0;
+  changeOrder = (order) => {
+    const { sentData } = this.state;
+    const data = Object.assign({}, sentData, {
+      order
+    });
     this.setState({
-      playList: []
-    }, () => {
-      this.fetch();
+      sentData: data
     });
   }
 
   // 改变标签
-  changeCat (cat) {
-    if (cat === this.sentData.cat) {
+  changeCat = (cat) => {
+    const { sentData } = this.state;
+    if (cat === sentData.cat) {
       return;
     }
-    this.sentData.offset = 0;
-    this.sentData.cat = cat;
+    const data = Object.assign({}, sentData, {
+      cat
+    });
     this.setState({
-      playList: [],
-      isHideCat: true
-    }, () => {
-      this.fetch();
+      isHideCat: true,
+      sentData: data
     });
   }
 
 
   render () {
     const {
-      playList,
       categories,
-      isHideCat
+      isHideCat,
+      sentData
     } = this.state;
-    const { cat, order } = this.sentData;
+    const { cat, order } = sentData;
     return (
       <div className="playlist">
         <div className="playlist-title">
@@ -202,7 +156,15 @@ class Playlist extends Component {
           </div>
         </div>
         <section className="playlist-box">
-          <SongSheet playList={playList} onPlay={this.fetchSong} />
+          <ScrollBottom
+            getUrl={getTopPlayList}
+            limit={20}
+            listPropName="playlists"
+            params={sentData}
+            render={({ list }) => (
+              <SongSheet playList={list} onPlay={this.fetchSong} />
+            )}
+          />
         </section>
       </div>
     );

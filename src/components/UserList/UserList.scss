@@ -1,0 +1,27 @@
+.userlist {
+  margin-right: -2%;
+  &-item {
+    float: left;
+    width: 18%;
+    padding: 20px 15px 15px;
+    background-color: nth($fgray, 2);
+    margin-right: 2%;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+    text-align: center;
+  }
+  &-pic {
+    height: 0;
+    padding-bottom: 100%;
+    &-img {
+      width: 100%;
+      border-radius: 50%;
+    }
+  }
+  &-name {
+    margin-top: 10px;
+    margin-bottom: 15px;
+    @include txthid;
+    @include hid;
+  }
+}

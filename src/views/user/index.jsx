@@ -8,6 +8,7 @@ import Loading from 'coms/Loading';
 import { Route, Link } from 'react-router-dom';
 import UserEvent from './UserEvents';
 import UserHome from './UserHome';
+import UserFollow from './UserFollow';
 import './user.scss';
 class User extends Component {
   constructor (props) {
@@ -47,7 +48,9 @@ class User extends Component {
                 </Link>
               </li>
               <li className="user-header-item">
-                <span className="item-count">{userInfo.follows}</span>关注
+                <Link to={`/user/${id}/follow`}>
+                  <span className="item-count">{userInfo.follows}</span>关注
+                </Link>
               </li>
               <li className="user-header-item">
                 <span className="item-count">{userInfo.followeds}</span>粉丝
@@ -57,6 +60,7 @@ class User extends Component {
         </header>
         <Route path="/user/:id" exact component={UserHome} />
         <Route path="/user/:id/event" component={UserEvent} />
+        <Route path="/user/:id/follow" component={UserFollow} />
       </div>
     ) : <Loading />;
   }
