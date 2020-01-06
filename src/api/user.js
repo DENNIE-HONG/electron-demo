@@ -35,3 +35,22 @@ export const getUserFollows = (options) => {
     params
   });
 };
+
+/**
+ * 获取用户粉丝列表
+ * @param {Number} uid, 必选, 用户的id
+ * @param {Number} limit: 取出评论数量 , 默认为 30
+ * @param {Number} offset: 偏移数量 , 用于分页
+ */
+export const getUserFans = (options) => {
+  const { uid, limit = 30, lasttime = - 1 } = options;
+  const params = {
+    uid,
+    limit,
+    lasttime
+  };
+  return request({
+    url: '/user/followeds',
+    params
+  });
+};

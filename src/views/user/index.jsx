@@ -9,6 +9,7 @@ import { Route, Link } from 'react-router-dom';
 import UserEvent from './UserEvents';
 import UserHome from './UserHome';
 import UserFollow from './UserFollow';
+import UserFans from './UserFans';
 import './user.scss';
 class User extends Component {
   constructor (props) {
@@ -53,7 +54,9 @@ class User extends Component {
                 </Link>
               </li>
               <li className="user-header-item">
-                <span className="item-count">{userInfo.followeds}</span>粉丝
+                <Link to={`/user/${id}/fans`}>
+                  <span className="item-count">{userInfo.followeds}</span>粉丝
+                </Link>
               </li>
             </ul>
           </div>
@@ -61,6 +64,7 @@ class User extends Component {
         <Route path="/user/:id" exact component={UserHome} />
         <Route path="/user/:id/event" component={UserEvent} />
         <Route path="/user/:id/follow" component={UserFollow} />
+        <Route path="/user/:id/fans" component={UserFans} />
       </div>
     ) : <Loading />;
   }
