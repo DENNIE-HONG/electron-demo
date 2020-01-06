@@ -9,10 +9,10 @@ import PropTypes from 'prop-types';
 import './BaseButton.scss';
 const BaseButton = (props) => {
   const {
-    type, children, icon, ...rest
+    type, children, icon, className, ...rest
   } = props;
   return (
-    <button type="button" className={type ? `btn-${type}` : 'btn'} {...rest}>
+    <button type="button" className={type ? `btn-${type} ${className}` : `btn ${className}`} {...rest}>
       {icon && <i className={`iconfont icon-${icon}`}></i>}
       {children}
     </button>
@@ -24,10 +24,12 @@ BaseButton.propTypes = {
     if (props[propName] && ['primary', 'success', 'info', 'error', 'warning'].indexOf(props[propName]) === - 1) {
       return new Error('type类型不对');
     }
-  }
+  },
+  className: PropTypes.string
 };
 BaseButton.defaultProps = {
   type: '',
-  icon: ''
+  icon: '',
+  className: ''
 };
 export default BaseButton;

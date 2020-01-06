@@ -101,6 +101,10 @@
   content: "\e7ee";
 }
 
+.icon-check:before {
+  content: "\e7fc";
+}
+
 .icon-close-circle-fill:before {
   content: "\e844";
 }
@@ -155,4 +159,8 @@
 
 .icon-mute:before {
   content: "\eca9";
+}
+
+.icon-plus:before {
+  content: "\e8fe";
 }

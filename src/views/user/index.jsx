@@ -6,16 +6,34 @@ import React, { Component } from 'react';
 import { getUserDetail } from 'api/user';
 import Loading from 'coms/Loading';
 import { Route, Link } from 'react-router-dom';
-import UserEvent from './UserEvents';
+import BaseButton from 'coms/BaseButton';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import FollowAction from 'containers/FollowAction';
 import UserHome from './UserHome';
 import UserFollow from './UserFollow';
 import UserFans from './UserFans';
+
 import './user.scss';
+const mapStateToProps = (state) => {
+  const { isLogin, userInfo: loginUserInfo } = state.loginReducer;
+  return {
+    isLogin,
+    loginUserInfo
+  };
+};
+@connect(mapStateToProps)
 class User extends Component {
+  static propTypes = {
+    loginUserInfo: PropTypes.object.isRequired
+  }
+
   constructor (props) {
     super(props);
     this.state = {
-      userInfo: null
+      userInfo: null,
+      isFollow: null,
+      followeds: 0
     };
   }
 
@@ -24,16 +42,47 @@ class User extends Component {
     try {
       const res = await getUserDetail(id);
       this.setState({
-        userInfo: res.profile
+        userInfo: res.profile,
+        isFollow: res.profile.followed,
+        followeds: res.profile.followeds
       });
     } catch {
       //
     }
   }
 
+  // 关注、取消关注后回调
+  followCallback = ({ follow }) => {
+    if (follow) {
+      this.setState((prev) => ({
+        isFollow: true,
+        followeds: prev.followeds + 1
+      }));
+    }
+
+    if (!follow) {
+      this.setState((prev) => ({
+        isFollow: false,
+        followeds: prev.followeds - 1
+      }));
+    }
+  }
+
   render () {
-    const { userInfo } = this.state;
+    const { userInfo, isFollow, followeds } = this.state;
     const { id } = this.props.match.params;
+    console.log(id);
+    let isMe = null;
+    if (this.props.loginUserInfo.userId === parseInt(id, 10)) {
+      isMe = true;
+    }
+    const btnBox = (props) => {
+      const followed = !isFollow
+        ? <BaseButton onClick={props.follow} className="gap-top" icon="plus">关注</BaseButton>
+        : <BaseButton onClick={props.cancelFollow} className="gap-top" icon="check">已关注</BaseButton>;
+      return followed;
+    };
+    const FollowBox = FollowAction(btnBox);
     return userInfo ? (
       <div className="user">
         <header className="user-header">
@@ -44,25 +93,20 @@ class User extends Component {
             <h3 className="user-header-name">{userInfo.nickname}</h3>
             <ul className="user-header-list">
               <li className="user-header-item">
-                <Link to={`/user/${id}/event`}>
-                  <span className="item-count">{userInfo.eventCount}</span>动态
-                </Link>
-              </li>
-              <li className="user-header-item">
                 <Link to={`/user/${id}/follow`}>
                   <span className="item-count">{userInfo.follows}</span>关注
                 </Link>
               </li>
               <li className="user-header-item">
                 <Link to={`/user/${id}/fans`}>
-                  <span className="item-count">{userInfo.followeds}</span>粉丝
+                  <span className="item-count">{followeds}</span>粉丝
                 </Link>
               </li>
             </ul>
+            {(!this.props.isLogin || !isMe) && <FollowBox id={id} update={this.followCallback} />}
           </div>
         </header>
         <Route path="/user/:id" exact component={UserHome} />
-        <Route path="/user/:id/event" component={UserEvent} />
         <Route path="/user/:id/follow" component={UserFollow} />
         <Route path="/user/:id/fans" component={UserFans} />
       </div>
