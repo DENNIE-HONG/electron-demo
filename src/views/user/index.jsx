@@ -43,7 +43,6 @@ class User extends Component {
       const res = await getUserDetail(id);
       this.setState({
         userInfo: res.profile,
-        isFollow: res.profile.followed,
         followeds: res.profile.followeds
       });
     } catch {
@@ -71,18 +70,19 @@ class User extends Component {
   render () {
     const { userInfo, isFollow, followeds } = this.state;
     const { id } = this.props.match.params;
-    console.log(id);
     let isMe = null;
     if (this.props.loginUserInfo.userId === parseInt(id, 10)) {
       isMe = true;
     }
+    // 按钮模块
     const btnBox = (props) => {
-      const followed = !isFollow
+      const followed = isFollow === null ? userInfo.followed : isFollow;
+      return !followed
         ? <BaseButton onClick={props.follow} className="gap-top" icon="plus">关注</BaseButton>
         : <BaseButton onClick={props.cancelFollow} className="gap-top" icon="check">已关注</BaseButton>;
-      return followed;
     };
     const FollowBox = FollowAction(btnBox);
+    const UserFansBox = (rest) => <UserFans isFollow={isFollow} {...rest} />;
     return userInfo ? (
       <div className="user">
         <header className="user-header">
@@ -108,7 +108,7 @@ class User extends Component {
         </header>
         <Route path="/user/:id" exact component={UserHome} />
         <Route path="/user/:id/follow" component={UserFollow} />
-        <Route path="/user/:id/fans" component={UserFans} />
+        <Route path="/user/:id/fans" component={UserFansBox} />
       </div>
     ) : <Loading />;
   }

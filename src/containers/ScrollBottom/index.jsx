@@ -47,13 +47,6 @@ class ScrollBottom extends Component {
     this.$scrollNode.addEventListener('scroll', this.debounceFun, false);
   }
 
-  shouldComponentUpdate (nextProps, nextState) {
-    if (nextState.list === this.state.list) {
-      return false;
-    }
-    return true;
-  }
-
   componentDidUpdate (prevProps) {
     if (prevProps.params !== this.props.params) {
       this.reset();

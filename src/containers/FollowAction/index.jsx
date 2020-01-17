@@ -14,7 +14,10 @@ const CANCEL_FOLLOW = 0;
 function FollowAction (WrappedComponent) {
   return class extends Component {
     static propTypes = {
-      id: PropTypes.number.isRequired,
+      id: PropTypes.oneOfType([
+        PropTypes.number,
+        PropTypes.string
+      ]).isRequired,
       update: PropTypes.func
     }
 
